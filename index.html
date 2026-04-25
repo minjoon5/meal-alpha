@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>현대청운고 급식</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#5a73e0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HCU 급식">
+    <link rel="apple-touch-icon" href="hcu_logo_2.jpg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #697da5 0%, #726ba5 25%, #8a73a6 50%, #6f6ca5 75%, #6978a5 100%);
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+            padding: 24px 0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(85,110,165,0) 0%, transparent 70%);
+            top: -160px; left: -160px;
+            pointer-events: none;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            width: 420px; height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(115,90,165,0) 0%, transparent 70%);
+            bottom: -120px; right: -120px;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.08) 0%,
+                rgba(255,255,255,0.0) 60%
+            );
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 30px;
+            border: none;
+            padding: 2rem;
+            width: 380px;
+            text-align: center;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.1),
+                inset 0 1px 6px rgba(255,255,255,0.35),
+                inset 0 -1px 4px rgba(255,255,255,0.08),
+                inset 1px 0 4px rgba(255,255,255,0.12),
+                inset -1px 0 4px rgba(255,255,255,0.06);
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            background: rgba(255,255,255,0);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.18);
+        }
+
+        .date-wrapper {
+            position: relative;
+            width: 100%;
+            transition: transform 0.12s ease;
+            transform-origin: center;
+            margin-bottom: 1.2rem;
+        }
+
+        #datePicker {
+            width: 100%;
+            padding: 10px 40px 10px 18px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255,255,255,0);
+            backdrop-filter: blur(24px) saturate(100%);
+            -webkit-backdrop-filter: blur(24px) saturate(100%);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            color: #ffffff;
+            cursor: pointer;
+            outline: none;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.1),
+                inset 0 1px 6px rgba(255,255,255,0.35),
+                inset 0 -1px 4px rgba(255,255,255,0.08),
+                inset 1px 0 4px rgba(255,255,255,0.12),
+                inset -1px 0 4px rgba(255,255,255,0.06);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        #datePicker::-webkit-calendar-picker-indicator {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            color: transparent;
+            cursor: pointer;
+        }
+        .date-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 20px;
+            top: 45%;
+            width: 7px;
+            height: 7px;
+            border-right: 1.4px solid rgba(255, 255, 255, 0.85);
+            border-bottom: 1.4px solid rgba(255, 255, 255, 0.85);
+            transform: translateY(-50%) rotate(45deg);
+            pointer-events: none;
+            transition: transform 0.12s ease;
+        }
+        
+        .date-wrapper.pressed {
+            transform: scale(0.96);
+        }
+        .date-wrapper.pressed #datePicker {
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.08),
+                inset 0 1px 4px rgba(255,255,255,0.25),
+                inset 0 -1px 3px rgba(255,255,255,0.06);
+        }
+
+        .tab-group {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        .tab-group button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255,255,255,0);
+            backdrop-filter: blur(24px) saturate(100%);
+            -webkit-backdrop-filter: blur(24px) saturate(100%);
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            font-family: 'Pretendard', sans-serif;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.1),
+                inset 0 1px 6px rgba(255,255,255,0.35),
+                inset 0 -1px 4px rgba(255,255,255,0.08),
+                inset 1px 0 4px rgba(255,255,255,0.12),
+                inset -1px 0 4px rgba(255,255,255,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        .tab-group button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.08) 0%,
+                rgba(255,255,255,0.0) 60%
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+        .tab-group button.active {
+            background: rgba(40,120,250,0.5);
+            border: none;
+            color: white;
+            font-weight: bold;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.1),
+                inset 0 1px 6px rgba(255,255,255,0.4),
+                inset 0 -1px 4px rgba(255,255,255,0.08),
+                inset 1px 0 4px rgba(255,255,255,0.15),
+                inset -1px 0 4px rgba(255,255,255,0.06);
+        }
+        .tab-group button.pressed {
+            transform: scale(0.93);
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.08),
+                inset 0 1px 4px rgba(255,255,255,0.25),
+                inset 0 -1px 3px rgba(255,255,255,0.06);
+        }
+
+        #mealContent {
+            min-height: 180px;
+            padding: 1rem;
+            background: rgba(255,255,255,0);
+            backdrop-filter: blur(24px) saturate(100%);
+            -webkit-backdrop-filter: blur(24px) saturate(100%);
+            border: none;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            line-height: 2;
+            color: rgba(255,255,255,0.92);
+            text-align: left;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.1),
+                inset 0 1px 6px rgba(255,255,255,0.35),
+                inset 0 -1px 4px rgba(255,255,255,0.08),
+                inset 1px 0 4px rgba(255,255,255,0.12),
+                inset -1px 0 4px rgba(255,255,255,0.06);
+            position: relative;
+            z-index: 0;
+        }
+        #mealContent::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.08) 0%,
+                rgba(255,255,255,0.0) 60%
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+        #mealContent.empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.45);
+            font-size: 0.9rem;
+        }
+
+        #status {
+            margin-top: 0.8rem;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.45);
+            position: relative;
+        }
+
+        #copyright {
+            position: relative;
+            z-index: 1;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            line-height: 1.5;
+        }
+        #dino-link {
+            display: inline-block;
+            margin-top: 4px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: rgba(255,255,255,0.5);
+            transition: transform 0.12s ease;
+        }
+        #dino-link.pressed {
+            transform: scale(0.92);
+        }
+        #beta-link {
+            display: inline-block;
+            margin-top: 4px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: rgba(255,255,255,0.5);
+        }
+        #dino-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            background: transparent
+            );
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+        @keyframes modalOut {
+            from { transform: scale(1);    opacity: 1; }
+            to   { transform: scale(0.92); opacity: 0; }
+        }
+        .modal-content {
+            background: rgba(255,255,255,0);
+            backdrop-filter: blur(24px) saturate(100%);
+            -webkit-backdrop-filter: blur(24px) saturate(100%);
+            border-radius: 30px;
+            border: none;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.1),
+                inset 0 1px 6px rgba(255,255,255,0.35),
+                inset 0 -1px 4px rgba(255,255,255,0.08),
+                inset 1px 0 4px rgba(255,255,255,0.12),
+                inset -1px 0 4px rgba(255,255,255,0.06);
+            overflow: hidden;
+            width: 340px;
+            position: relative;
+        }
+        .modal-content.modal-open {
+            animation: modalIn 0.18s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+        }
+        .modal-content.modal-close {
+            animation: modalOut 0.16s ease both;
+        }
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.08) 0%,
+                rgba(255,255,255,0.0) 60%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+        .modal-header {
+            padding: 15px 15px 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: rgba(255,255,255,0.7);
+            line-height: 1;
+            outline: none;
+            transition: transform 0.12s ease;
+        }
+        .close-btn.pressed {
+            transform: scale(0.88);
+        }
+        #dino-canvas {
+            width: 340px;
+            height: 150px;
+            display: block;
+            cursor: pointer;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            position: relative;
+            z-index: 1;
+        }
+
+        #easter-toast {
+            display: none;
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.08) 0%,
+                rgba(255,255,255,0.0) 60%
+            );
+            backdrop-filter: blur(24px) saturate(100%);
+            -webkit-backdrop-filter: blur(24px) saturate(100%);
+            border-radius: 30px;
+            border: none;
+            color: rgba(255,255,255,0.92);
+            padding: 16px 28px;
+            font-size: 0.9rem;
+            font-family: 'Pretendard', sans-serif;
+            z-index: 9999;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.1),
+                inset 0 1px 6px rgba(255,255,255,0.35),
+                inset 0 -1px 4px rgba(255,255,255,0.08),
+                inset 1px 0 4px rgba(255,255,255,0.12),
+                inset -1px 0 4px rgba(255,255,255,0.06);
+            white-space: nowrap;
+            text-align: center;
+            transform: translateX(-50%) scale(0.92);
+            opacity: 0;
+            transition: transform 0.18s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.18s ease;
+        }
+        #easter-toast.toast-open {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<div class="container">
+    <h2 id="title">현대청운고 급식</h2>
+    <div class="date-wrapper">
+        <input type="date" id="datePicker" onchange="onDateChange()">
+    </div>
+    <div class="tab-group">
+        <button onclick="showMeal(0)">조식</button>
+        <button class="active" onclick="showMeal(1)">중식</button>
+        <button onclick="showMeal(2)">석식</button>
+    </div>
+    <div id="mealContent" class="empty">불러오는 중...</div>
+    <div id="status">연결 중...</div>
+</div>
+
+<div id="dino-modal">
+    <div class="modal-content" id="modal-content">
+        <div class="modal-header">
+            <span style="font-weight:bold;color:rgba(255,255,255,0.85);font-size:0.9rem;">Chrome Dino</span>
+            <button class="close-btn" id="close-btn" onclick="closeDino()">&times;</button>
+        </div>
+        <canvas id="dino-canvas" width="680" height="300"></canvas>
+        <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(255,255,255,0.6);font-weight:500;position:relative;z-index:1;">
+            <br>v2.4에서 1000 넘으면 개발자 찾아오세요.<br>
+            <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
+            (<strong>화면 녹화</strong> 인증 ㄱㄱ)<br><br>
+            <strong>절때 못 깸 ㅋ</strong><br>
+        </div>
+    </div>
+</div>
+
+<div id="copyright">
+    Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
+    v2.4.1<br>
+    <span id="dino-link" onclick="openDino()">Chrome Dino</span>
+    
+<!--    <br><span id="beta-link" onclick="openBeta()">Beta Version</span>    -->                    <!-- Beta -->
+</div>
+
+<div id="easter-toast">
+    雅 맑을 (아) / 惡 미워할 (오) / 時 때 (시) / 發 다스릴 (발)<br><br>
+    <strong>-> 아.오.시.발.</strong><br><br>
+    "미워하는 마음도 맑게 다스릴 때이다."<br><br>
+    -박성하-
+</div>
+
+<script>
+function addPressAnim(el) {
+    el.addEventListener('pointerdown', () => {
+        el.classList.add('pressed');
+    }, { passive: true });
+    const release = () => el.classList.remove('pressed');
+    el.addEventListener('pointerup',     release, { passive: true });
+    el.addEventListener('pointercancel', release, { passive: true });
+    el.addEventListener('pointerleave',  release, { passive: true });
+}
+
+let titleClickCount = 0, titleClickTimer = null;
+let toastHideTimer = null;
+
+function showEasterToast() {
+    const toast = document.getElementById("easter-toast");
+    clearTimeout(toastHideTimer);
+    toast.style.display = "block";
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            toast.classList.add('toast-open');
+        });
+    });
+    toastHideTimer = setTimeout(hideEasterToast, 4000);
+}
+
+function hideEasterToast() {
+    const toast = document.getElementById("easter-toast");
+    toast.classList.remove('toast-open');
+    setTimeout(() => { toast.style.display = "none"; }, 180);
+}
+
+document.getElementById("title").addEventListener("click", () => {
+    titleClickCount++;
+    clearTimeout(titleClickTimer);
+    if (titleClickCount >= 3) {
+        showEasterToast();
+        titleClickCount = 0; return;
+    }
+    titleClickTimer = setTimeout(() => { titleClickCount = 0; }, 1500);
+});
+
+function checkEasterEgg(ymd) {
+    const t = document.getElementById("title");
+    const md = ymd.substring(4);
+    if (md === "1205") { t.innerText = "오늘은 이 앱 개발자 생일! 🎉"; t.style.color = "#FFCB30"; }
+    else if (md === "0401") { t.innerText = "박시은쌤 사랑해요"; t.style.color = "#FFCB30"; }
+    else { t.innerText = "현대청운고 급식"; t.style.color = "#ffffff"; }
+}
+
+let meals = [null, null, null];
+
+function getTodayYMD() {
+    const n = new Date();
+    return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,"0")}-${String(n.getDate()).padStart(2,"0")}`;
+}
+function pickerValueToYMD(v) { return v.replace(/-/g,""); }
+
+function parseDish(raw) {
+    if (!raw) return null;
+    return raw.replace(/<br\/>/gi,"\n")
+              .replace(/\([0-9.×*]+\)/g,"")
+              .split("\n")
+              .map(l=>l.trim())
+              .filter(l=>l.length>0)
+              .join("\n");
+}
+async function fetchMeal(ymd) {
+    checkEasterEgg(ymd);
+    meals = [null, null, null];
+    setStatus("불러오는 중...");
+    const mc = document.getElementById("mealContent");
+    mc.classList.add("empty");
+    mc.innerText = "불러오는 중...";
+    const url = `/api/meal?MLSV_YMD=${ymd}`;
+    try {
+        const res = await fetch(url), data = await res.json();
+        if (data.RESULT || !data.mealServiceDietInfo) { setStatus("급식 정보가 없습니다."); showMeal(1); return; }
+        for (const row of data.mealServiceDietInfo[1].row) {
+            const idx = parseInt(row.MMEAL_SC_CODE) - 1;
+            if (idx >= 0 && idx <= 2) meals[idx] = parseDish(row.DDISH_NM);
+        }
+        setStatus("불러오기 완료 ✓");
+        showMeal(1);
+    } catch(e) { setStatus(`오류: ${e.message}`); }
+}
+
+function showMeal(i) {
+    const mc = document.getElementById("mealContent"), labels = ["조식","중식","석식"];
+    if (meals[i]) { mc.classList.remove("empty"); mc.innerText = meals[i]; }
+    else { mc.classList.add("empty"); mc.innerText = `${labels[i]} 정보 없음`; }
+    document.querySelectorAll(".tab-group button").forEach((b,j) => b.classList.toggle("active", j===i));
+}
+
+function onDateChange() {
+    const v = document.getElementById("datePicker").value;
+    if (v) fetchMeal(pickerValueToYMD(v));
+}
+
+function setStatus(m) { document.getElementById("status").innerText = m; }
+
+const SPRITE_SRC = "data:image/png;base64,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";
+
+const SP = {
+    IDLE:   { x:848,  y:2,  w:44, h:47 },
+    WALK1:  { x:936,  y:2,  w:44, h:47 },
+    WALK2:  { x:980,  y:2,  w:44, h:47 },
+    DUCK1:  { x:1112, y:19, w:59, h:30 },
+    DUCK2:  { x:1171, y:19, w:59, h:30 },
+    CRASH:  { x:1024, y:2,  w:44, h:47 },
+    CS:     { x:228,  y:2,  w:17, h:35 },
+    CL:     { x:332,  y:2,  w:25, h:50 },
+    CLOUD:  { x:86,   y:2,  w:42, h:13 },
+    GROUND: { x:2,    y:54, w:1200, h:12 },
+    PTERO1: { x:134,  y:2,  w:46, h:40 },
+    PTERO2: { x:180,  y:2,  w:46, h:40 },
+};
+
+const W=340, H=150, SC=0.85, GY=140;
+const DW=Math.round(SP.IDLE.w*SC), DH=Math.round(SP.IDLE.h*SC);
+const DDW=Math.round(SP.DUCK1.w*SC), DDH=Math.round(SP.DUCK1.h*SC);
+const DX=16, FLOOR=GY-DH+4, DFLOOR=GY-DDH+4;
+
+const CFG={
+    ACCELERATION:0.001, BG_CLOUD_SPEED:1.5, SPEED:15, MAX_SPEED:40,
+    GRAVITY:1.8, INITIAL_JUMP_VEL:-17, SPEED_DROP_COEF:3,
+    INVERT_DISTANCE:700, FLASH_DURATION:750,
+};
+
+function rnd(a,b){return a+Math.random()*(b-a);}
+
+const spriteImg=new Image();
+spriteImg.src=SPRITE_SRC;
+let spriteReady=false;
+spriteImg.onload=()=>{spriteReady=true;if(dinoGame)dinoGame._drawStatic();};
+
+class DinoGame{
+    constructor(id){
+        this.cv=document.getElementById(id);
+        this.ctx=this.cv.getContext('2d');
+        this.ctx.scale(2,2);
+        this.dino={x:DX,y:FLOOR,vy:0,jumping:false,ducking:false,crashed:false,speedDrop:false};
+        this.obstacles=[];this.clouds=[];this.groundOff=0;this.score=0;this.hiScore=0;
+        this.tick=0;this.legFrame=0;this.rafId=null;this.started=false;
+        this.running=false;this.gameOver=false;this.speed=CFG.SPEED;
+        this.inverted=false;this.invertTrigger=CFG.INVERT_DISTANCE;
+        this.invertTimer=0;this.invertDuration=700;
+        this.flashTimer=0;this.lastMilestone=0;this.spawnCountdown=100;
+        for(let i=0;i<3;i++) this.clouds.push({x:60+i*120,y:Math.round(rnd(15,45))});
+        this._jump=(e)=>{e.preventDefault();this._onJump();};
+        this._keyDn=(e)=>{
+            if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();this._onJump();}
+            if(e.code==='ArrowDown'){e.preventDefault();this._onDuck(true);}
+        };
+        this._keyUp=(e)=>{if(e.code==='ArrowDown')this._onDuck(false);};
+        this.cv.addEventListener('click',this._jump);
+        this.cv.addEventListener('touchstart',this._jump,{passive:false});
+        document.addEventListener('keydown',this._keyDn);
+        document.addEventListener('keyup',this._keyUp);
+        this._drawStatic();
+    }
+    _onJump(){
+        if(!this.started){this.started=true;this.running=true;this._tick();return;}
+        if(this.gameOver){this._restart();return;}
+        if(!this.dino.jumping&&!this.dino.ducking&&!this.dino.crashed){
+            this.dino.vy=CFG.INITIAL_JUMP_VEL;this.dino.jumping=true;this.dino.speedDrop=false;
+        }
+    }
+    _onDuck(on){
+        if(!this.started||this.gameOver||this.dino.crashed)return;
+        if(on){
+            if(this.dino.jumping){this.dino.speedDrop=true;this.dino.vy=Math.abs(this.dino.vy);}
+            else{this.dino.ducking=true;}
+        }else{this.dino.ducking=false;this.dino.speedDrop=false;}
+    }
+    _restart(){
+        if(this.rafId){cancelAnimationFrame(this.rafId);this.rafId=null;}
+        this.dino.y=FLOOR;this.dino.vy=0;this.dino.jumping=false;
+        this.dino.ducking=false;this.dino.crashed=false;this.dino.speedDrop=false;
+        this.obstacles=[];this.score=0;this.tick=0;this.legFrame=0;
+        this.groundOff=0;this.speed=CFG.SPEED;this.inverted=false;
+        this.invertTimer=0;this.invertTrigger=CFG.INVERT_DISTANCE;
+        this.flashTimer=0;this.lastMilestone=0;this.spawnCountdown=100;
+        this.gameOver=false;this.running=true;this._tick();
+    }
+    stop(){
+        this.running=false;
+        if(this.rafId){cancelAnimationFrame(this.rafId);this.rafId=null;}
+        this.cv.removeEventListener('click',this._jump);
+        this.cv.removeEventListener('touchstart',this._jump);
+        document.removeEventListener('keydown',this._keyDn);
+        document.removeEventListener('keyup',this._keyUp);
+    }
+    _tick(){
+        this.rafId=requestAnimationFrame(()=>{
+            this.rafId=null;if(!this.running)return;
+            this._update();this._draw();this._tick();
+        });
+    }
+    _update(){
+        if(this.gameOver)return;
+        this.tick++;this.score++;
+        this.speed=Math.min(CFG.MAX_SPEED,CFG.SPEED+this.score*CFG.ACCELERATION);
+        if(!this.dino.jumping&&!this.dino.crashed) this.legFrame=Math.floor(this.tick/5)%2;
+        const gravity=this.dino.speedDrop?CFG.GRAVITY*CFG.SPEED_DROP_COEF:CFG.GRAVITY;
+        this.dino.vy+=gravity;
+        const floorY=this.dino.ducking?DFLOOR:FLOOR;
+        this.dino.y=Math.min(floorY,Math.round(this.dino.y+this.dino.vy));
+        if(this.dino.y>=floorY){this.dino.y=floorY;this.dino.vy=0;this.dino.jumping=false;this.dino.speedDrop=false;}
+        this.groundOff=(this.groundOff+this.speed)%SP.GROUND.w;
+        for(const c of this.clouds){
+            c.x-=CFG.BG_CLOUD_SPEED;
+            if(c.x+SP.CLOUD.w*SC<0){c.x=W+20;c.y=Math.round(rnd(15,45));}
+        }
+        this.spawnCountdown--;
+        if(this.spawnCountdown<=0){
+            const isPtero=this.score>600&&Math.random()<0.18;
+            if(isPtero){
+                const ph=Math.round(SP.PTERO1.h*SC);
+                const pteroYOpts=[GY-ph-2,GY-ph-28,GY-ph-58];
+                const py=pteroYOpts[Math.floor(Math.random()*3)];
+                this.obstacles.push({type:'ptero',x:W+10,y:py,w:Math.round(SP.PTERO1.w*SC),h:ph,frame:0,fTick:0});
+            }else{
+                const maxCount=this.speed>=4?3:1;
+                const count=1+Math.floor(Math.random()*maxCount);
+                const tiles=[];
+                for(let i=0;i<count;i++) tiles.push(Math.random()<0.5?SP.CS:SP.CL);
+                let ow=0,oh=0;
+                for(const sp of tiles){ow+=Math.round(sp.w*SC);oh=Math.max(oh,Math.round(sp.h*SC));}
+                this.obstacles.push({type:'cactus',x:W+10,y:GY-oh+4,w:ow,h:oh,tiles});
+            }
+            const minGap=Math.round(120*(this.speed/CFG.SPEED));
+            const maxGap=Math.round(minGap*1.5);
+            this.spawnCountdown=Math.round(rnd(minGap,maxGap)/this.speed*4);
+        }
+        const pad=3;
+        for(const o of this.obstacles){
+            o.x=Math.round(o.x-this.speed);
+            if(o.type==='ptero'){o.fTick++;if(o.fTick%8===0)o.frame=1-o.frame;}
+            const dinoW=this.dino.ducking?DDW:DW,dinoH=this.dino.ducking?DDH:DH;
+            const dL=this.dino.x+pad,dR=this.dino.x+dinoW-pad;
+            const dT=this.dino.y+pad,dB=this.dino.y+dinoH-pad;
+            const oL=o.x+pad,oR=o.x+o.w-pad;
+            const oT=o.y+pad,oB=o.y+o.h-pad;
+            if(dL<oR&&dR>oL&&dT<oB&&dB>oT){
+                this.dino.crashed=true;this.gameOver=true;
+                if(this.score>this.hiScore)this.hiScore=this.score;
+            }
+        }
+        this.obstacles=this.obstacles.filter(o=>o.x+o.w>0);
+        if(this.score>this.invertTrigger){
+            this.inverted=!this.inverted;this.invertTrigger+=CFG.INVERT_DISTANCE;this.invertTimer=this.invertDuration;
+        }
+        if(this.invertTimer>0)this.invertTimer--;
+        else if(this.inverted&&this.invertTimer===0)this.inverted=false;
+        const ms=Math.floor(this.score/5/100)*100;
+        if(ms>0&&ms!==this.lastMilestone){this.lastMilestone=ms;this.flashTimer=Math.round(CFG.FLASH_DURATION/16);}
+        if(this.flashTimer>0)this.flashTimer--;
+    }
+    _spr(sp,dx,dy,scale){
+        if(!spriteReady)return;
+        const s=scale??SC,dw=Math.round(sp.w*s),dh=Math.round(sp.h*s),c=this.ctx;
+        c.save();c.beginPath();c.rect(dx,dy,dw,dh);c.clip();
+        c.drawImage(spriteImg,sp.x,sp.y,sp.w,sp.h,dx,dy,dw,dh);c.restore();
+    }
+    _draw(){
+        const ctx=this.ctx;
+        ctx.clearRect(0,0,W,H);
+        if(this.inverted){ctx.fillStyle='rgba(0,0,0,0.1)';ctx.fillRect(0,0,W,H);}
+        if(!spriteReady){this._drawFallback();return;}
+        for(const c of this.clouds) this._spr(SP.CLOUD,Math.round(c.x),c.y,SC*0.9);
+        const go=Math.round(this.groundOff),gw=SP.GROUND.w,gdh=Math.round(SP.GROUND.h*SC);
+        ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,-go,GY,gw,gdh);
+        ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,-go+gw,GY,gw,gdh);
+        if(!this.dino.crashed){
+            let dsp;
+            if(this.dino.jumping)dsp=SP.IDLE;
+            else if(this.dino.ducking)dsp=(this.legFrame===0?SP.DUCK1:SP.DUCK2);
+            else dsp=(this.legFrame===0?SP.WALK1:SP.WALK2);
+            this._spr(dsp,this.dino.x,this.dino.y);
+        }else{this._spr(SP.CRASH,this.dino.x,this.dino.y);}
+        for(const o of this.obstacles){
+            if(o.type==='ptero'){this._spr(o.frame===0?SP.PTERO1:SP.PTERO2,o.x,o.y);}
+            else{let tx=o.x;for(const sp of o.tiles){const tw=Math.round(sp.w*SC),th=Math.round(sp.h*SC);this._spr(sp,tx,o.y+o.h-th);tx+=tw;}}
+        }
+        const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
+        const flashOn=this.flashTimer>0&&Math.floor(this.flashTimer/4)%2===0;
+        const ink='rgba(255,255,255,0.92)';
+        ctx.font='bold 13px monospace';ctx.textAlign='right';
+        if(!flashOn){
+            ctx.fillStyle='rgba(255,255,255,0.45)';
+            ctx.fillText(`HI ${String(hiScoreNum).padStart(5,'0')}`,W-54,15);
+            ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);
+        }else{ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);}
+        ctx.textAlign='left';
+        if(this.gameOver)this._drawGameOver();
+    }
+    _drawStatic(){
+        const ctx=this.ctx;ctx.clearRect(0,0,W,H);
+        if(spriteReady){
+            const gw=SP.GROUND.w,gdh=Math.round(SP.GROUND.h*SC);
+            ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,0,GY,gw,gdh);
+            this._spr(SP.IDLE,DX,FLOOR);
+        }
+        ctx.fillStyle='rgba(255,255,255,0.6)';
+        ctx.font='12px "Pretendard", sans-serif';
+        ctx.textAlign='center';
+        ctx.fillText('방향키 up을 눌러 시작',W/2,H*0.74);
+        ctx.textAlign='left';
+    }
+    _drawGameOver(){
+        const ctx=this.ctx;
+        const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
+        const px=W/2-115,py=38,pw=230,ph=74,pr=15;
+
+        ctx.save();
+
+        ctx.fillStyle='rgba(255,255,255,0.08)';
+        ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
+
+        const gloss=ctx.createLinearGradient(px,py,px+pw*0.65,py+ph*0.65);
+        gloss.addColorStop(0,'rgba(255,255,255,0.12)');
+        gloss.addColorStop(1,'rgba(255,255,255,0.00)');
+        ctx.fillStyle=gloss;
+        ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
+
+        const tg=ctx.createLinearGradient(px,0,px+pw,0);
+        tg.addColorStop(0,  'rgba(255,255,255,0.00)');
+        tg.addColorStop(0.2,'rgba(255,255,255,0.35)');
+        tg.addColorStop(0.8,'rgba(255,255,255,0.35)');
+        tg.addColorStop(1,  'rgba(255,255,255,0.00)');
+        ctx.strokeStyle=tg;ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(px+pr,py+0.5);ctx.lineTo(px+pw-pr,py+0.5);ctx.stroke();
+
+        const bg=ctx.createLinearGradient(px,0,px+pw,0);
+        bg.addColorStop(0,  'rgba(255,255,255,0.00)');
+        bg.addColorStop(0.5,'rgba(255,255,255,0.08)');
+        bg.addColorStop(1,  'rgba(255,255,255,0.00)');
+        ctx.strokeStyle=bg;
+        ctx.beginPath();ctx.moveTo(px+pr,py+ph-0.5);ctx.lineTo(px+pw-pr,py+ph-0.5);ctx.stroke();
+
+        const lg=ctx.createLinearGradient(0,py,0,py+ph);
+        lg.addColorStop(0,  'rgba(255,255,255,0.00)');
+        lg.addColorStop(0.4,'rgba(255,255,255,0.12)');
+        lg.addColorStop(1,  'rgba(255,255,255,0.00)');
+        ctx.strokeStyle=lg;
+        ctx.beginPath();ctx.moveTo(px+0.5,py+pr);ctx.lineTo(px+0.5,py+ph-pr);ctx.stroke();
+
+        const rg=ctx.createLinearGradient(0,py,0,py+ph);
+        rg.addColorStop(0,  'rgba(255,255,255,0.00)');
+        rg.addColorStop(0.4,'rgba(255,255,255,0.06)');
+        rg.addColorStop(1,  'rgba(255,255,255,0.00)');
+        ctx.strokeStyle=rg;
+        ctx.beginPath();ctx.moveTo(px+pw-0.5,py+pr);ctx.lineTo(px+pw-0.5,py+ph-pr);ctx.stroke();
+
+        ctx.restore();
+
+        ctx.fillStyle='rgba(255,255,255,0.92)';
+        ctx.font='bold 15px "Pretendard", monospace';
+        ctx.textAlign='center';
+        ctx.fillText('GAME OVER',W/2,60);
+        ctx.font='11px "Pretendard", sans-serif';
+        ctx.fillStyle='rgba(255,255,255,0.62)';
+        ctx.fillText(`점수: ${scoreNum}   최고: ${hiScoreNum}`,W/2,78);
+        ctx.fillText('방향키 up을 눌러 재시작',W/2,96);
+        ctx.textAlign='left';
+    }
+    _drawFallback(){
+        const ctx=this.ctx;
+        ctx.fillStyle='rgba(83,83,83,0.4)';ctx.fillRect(0,GY,W,2);
+        ctx.fillStyle=this.dino.crashed?'#c00':'#535353';
+        const dw=this.dino.ducking?DDW:DW,dh=this.dino.ducking?DDH:DH;
+        ctx.fillRect(this.dino.x,this.dino.y,dw,dh);
+        ctx.fillStyle='#2a7a2a';
+        for(const o of this.obstacles)ctx.fillRect(o.x,o.y,o.w,o.h);
+        if(this.gameOver)this._drawGameOver();
+    }
+    runIntro(onDone){this._drawStatic();onDone&&onDone();}
+}
+
+let dinoGame=null;
+
+function openDino(){
+    document.getElementById('dino-modal').style.display='flex';
+    const content = document.getElementById('modal-content');
+    content.classList.remove('modal-close');
+    content.classList.add('modal-open');
+    if(!dinoGame){
+        dinoGame=new DinoGame('dino-canvas');
+        dinoGame.runIntro();
+    }else{
+        if(dinoGame.rafId){cancelAnimationFrame(dinoGame.rafId);dinoGame.rafId=null;}
+        dinoGame.running=false;dinoGame.started=false;dinoGame.gameOver=false;
+        dinoGame.dino.y=FLOOR;dinoGame.dino.vy=0;dinoGame.dino.jumping=false;
+        dinoGame.dino.ducking=false;dinoGame.dino.crashed=false;
+        dinoGame.obstacles=[];dinoGame.score=0;dinoGame.tick=0;
+        dinoGame.groundOff=0;dinoGame.speed=CFG.SPEED;
+        dinoGame.inverted=false;dinoGame.flashTimer=0;
+        dinoGame.lastMilestone=0;dinoGame.spawnCountdown=100;
+        dinoGame.runIntro();
+    }
+}
+
+function closeDino(){
+    const modal = document.getElementById('dino-modal');
+    const content = document.getElementById('modal-content');
+    content.classList.remove('modal-open');
+    content.classList.add('modal-close');
+    setTimeout(()=>{
+        modal.style.display='none';
+        content.classList.remove('modal-close');
+    }, 160);
+    if(dinoGame){
+        if(dinoGame.rafId){cancelAnimationFrame(dinoGame.rafId);dinoGame.rafId=null;}
+        dinoGame.running=false;
+    }
+}
+
+document.querySelectorAll('.tab-group button').forEach(btn => addPressAnim(btn));
+
+const dateWrapper = document.querySelector('.date-wrapper');
+if (dateWrapper) {
+    addPressAnim(dateWrapper);
+}
+addPressAnim(document.getElementById('dino-link'));
+addPressAnim(document.getElementById('close-btn'));
+
+const today=getTodayYMD();
+document.getElementById("datePicker").value=today;
+fetchMeal(pickerValueToYMD(today));
+
+if('serviceWorker' in navigator)
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));
+
+function openBeta() {
+    window.location.href = "https://hcumeal-beta.vercel.app/";
+}
+</script>
+</body>
+</html>

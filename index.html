@@ -1,3 +1,11 @@
+Alpha 테스트 버전입니다.
+기능이 정상적으로 작동하지 않으며, 
+예기치 않은 오류가 다수 발생할 수 있습니다.
+
+[중요]
+해당 버전은 API Key를 불러올 수 없습니다.
+html 테스트 전용입니다.
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -292,6 +300,13 @@
             cursor: pointer;
             color: rgba(255,255,255,0.5);
         }
+        #alpha-link {
+            display: inline-block;
+            margin-top: 4px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: rgba(255,255,255,0.5);
+        }
         #dino-modal {
             display: none;
             position: fixed;
@@ -450,10 +465,12 @@
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.4.1<br>
+    vAlpha Test<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
     
-<!--    <br><span id="beta-link" onclick="openBeta()">Beta Version</span>    -->                    <!-- Beta -->
+<!--    <br><span id="beta-link" onclick="openBeta()">Beta Version</span>       -->                    <!-- Beta -->
+<!--    <br><span id="alpha-link" onclick="openAlpha()">Alpha Version</span>    -->                    <!-- Alpha -->
+    
 </div>
 
 <div id="easter-toast">
@@ -900,6 +917,11 @@ if('serviceWorker' in navigator)
 function openBeta() {
     window.location.href = "https://hcumeal-beta.vercel.app/";
 }
+
+function openAlpha() {
+    window.location.href = "https://hcumeal-alpha.vercel.app/";
+}
+
 </script>
 </body>
 </html>

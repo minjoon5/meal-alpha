@@ -24,12 +24,12 @@ html 테스트 전용입니다.<br><br>
 
         /* ── Liquid Glass CSS 변수 ── */
         :root {
-            --c-glass: rgba(0,0,0,0.7);
-            --c-light: #fff;
-            --c-dark: #000;
+            --c-glass: rgba(255,255,255,0.3);
+            --c-light: #1f2967;
+            --c-dark: #4d66ff;
             --glass-reflex-dark: 0.8;
             --glass-reflex-light: 0.4;
-            --saturation: 300%;
+            --saturation: 200%;
         }
 
         body {
@@ -39,7 +39,7 @@ html 테스트 전용입니다.<br><br>
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #ccd8f5 0%, #d8d4f0 25%, #e2daf5 50%, #d0dcf7 75%, #ccd5f0 100%);
+            background: linear-gradient(135deg, #c0cbe6 0%, #c3c0d9 25%, #c8c1d9 50%, #c1cce5 75%, #b8c1d9 100%);
             overflow-x: hidden;
             overflow-y: auto;
             position: relative;
@@ -101,11 +101,11 @@ html 테스트 전용입니다.<br><br>
         h2 {
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
-            color: #ffffff;
+            color: #1f2967;
             cursor: pointer;
             user-select: none;
             position: relative;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.18);
+            text-shadow: 0 1px 4px rgba(255,255,255,0.18);
         }
 
         .date-wrapper {
@@ -123,7 +123,7 @@ html 테스트 전용입니다.<br><br>
             border: none;
             font-family: 'Pretendard', sans-serif;
             font-size: 0.9rem;
-            color: #ffffff;
+            color: #1f2967;
             cursor: pointer;
             outline: none;
             appearance: none;
@@ -169,8 +169,8 @@ html 테스트 전용입니다.<br><br>
             top: 45%;
             width: 7px;
             height: 7px;
-            border-right: 1.4px solid rgba(255, 255, 255, 0.85);
-            border-bottom: 1.4px solid rgba(255, 255, 255, 0.85);
+            border-right: 1.4px solid rgba(31,41,103,1);
+            border-bottom: 1.4px solid rgba(31,41,103,1);
             transform: translateY(-50%) rotate(45deg);
             pointer-events: none;
             transition: transform 0.12s ease;
@@ -190,7 +190,7 @@ html 테스트 전용입니다.<br><br>
             padding: 10px 20px;
             border-radius: 30px;
             border: none;
-            color: rgba(255,255,255,0.85);
+            color: rgba(31,41,103,0.85);
             font-size: 0.9rem;
             cursor: pointer;
             transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
@@ -238,7 +238,7 @@ html 테스트 전용입니다.<br><br>
             border-radius: 30px;
             font-size: 0.95rem;
             line-height: 2;
-            color: rgba(255,255,255,0.92);
+            color: rgba(31,41,103,0.92);
             text-align: left;
             position: relative;
             background-color: color-mix(in srgb, var(--c-glass) 0%, transparent);
@@ -270,14 +270,14 @@ html 테스트 전용입니다.<br><br>
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.45);
+            color: rgba(31,41,103,0.7);
             font-size: 0.9rem;
         }
 
         #status {
             margin-top: 0.8rem;
             font-size: 0.78rem;
-            color: rgba(255,255,255,0.45);
+            color: rgba(31,41,103,0.7);
             position: relative;
         }
 
@@ -286,7 +286,7 @@ html 테스트 전용입니다.<br><br>
             z-index: 1;
             margin-top: 1rem;
             font-size: 0.75rem;
-            color: rgba(255,255,255,0.5);
+            color: rgba(31,41,103,0.7);
             text-align: center;
             line-height: 1.5;
         }
@@ -295,7 +295,7 @@ html 테스트 전용입니다.<br><br>
             margin-top: 4px;
             text-decoration: underline;
             cursor: pointer;
-            color: rgba(255,255,255,0.5);
+            color: rgba(31,41,103,0.7);
             transition: transform 0.12s ease;
         }
         #dino-link.pressed { transform: scale(0.92); }
@@ -304,14 +304,14 @@ html 테스트 전용입니다.<br><br>
             margin-top: 4px;
             text-decoration: underline;
             cursor: pointer;
-            color: rgba(255,255,255,0.5);
+            color: rgba(31,41,103,0.7);
         }
         #alpha-link {
             display: inline-block;
             margin-top: 4px;
             text-decoration: underline;
             cursor: pointer;
-            color: rgba(255,255,255,0.5);
+            color: rgba(31,41,103,0.7);
         }
 
         #dino-modal {
@@ -380,7 +380,7 @@ html 테스트 전용입니다.<br><br>
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: rgba(255,255,255,0.7);
+            color: rgba(31,41,103,0.7);
             line-height: 1;
             outline: none;
             transition: transform 0.12s ease;
@@ -403,7 +403,7 @@ html 테스트 전용입니다.<br><br>
             bottom: 40px;
             left: 50%;
             border-radius: 30px;
-            color: rgba(255,255,255,0.92);
+            color: rgba(31,41,103,0.92);
             padding: 16px 28px;
             font-size: 0.9rem;
             font-family: 'Pretendard', sans-serif;
@@ -465,12 +465,12 @@ html 테스트 전용입니다.<br><br>
 <div id="dino-modal">
     <div class="modal-content" id="modal-content">
         <div class="modal-header">
-            <span style="font-weight:bold;color:rgba(255,255,255,0.85);font-size:0.9rem;">Chrome Dino</span>
+            <span style="font-weight:bold;color:rgba(31,41,103,0.7);font-size:0.9rem;">Chrome Dino</span>
             <button class="close-btn" id="close-btn" onclick="closeDino()">&times;</button>
         </div>
         <canvas id="dino-canvas" width="680" height="300"></canvas>
-        <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(255,255,255,0.6);font-weight:500;position:relative;z-index:1;">
-            <br>v에서 1000 넘으면 개발자 찾아오세요.<br>
+        <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(31,41,103,0.6);font-weight:500;position:relative;z-index:1;">
+            <br>v2.7에서 1000 넘으면 개발자 찾아오세요.<br>
             <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
             (<strong>화면 녹화</strong> 인증 ㄱㄱ)<br><br>
             <strong>절때 못 깸 ㅋ</strong><br>
@@ -480,7 +480,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.6.1 Alpha<br>
+    v2.7 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>       -->
@@ -532,7 +532,7 @@ function checkEasterEgg(ymd) {
     const md = ymd.substring(4);
     if (md === "1205") { t.innerText = "오늘은 이 앱 개발자 생일! 🎉"; t.style.color = "#FFCB30"; }
     else if (md === "0401") { t.innerText = "박시은쌤 사랑해요"; t.style.color = "#FFCB30"; }
-    else { t.innerText = "현대청운고 급식"; t.style.color = "#ffffff"; }
+    else { t.innerText = "현대청운고 급식"; t.style.color = "#1f2967"; }
 }
 
 let meals = [null, null, null];
@@ -768,10 +768,10 @@ class DinoGame{
         }
         const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
         const flashOn=this.flashTimer>0&&Math.floor(this.flashTimer/4)%2===0;
-        const ink='rgba(255,255,255,0.92)';
+        const ink='rgba(31,41,103,0.92)';
         ctx.font='bold 13px monospace';ctx.textAlign='right';
         if(!flashOn){
-            ctx.fillStyle='rgba(255,255,255,0.45)';
+            ctx.fillStyle='rgba(31,41,103,0.45)';
             ctx.fillText(`HI ${String(hiScoreNum).padStart(5,'0')}`,W-54,15);
             ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);
         }else{ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);}
@@ -785,7 +785,7 @@ class DinoGame{
             ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,0,GY,gw,gdh);
             this._spr(SP.IDLE,DX,FLOOR);
         }
-        ctx.fillStyle='rgba(255,255,255,0.6)';
+        ctx.fillStyle='rgba(31,41,103,0.6)';
         ctx.font='12px "Pretendard", sans-serif';
         ctx.textAlign='center';
         ctx.fillText('방향키 up을 눌러 시작',W/2,H*0.74);
@@ -796,38 +796,38 @@ class DinoGame{
         const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
         const px=W/2-115,py=38,pw=230,ph=74,pr=15;
         ctx.save();
-        ctx.fillStyle='rgba(255,255,255,0.08)';
+        ctx.fillStyle='rgba(31,41,103,0.08)';
         ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
         const gloss=ctx.createLinearGradient(px,py,px+pw*0.65,py+ph*0.65);
-        gloss.addColorStop(0,'rgba(255,255,255,0.12)');
-        gloss.addColorStop(1,'rgba(255,255,255,0.00)');
+        gloss.addColorStop(0,'rgba(31,41,103,0.12)');
+        gloss.addColorStop(1,'rgba(31,41,103,0.00)');
         ctx.fillStyle=gloss;
         ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
         const tg=ctx.createLinearGradient(px,0,px+pw,0);
-        tg.addColorStop(0,'rgba(255,255,255,0.00)');tg.addColorStop(0.2,'rgba(255,255,255,0.35)');
-        tg.addColorStop(0.8,'rgba(255,255,255,0.35)');tg.addColorStop(1,'rgba(255,255,255,0.00)');
+        tg.addColorStop(0,'rgba(31,41,103,0.00)');tg.addColorStop(0.2,'rgba(31,41,103,0.35)');
+        tg.addColorStop(0.8,'rgba(31,41,103,0.35)');tg.addColorStop(1,'rgba(31,41,103,0.00)');
         ctx.strokeStyle=tg;ctx.lineWidth=1;
         ctx.beginPath();ctx.moveTo(px+pr,py+0.5);ctx.lineTo(px+pw-pr,py+0.5);ctx.stroke();
         const bg=ctx.createLinearGradient(px,0,px+pw,0);
-        bg.addColorStop(0,'rgba(255,255,255,0.00)');bg.addColorStop(0.5,'rgba(255,255,255,0.08)');
-        bg.addColorStop(1,'rgba(255,255,255,0.00)');
+        bg.addColorStop(0,'rgba(31,41,103,0.00)');bg.addColorStop(0.5,'rgba(255,255,255,0.08)');
+        bg.addColorStop(1,'rgba(31,41,103,0.00)');
         ctx.strokeStyle=bg;
         ctx.beginPath();ctx.moveTo(px+pr,py+ph-0.5);ctx.lineTo(px+pw-pr,py+ph-0.5);ctx.stroke();
         const lg=ctx.createLinearGradient(0,py,0,py+ph);
-        lg.addColorStop(0,'rgba(255,255,255,0.00)');lg.addColorStop(0.4,'rgba(255,255,255,0.12)');
-        lg.addColorStop(1,'rgba(255,255,255,0.00)');
+        lg.addColorStop(0,'rgba(31,41,103,0.00)');lg.addColorStop(0.4,'rgba(255,255,255,0.12)');
+        lg.addColorStop(1,'rgba(31,41,103,0.00)');
         ctx.strokeStyle=lg;
         ctx.beginPath();ctx.moveTo(px+0.5,py+pr);ctx.lineTo(px+0.5,py+ph-pr);ctx.stroke();
         const rg=ctx.createLinearGradient(0,py,0,py+ph);
-        rg.addColorStop(0,'rgba(255,255,255,0.00)');rg.addColorStop(0.4,'rgba(255,255,255,0.06)');
-        rg.addColorStop(1,'rgba(255,255,255,0.00)');
+        rg.addColorStop(0,'rgba(31,41,103,0.00)');rg.addColorStop(0.4,'rgba(255,255,255,0.06)');
+        rg.addColorStop(1,'rgba(31,41,103,0.00)');
         ctx.strokeStyle=rg;
         ctx.beginPath();ctx.moveTo(px+pw-0.5,py+pr);ctx.lineTo(px+pw-0.5,py+ph-pr);ctx.stroke();
         ctx.restore();
-        ctx.fillStyle='rgba(255,255,255,0.92)';
+        ctx.fillStyle='rgba(31,41,103,0.92)';
         ctx.font='bold 15px "Pretendard", monospace';ctx.textAlign='center';
         ctx.fillText('GAME OVER',W/2,60);
-        ctx.font='11px "Pretendard", sans-serif';ctx.fillStyle='rgba(255,255,255,0.62)';
+        ctx.font='11px "Pretendard", sans-serif';ctx.fillStyle='rgba(31,41,103,0.62)';
         ctx.fillText(`점수: ${scoreNum}   최고: ${hiScoreNum}`,W/2,78);
         ctx.fillText('방향키 up을 눌러 재시작',W/2,96);
         ctx.textAlign='left';

@@ -24,11 +24,11 @@ html 테스트 전용입니다.<br><br>
 
         /* ── Liquid Glass CSS 변수 ── */
         :root {
-            --c-glass: rgba(255,255,255,0.3);
+            --c-glass: rgba(255,255,255,0);
             --c-light: #1f2967;
-            --c-dark: #4d66ff;
-            --glass-reflex-dark: 0.8;
-            --glass-reflex-light: 0.4;
+            --c-dark: #4b1f67;    /*4d66ff*/
+            --glass-reflex-dark: 0.6;
+            --glass-reflex-light: 0.3;
             --saturation: 200%;
         }
 
@@ -72,7 +72,7 @@ html 테스트 전용입니다.<br><br>
             padding: 2rem;
             width: 380px;
             text-align: center;
-            background-color: color-mix(in srgb, var(--c-glass) 12%, transparent);
+            background-color: rgba(255,255,255,0.35);
             backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
             box-shadow:
@@ -480,7 +480,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.7.2 Alpha<br>
+    v2.7.3 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>       -->

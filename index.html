@@ -435,6 +435,24 @@
             transform: translateX(-50%) scale(1);
             opacity: 1;
         }
+
+        /* 버튼 텍스트와 급식 내용 텍스트를 유리 위로 올림 */
+        .tab-group button span, 
+        .tab-group button {
+            position: relative;
+            z-index: 2;
+        }
+        
+        #mealContent {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* "불러오는 중..." 혹은 "정보 없음" 메시지 상위 노출 */
+        #mealContent > div {
+            position: relative;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>

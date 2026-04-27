@@ -219,7 +219,7 @@
 
   function buildFilter(id, w, h, radius, cfg) {
     const bezel = Math.min(cfg.bezelWidth, radius - 1, Math.min(w, h) / 2 - 1);
-    const profile = calcRefractionProfile(cfg.glassThickness, bezel, cfg.ior, 128);
+    const profile = calcRefractionProfile(cfg.glassThickness, bezel, cfg.ior, 256);
     const maxDisp = Math.max(...Array.from(profile).map(Math.abs)) || 1;
     const dispUrl = generateDisplacementMap(w, h, radius, bezel, profile, maxDisp);
     const specUrl = generateSpecularMap(w, h, radius, bezel * 2.5, !!cfg.balancedSpecular);
@@ -286,23 +286,45 @@
     function rebuild() {
       ensureDefs();
       const rect = el.getBoundingClientRect();
-      const w = Math.round(el.offsetWidth || rect.width);
-      const h = Math.round(el.offsetHeight || rect.height);
+      
+      // [개선] 기기의 픽셀 밀도(DPR)를 가져옵니다. (기본값 1)
+      const dpr = window.devicePixelRatio || 1;
+      
+      // [개선] 실제 렌더링될 물리적 픽셀 크기로 계산하여 해상도를 높입니다.
+      const w = Math.round((el.offsetWidth || rect.width) * dpr);
+      const h = Math.round((el.offsetHeight || rect.height) * dpr);
+      
+      // 화면 표시용 크기 (CSS 픽셀)
+      const cssW = el.offsetWidth || rect.width;
+      const cssH = el.offsetHeight || rect.height;
+    
       if (w < 4 || h < 4) return;
+    
       const dataR = parseFloat(el.getAttribute('data-radius') || '0');
       const cssR = parseFloat(getComputedStyle(el).borderTopLeftRadius || '0');
-      const r = Math.max(2, Math.min(dataR || cssR || 24, w / 2, h / 2));
+      
+      // [개선] 반지름 값도 DPR에 맞춰 스케일링
+      const r = Math.max(2, Math.min((dataR || cssR || 24), cssW / 2, cssH / 2)) * dpr;
+      const displayR = r / dpr; // 실제 CSS에 적용할 반지름
+    
       if (filterNode) filterNode.remove();
+      
       const cfg = cfgGetter();
       const id = 'demo-lg-' + Math.random().toString(36).slice(2, 10);
+    
+      // [개선] buildFilter 호출 시 물리 픽셀 크기(w, h, r)를 전달하여 필터 정밀도 향상
       filterNode = buildFilter(id, w, h, r, cfg);
       defs.appendChild(filterNode);
-      refr.style.borderRadius = r + 'px';
+    
+      // 레이어 스타일 적용 (표시는 CSS 픽셀 기준으로 해야 하므로 displayR 사용)
+      refr.style.borderRadius = displayR + 'px';
       refr.style.backdropFilter = `url(#${id})`;
       refr.style.webkitBackdropFilter = `url(#${id})`;
-      tint.style.borderRadius = r + 'px';
+      
+      tint.style.borderRadius = displayR + 'px';
       tint.style.backgroundColor = `rgba(${cfg.tintColor},${cfg.tintOpacity})`;
       tint.style.boxShadow = `inset 0 0 ${cfg.innerShadowBlur}px ${cfg.innerShadowSpread}px ${cfg.innerShadow}`;
+      
       elevate();
     }
     function schedule() {

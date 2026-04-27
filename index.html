@@ -11,18 +11,17 @@
     <meta name="apple-mobile-web-app-title" content="HCU 급식">
     <link rel="apple-touch-icon" href="hcu_logo_2.jpg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-    <link rel="stylesheet" href="liquid_glass.css">
-    <style>        
+    <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         /* ── Liquid Glass CSS 변수 ── */
         :root {
-            --c-glass: rgba(255,255,255,0);
-            --c-light: #f7f8ff;
+            --c-glass: rgba(75,75,75,0.1);
+            --c-light: #fff;
             --c-dark: #000;
-            --glass-reflex-dark: 0.5;
-            --glass-reflex-light: 0.35;
-            --saturation: 180%;
+            --glass-reflex-dark: 0.8;
+            --glass-reflex-light: 0.4;
+            --saturation: 200%;
         }
 
         body {
@@ -32,7 +31,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #b4c5e6 0%, #bbb0d9 25%, #c2b8d9 50%, #bec3e5 75%, #b7bfd9 100%);
+            background: linear-gradient(135deg, #697da5 0%, #726ba5 25%, #8a73a6 50%, #6f6ca5 75%, #6978a5 100%);
             overflow-x: hidden;
             overflow-y: auto;
             position: relative;
@@ -44,7 +43,7 @@
             position: fixed;
             width: 500px; height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(160,185,240,0.5) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(85,110,165,0) 0%, transparent 70%);
             top: -160px; left: -160px;
             pointer-events: none;
         }
@@ -53,7 +52,7 @@
             position: fixed;
             width: 420px; height: 420px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(195,180,240,0.45) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(115,90,165,0) 0%, transparent 70%);
             bottom: -120px; right: -120px;
             pointer-events: none;
         }
@@ -65,40 +64,40 @@
             padding: 2rem;
             width: 380px;
             text-align: center;
-            background-color: rgba(255,255,255,0.05);
-            /*backdrop-filter: blur(8px) saturate(var(--saturation));
+            background-color: color-mix(in srgb, var(--c-glass) 12%, transparent);
+            backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
             box-shadow:
                 inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
                 inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
                 inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
                 inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
                 inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
                 inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);*/
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
 
         h2 {
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
-            color: #1f2967;
+            color: #ffffff;
             cursor: pointer;
             user-select: none;
             position: relative;
-            text-shadow: 0 1px 4px rgba(255,255,255,0.18);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.18);
         }
 
         .date-wrapper {
@@ -116,35 +115,35 @@
             border: none;
             font-family: 'Pretendard', sans-serif;
             font-size: 0.9rem;
-            color: #1f2967;
+            color: #ffffff;
             cursor: pointer;
             outline: none;
             appearance: none;
             -webkit-appearance: none;
             background-color: color-mix(in srgb, var(--c-glass) 0%, transparent);
-            /*backdrop-filter: blur(8px) saturate(var(--saturation));
+            backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
             box-shadow:
                 inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
                 inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
                 inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
                 inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
                 inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
                 inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);*/
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         #datePicker::-webkit-calendar-picker-indicator {
             position: absolute;
@@ -162,8 +161,8 @@
             top: 45%;
             width: 7px;
             height: 7px;
-            border-right: 1.4px solid rgba(31,41,103,1);
-            border-bottom: 1.4px solid rgba(31,41,103,1);
+            border-right: 1.4px solid rgba(255, 255, 255, 0.85);
+            border-bottom: 1.4px solid rgba(255, 255, 255, 0.85);
             transform: translateY(-50%) rotate(45deg);
             pointer-events: none;
             transition: transform 0.12s ease;
@@ -183,7 +182,7 @@
             padding: 10px 20px;
             border-radius: 30px;
             border: none;
-            color: rgba(31,41,103,0.85);
+            color: rgba(255,255,255,0.85);
             font-size: 0.9rem;
             cursor: pointer;
             transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
@@ -192,32 +191,32 @@
             -webkit-appearance: none;
             appearance: none;
             background-color: color-mix(in srgb, var(--c-glass) 0%, transparent);
-            /*backdrop-filter: blur(8px) saturate(var(--saturation));
+            backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
             box-shadow:
                 inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
                 inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
                 inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
                 inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
                 inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
                 inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);*/
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         .tab-group button.active {
-            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(40,120,250,0.85));
+            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(40,120,250,0.8));
             color: white;
             font-weight: bold;
         }
@@ -231,46 +230,46 @@
             border-radius: 30px;
             font-size: 0.95rem;
             line-height: 2;
-            color: rgba(31,41,103,0.92);
+            color: rgba(255,255,255,0.92);
             text-align: left;
             position: relative;
             background-color: color-mix(in srgb, var(--c-glass) 0%, transparent);
-            /*backdrop-filter: blur(8px) saturate(var(--saturation));
+            backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
             box-shadow:
                 inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
                 inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
                 inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
                 inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
                 inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
                 inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);*/
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         #mealContent.empty {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(31,41,103,0.7);
+            color: rgba(255,255,255,0.45);
             font-size: 0.9rem;
         }
 
         #status {
             margin-top: 0.8rem;
             font-size: 0.78rem;
-            color: rgba(31,41,103,0.7);
+            color: rgba(255,255,255,0.45);
             position: relative;
         }
 
@@ -279,7 +278,7 @@
             z-index: 1;
             margin-top: 1rem;
             font-size: 0.75rem;
-            color: rgba(31,41,103,0.7);
+            color: rgba(255,255,255,0.5);
             text-align: center;
             line-height: 1.5;
         }
@@ -288,7 +287,7 @@
             margin-top: 4px;
             text-decoration: underline;
             cursor: pointer;
-            color: rgba(31,41,103,0.7);
+            color: rgba(255,255,255,0.5);
             transition: transform 0.12s ease;
         }
         #dino-link.pressed { transform: scale(0.92); }
@@ -297,14 +296,14 @@
             margin-top: 4px;
             text-decoration: underline;
             cursor: pointer;
-            color: rgba(31,41,103,0.7);
+            color: rgba(255,255,255,0.5);
         }
         #alpha-link {
             display: inline-block;
             margin-top: 4px;
             text-decoration: underline;
             cursor: pointer;
-            color: rgba(31,41,103,0.7);
+            color: rgba(255,255,255,0.5);
         }
 
         #dino-modal {
@@ -330,29 +329,29 @@
             width: 340px;
             position: relative;
             background-color: color-mix(in srgb, var(--c-glass) 12%, transparent);
-            /*backdrop-filter: blur(8px) saturate(100%);
+            backdrop-filter: blur(8px) saturate(100%);
             -webkit-backdrop-filter: blur(8px) saturate(100%);
             box-shadow:
                 inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
                 inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
                 inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
                 inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
                 inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
                 inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);*/
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         .modal-content.modal-open {
             animation: modalIn 0.18s cubic-bezier(0.34, 1.4, 0.64, 1) both;
@@ -373,7 +372,7 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: rgba(31,41,103,0.7);
+            color: rgba(255,255,255,0.7);
             line-height: 1;
             outline: none;
             transition: transform 0.12s ease;
@@ -396,7 +395,7 @@
             bottom: 40px;
             left: 50%;
             border-radius: 30px;
-            color: rgba(31,41,103,0.92);
+            color: rgba(255,255,255,0.92);
             padding: 16px 28px;
             font-size: 0.9rem;
             font-family: 'Pretendard', sans-serif;
@@ -407,64 +406,33 @@
             opacity: 0;
             transition: transform 0.18s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.18s ease;
             background-color: color-mix(in srgb, var(--c-glass) 12%, transparent);
-            /*backdrop-filter: blur(8px) saturate(100%);
+            backdrop-filter: blur(8px) saturate(100%);
             -webkit-backdrop-filter: blur(8px) saturate(100%);
             box-shadow:
                 inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
                 inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
                 inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
                 inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
+                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
                 inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
                 inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
                 inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
                 0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);*/
+                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         #easter-toast.toast-open {
             transform: translateX(-50%) scale(1);
             opacity: 1;
-        }
-
-        /* style 태그 마지막 부분에 추가 */
-        
-        /* 1. 텍스트를 유리 위로 올리기 */
-        .tab-group button, 
-        .date-wrapper, 
-        #mealContent,
-        .modal-content {
-            position: relative; /* z-index 활성화를 위해 필요 */
-        }
-        
-        .tab-group button span,
-        .date-label,
-        .date-display,
-        #mealContent > div,
-        .loading-text,
-        #modal-content * {
-            position: relative;
-            z-index: 5; /* 리퀴드 글래스(보통 z-index: 0~1)보다 높게 설정 */
-            color: var(--text); /* 글자색 명확히 */
-        }
-        
-        /* 2. 불러오는 중/정보 없음 텍스트 선명하게 */
-        #mealContent.empty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 150px;
-            z-index: 5;
-            font-weight: bold;
         }
     </style>
 </head>
@@ -472,29 +440,29 @@
 
 <div class="particles" id="particles"></div>
 
-<div class="container lg-demo-target">
+<div class="container">
     <h2 id="title">현대청운고 급식</h2>
-    <div class="date-wrapper lg-demo-target">
+    <div class="date-wrapper">
         <input type="date" id="datePicker" onchange="onDateChange()">
     </div>
     <div class="tab-group">
-        <button class="lg-demo-target" onclick="showMeal(0)">조식</button>
-        <button class="lg-demo-target" onclick="showMeal(1)">중식</button>
-        <button class="lg-demo-target" onclick="showMeal(2)">석식</button>
+        <button onclick="showMeal(0)">조식</button>
+        <button class="active" onclick="showMeal(1)">중식</button>
+        <button onclick="showMeal(2)">석식</button>
     </div>
-    <div id="mealContent" class="lg-demo-target">불러오는 중...</div>
+    <div id="mealContent" class="empty">불러오는 중...</div>
     <div id="status">연결 중...</div>
 </div>
 
 <div id="dino-modal">
     <div class="modal-content" id="modal-content">
         <div class="modal-header">
-            <span style="font-weight:bold;color:rgba(31,41,103,0.7);font-size:0.9rem;">Chrome Dino</span>
+            <span style="font-weight:bold;color:rgba(255,255,255,0.85);font-size:0.9rem;">Chrome Dino</span>
             <button class="close-btn" id="close-btn" onclick="closeDino()">&times;</button>
         </div>
         <canvas id="dino-canvas" width="680" height="300"></canvas>
-        <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(31,41,103,0.6);font-weight:500;position:relative;z-index:1;">
-            <br>v2.7에서 1000 넘으면 개발자 찾아오세요.<br>
+        <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(255,255,255,0.6);font-weight:500;position:relative;z-index:1;">
+            <br>v2.6에서 1000 넘으면 개발자 찾아오세요.<br>
             <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
             (<strong>화면 녹화</strong> 인증 ㄱㄱ)<br><br>
             <strong>절때 못 깸 ㅋ</strong><br>
@@ -504,11 +472,11 @@
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.7.9 Alpha<br>
+    v2.6 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
-<!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>       -->
-<!--    <br><span id="alpha-link" onclick="openAlpha()">Alpha Test</span>    -->
+<!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>
+    <br><span id="alpha-link" onclick="openAlpha()">Alpha Test</span>        -->
 
 </div>
 
@@ -556,7 +524,7 @@ function checkEasterEgg(ymd) {
     const md = ymd.substring(4);
     if (md === "1205") { t.innerText = "오늘은 이 앱 개발자 생일! 🎉"; t.style.color = "#FFCB30"; }
     else if (md === "0401") { t.innerText = "박시은쌤 사랑해요"; t.style.color = "#FFCB30"; }
-    else { t.innerText = "현대청운고 급식"; t.style.color = "#1f2967"; }
+    else { t.innerText = "현대청운고 급식"; t.style.color = "#ffffff"; }
 }
 
 let meals = [null, null, null];
@@ -590,17 +558,7 @@ async function fetchMeal(ymd) {
         }
         setStatus("불러오기 완료 ✓");
         showMeal(1);
-
-        // [추가] UI가 다 그려진 후 리퀴드 글래스 크기를 재조정합니다.
-        // 약간의 지연(setTimeout)을 주어야 텍스트가 렌더링된 후 정확한 크기를 잡습니다.
-        setTimeout(() => {
-            if (window.rebuildAll) rebuildAll();
-        }, 50);
-        
-    } catch(e) { 
-        setStatus(`오류: ${e.message}`);
-        if (window.rebuildAll) rebuildAll();
-    }
+    } catch(e) { setStatus(`오류: ${e.message}`); }
 }
 
 function showMeal(i) {
@@ -617,8 +575,8 @@ function onDateChange() {
 
 function setStatus(m) { document.getElementById("status").innerText = m; }
 
-const SPRITE_SRC = "data:image/png;base64,";
-    const SP = {
+const SPRITE_SRC = "data:image/png;base64,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";
+const SP = {
     IDLE:   { x:848,  y:2,  w:44, h:47 },
     WALK1:  { x:936,  y:2,  w:44, h:47 },
     WALK2:  { x:980,  y:2,  w:44, h:47 },
@@ -802,10 +760,10 @@ class DinoGame{
         }
         const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
         const flashOn=this.flashTimer>0&&Math.floor(this.flashTimer/4)%2===0;
-        const ink='rgba(31,41,103,0.92)';
+        const ink='rgba(255,255,255,0.92)';
         ctx.font='bold 13px monospace';ctx.textAlign='right';
         if(!flashOn){
-            ctx.fillStyle='rgba(31,41,103,0.45)';
+            ctx.fillStyle='rgba(255,255,255,0.45)';
             ctx.fillText(`HI ${String(hiScoreNum).padStart(5,'0')}`,W-54,15);
             ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);
         }else{ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);}
@@ -819,7 +777,7 @@ class DinoGame{
             ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,0,GY,gw,gdh);
             this._spr(SP.IDLE,DX,FLOOR);
         }
-        ctx.fillStyle='rgba(31,41,103,0.6)';
+        ctx.fillStyle='rgba(255,255,255,0.6)';
         ctx.font='12px "Pretendard", sans-serif';
         ctx.textAlign='center';
         ctx.fillText('방향키 up을 눌러 시작',W/2,H*0.74);
@@ -830,38 +788,38 @@ class DinoGame{
         const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
         const px=W/2-115,py=38,pw=230,ph=74,pr=15;
         ctx.save();
-        ctx.fillStyle='rgba(31,41,103,0.08)';
+        ctx.fillStyle='rgba(255,255,255,0.08)';
         ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
         const gloss=ctx.createLinearGradient(px,py,px+pw*0.65,py+ph*0.65);
-        gloss.addColorStop(0,'rgba(31,41,103,0.12)');
-        gloss.addColorStop(1,'rgba(31,41,103,0.00)');
+        gloss.addColorStop(0,'rgba(255,255,255,0.12)');
+        gloss.addColorStop(1,'rgba(255,255,255,0.00)');
         ctx.fillStyle=gloss;
         ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
         const tg=ctx.createLinearGradient(px,0,px+pw,0);
-        tg.addColorStop(0,'rgba(31,41,103,0.00)');tg.addColorStop(0.2,'rgba(31,41,103,0.35)');
-        tg.addColorStop(0.8,'rgba(31,41,103,0.35)');tg.addColorStop(1,'rgba(31,41,103,0.00)');
+        tg.addColorStop(0,'rgba(255,255,255,0.00)');tg.addColorStop(0.2,'rgba(255,255,255,0.35)');
+        tg.addColorStop(0.8,'rgba(255,255,255,0.35)');tg.addColorStop(1,'rgba(255,255,255,0.00)');
         ctx.strokeStyle=tg;ctx.lineWidth=1;
         ctx.beginPath();ctx.moveTo(px+pr,py+0.5);ctx.lineTo(px+pw-pr,py+0.5);ctx.stroke();
         const bg=ctx.createLinearGradient(px,0,px+pw,0);
-        bg.addColorStop(0,'rgba(31,41,103,0.00)');bg.addColorStop(0.5,'rgba(255,255,255,0.08)');
-        bg.addColorStop(1,'rgba(31,41,103,0.00)');
+        bg.addColorStop(0,'rgba(255,255,255,0.00)');bg.addColorStop(0.5,'rgba(255,255,255,0.08)');
+        bg.addColorStop(1,'rgba(255,255,255,0.00)');
         ctx.strokeStyle=bg;
         ctx.beginPath();ctx.moveTo(px+pr,py+ph-0.5);ctx.lineTo(px+pw-pr,py+ph-0.5);ctx.stroke();
         const lg=ctx.createLinearGradient(0,py,0,py+ph);
-        lg.addColorStop(0,'rgba(31,41,103,0.00)');lg.addColorStop(0.4,'rgba(255,255,255,0.12)');
-        lg.addColorStop(1,'rgba(31,41,103,0.00)');
+        lg.addColorStop(0,'rgba(255,255,255,0.00)');lg.addColorStop(0.4,'rgba(255,255,255,0.12)');
+        lg.addColorStop(1,'rgba(255,255,255,0.00)');
         ctx.strokeStyle=lg;
         ctx.beginPath();ctx.moveTo(px+0.5,py+pr);ctx.lineTo(px+0.5,py+ph-pr);ctx.stroke();
         const rg=ctx.createLinearGradient(0,py,0,py+ph);
-        rg.addColorStop(0,'rgba(31,41,103,0.00)');rg.addColorStop(0.4,'rgba(255,255,255,0.06)');
-        rg.addColorStop(1,'rgba(31,41,103,0.00)');
+        rg.addColorStop(0,'rgba(255,255,255,0.00)');rg.addColorStop(0.4,'rgba(255,255,255,0.06)');
+        rg.addColorStop(1,'rgba(255,255,255,0.00)');
         ctx.strokeStyle=rg;
         ctx.beginPath();ctx.moveTo(px+pw-0.5,py+pr);ctx.lineTo(px+pw-0.5,py+ph-pr);ctx.stroke();
         ctx.restore();
-        ctx.fillStyle='rgba(31,41,103,0.92)';
+        ctx.fillStyle='rgba(255,255,255,0.92)';
         ctx.font='bold 15px "Pretendard", monospace';ctx.textAlign='center';
         ctx.fillText('GAME OVER',W/2,60);
-        ctx.font='11px "Pretendard", sans-serif';ctx.fillStyle='rgba(31,41,103,0.62)';
+        ctx.font='11px "Pretendard", sans-serif';ctx.fillStyle='rgba(255,255,255,0.62)';
         ctx.fillText(`점수: ${scoreNum}   최고: ${hiScoreNum}`,W/2,78);
         ctx.fillText('방향키 up을 눌러 재시작',W/2,96);
         ctx.textAlign='left';
@@ -929,8 +887,6 @@ if('serviceWorker' in navigator)
 
 function openBeta() { window.location.href = "https://hcumeal-beta.vercel.app/"; }
 function openAlpha() { window.location.href = "https://hcumeal-alpha.vercel.app/"; }
-
 </script>
-    <script src="liquid_glass.js"></script>
 </body>
 </html>

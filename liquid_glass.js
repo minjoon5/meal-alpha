@@ -285,46 +285,44 @@
     }
     function rebuild() {
       ensureDefs();
+      const dpr = window.devicePixelRatio || 1;
       const rect = el.getBoundingClientRect();
       
-      // [개선] 기기의 픽셀 밀도(DPR)를 가져옵니다. (기본값 1)
-      const dpr = window.devicePixelRatio || 1;
-      
-      // [개선] 실제 렌더링될 물리적 픽셀 크기로 계산하여 해상도를 높입니다.
+      // 물리 픽셀 크기 계산
       const w = Math.round((el.offsetWidth || rect.width) * dpr);
       const h = Math.round((el.offsetHeight || rect.height) * dpr);
       
-      // 화면 표시용 크기 (CSS 픽셀)
-      const cssW = el.offsetWidth || rect.width;
-      const cssH = el.offsetHeight || rect.height;
-    
       if (w < 4 || h < 4) return;
-    
+  
       const dataR = parseFloat(el.getAttribute('data-radius') || '0');
       const cssR = parseFloat(getComputedStyle(el).borderTopLeftRadius || '0');
-      
-      // [개선] 반지름 값도 DPR에 맞춰 스케일링
-      const r = Math.max(2, Math.min((dataR || cssR || 24), cssW / 2, cssH / 2)) * dpr;
-      const displayR = r / dpr; // 실제 CSS에 적용할 반지름
-    
+      const r = Math.max(2, Math.min(dataR || cssR || 24, (el.offsetWidth || rect.width) / 2)) * dpr;
+  
       if (filterNode) filterNode.remove();
       
       const cfg = cfgGetter();
       const id = 'demo-lg-' + Math.random().toString(36).slice(2, 10);
-    
-      // [개선] buildFilter 호출 시 물리 픽셀 크기(w, h, r)를 전달하여 필터 정밀도 향상
-      filterNode = buildFilter(id, w, h, r, cfg);
+  
+      // [핵심] 해상도 개선을 위해 cfg를 복사하여 수치를 DPR에 맞게 확장
+      const scaledCfg = {
+          ...cfg,
+          glassThickness: cfg.glassThickness * dpr,
+          bezelWidth: cfg.bezelWidth * dpr,
+          innerShadowBlur: cfg.innerShadowBlur * dpr
+      };
+  
+      // 정밀도 향상을 위해 샘플 수를 늘린 buildFilter 호출 (필요시 buildFilter 내부 calcRefractionProfile의 128을 256으로 변경)
+      filterNode = buildFilter(id, w, h, r, scaledCfg);
       defs.appendChild(filterNode);
-    
-      // 레이어 스타일 적용 (표시는 CSS 픽셀 기준으로 해야 하므로 displayR 사용)
-      refr.style.borderRadius = displayR + 'px';
+  
+      // 실제 화면 표시 크기는 CSS 픽셀 기준 유지
+      refr.style.borderRadius = (r / dpr) + 'px';
       refr.style.backdropFilter = `url(#${id})`;
       refr.style.webkitBackdropFilter = `url(#${id})`;
+      tint.style.borderRadius = (r / dpr) + 'px';
       
-      tint.style.borderRadius = displayR + 'px';
       tint.style.backgroundColor = `rgba(${cfg.tintColor},${cfg.tintOpacity})`;
       tint.style.boxShadow = `inset 0 0 ${cfg.innerShadowBlur}px ${cfg.innerShadowSpread}px ${cfg.innerShadow}`;
-      
       elevate();
     }
     function schedule() {

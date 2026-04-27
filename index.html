@@ -436,22 +436,35 @@
             opacity: 1;
         }
 
-        /* 버튼 텍스트와 급식 내용 텍스트를 유리 위로 올림 */
-        .tab-group button span, 
-        .tab-group button {
-            position: relative;
-            z-index: 2;
+        /* style 태그 마지막 부분에 추가 */
+        
+        /* 1. 텍스트를 유리 위로 올리기 */
+        .tab-group button, 
+        .date-wrapper, 
+        #mealContent,
+        .modal-content {
+            position: relative; /* z-index 활성화를 위해 필요 */
         }
         
-        #mealContent {
+        .tab-group button span,
+        .date-label,
+        .date-display,
+        #mealContent > div,
+        .loading-text,
+        #modal-content * {
             position: relative;
-            z-index: 1;
+            z-index: 5; /* 리퀴드 글래스(보통 z-index: 0~1)보다 높게 설정 */
+            color: var(--text); /* 글자색 명확히 */
         }
         
-        /* "불러오는 중..." 혹은 "정보 없음" 메시지 상위 노출 */
-        #mealContent > div {
-            position: relative;
-            z-index: 2;
+        /* 2. 불러오는 중/정보 없음 텍스트 선명하게 */
+        #mealContent.empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+            z-index: 5;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -577,7 +590,17 @@ async function fetchMeal(ymd) {
         }
         setStatus("불러오기 완료 ✓");
         showMeal(1);
-    } catch(e) { setStatus(`오류: ${e.message}`); }
+
+        // [추가] UI가 다 그려진 후 리퀴드 글래스 크기를 재조정합니다.
+        // 약간의 지연(setTimeout)을 주어야 텍스트가 렌더링된 후 정확한 크기를 잡습니다.
+        setTimeout(() => {
+            if (window.rebuildAll) rebuildAll();
+        }, 50);
+        
+    } catch(e) { 
+        setStatus(`오류: ${e.message}`);
+        if (window.rebuildAll) rebuildAll();
+    }
 }
 
 function showMeal(i) {

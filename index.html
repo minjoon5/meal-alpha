@@ -4,7 +4,8 @@ Alpha 테스트 버전입니다.<br>
 
 [중요]<br>
 해당 버전은 API Key를 불러올 수 없습니다.<br>
-html 테스트 전용입니다.<br><br>
+html 테스트 전용입니다.<br>
+Chrome Dino 로직 ~ Beta Open 함수 넣어야 함<br><br>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -19,16 +20,15 @@ html 테스트 전용입니다.<br><br>
     <meta name="apple-mobile-web-app-title" content="HCU 급식">
     <link rel="apple-touch-icon" href="hcu_logo_2.jpg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    
+    <link rel="stylesheet" href="liquid_glass.css">
+    
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-        /* ── Liquid Glass CSS 변수 ── */
         :root {
-            --c-glass: rgba(255,255,255,0);
             --c-light: #f7f8ff;
             --c-dark: #000;
-            --glass-reflex-dark: 0.5;
-            --glass-reflex-light: 0.35;
             --saturation: 180%;
         }
 
@@ -39,6 +39,7 @@ html 테스트 전용입니다.<br><br>
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            /* 리퀴드 글래스 효과를 위해 배경 그라데이션 유지 */
             background: linear-gradient(135deg, #b4c5e6 0%, #bbb0d9 25%, #c2b8d9 50%, #bec3e5 75%, #b7bfd9 100%);
             overflow-x: hidden;
             overflow-y: auto;
@@ -46,56 +47,38 @@ html 테스트 전용입니다.<br><br>
             padding: 24px 0;
         }
 
+        /* 배경 장식 원 - 리퀴드 글래스 굴절이 더 잘 보이도록 투명도 조정 */
         body::before {
             content: '';
             position: fixed;
             width: 500px; height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(160,185,240,0.5) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(160,185,240,0.7) 0%, transparent 70%);
             top: -160px; left: -160px;
             pointer-events: none;
+            z-index: 0;
         }
         body::after {
             content: '';
             position: fixed;
             width: 420px; height: 420px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(195,180,240,0.45) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(195,180,240,0.6) 0%, transparent 70%);
             bottom: -120px; right: -120px;
             pointer-events: none;
+            z-index: 0;
         }
 
+        /* 컨테이너 스타일 - 기존 shadow 제거, JS가 효과 입힘 */
         .container {
             position: relative;
-            z-index: 1;
+            z-index: 10;
             border-radius: 30px;
             padding: 2rem;
             width: 380px;
             text-align: center;
-            background-color: rgba(255,255,255,0.05);
-            backdrop-filter: blur(8px) saturate(var(--saturation));
-            -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
-            box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);
+            /* 배경을 투명하게 두어야 리퀴드 글래스 굴절이 보입니다 */
+            background-color: transparent;
         }
 
         h2 {
@@ -112,7 +95,6 @@ html 테스트 전용입니다.<br><br>
             position: relative;
             width: 100%;
             transition: transform 0.12s ease;
-            transform-origin: center;
             margin-bottom: 1.2rem;
         }
 
@@ -126,57 +108,7 @@ html 테스트 전용입니다.<br><br>
             color: #1f2967;
             cursor: pointer;
             outline: none;
-            appearance: none;
-            -webkit-appearance: none;
-            background-color: color-mix(in srgb, var(--c-glass) 0%, transparent);
-            backdrop-filter: blur(8px) saturate(var(--saturation));
-            -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
-            box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);
-        }
-        #datePicker::-webkit-calendar-picker-indicator {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            color: transparent;
-            cursor: pointer;
-        }
-        .date-wrapper::after {
-            content: '';
-            position: absolute;
-            right: 20px;
-            top: 45%;
-            width: 7px;
-            height: 7px;
-            border-right: 1.4px solid rgba(31,41,103,1);
-            border-bottom: 1.4px solid rgba(31,41,103,1);
-            transform: translateY(-50%) rotate(45deg);
-            pointer-events: none;
-            transition: transform 0.12s ease;
-        }
-        .date-wrapper.pressed {
-            transform: scale(0.96);
+            background-color: rgba(255, 255, 255, 0.2); /* 약간의 배경 */
         }
 
         .tab-group {
@@ -184,7 +116,6 @@ html 테스트 전용입니다.<br><br>
             justify-content: center;
             gap: 8px;
             margin-bottom: 1.2rem;
-            position: relative;
         }
         .tab-group button {
             padding: 10px 20px;
@@ -193,43 +124,14 @@ html 테스트 전용입니다.<br><br>
             color: rgba(31,41,103,0.85);
             font-size: 0.9rem;
             cursor: pointer;
-            transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+            transition: transform 0.12s ease;
             font-family: 'Pretendard', sans-serif;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-            background-color: color-mix(in srgb, var(--c-glass) 0%, transparent);
-            backdrop-filter: blur(8px) saturate(var(--saturation));
-            -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
-            box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);
+            background-color: rgba(255, 255, 255, 0.2);
         }
         .tab-group button.active {
-            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(40,120,250,0.85));
+            background-color: rgba(40,120,250,0.8);
             color: white;
             font-weight: bold;
-        }
-        .tab-group button.pressed {
-            transform: scale(0.93);
         }
 
         #mealContent {
@@ -240,225 +142,31 @@ html 테스트 전용입니다.<br><br>
             line-height: 2;
             color: rgba(31,41,103,0.92);
             text-align: left;
-            position: relative;
-            background-color: color-mix(in srgb, var(--c-glass) 0%, transparent);
-            backdrop-filter: blur(8px) saturate(var(--saturation));
-            -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
-            box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);
-        }
-        #mealContent.empty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(31,41,103,0.7);
-            font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.15);
         }
 
-        #status {
-            margin-top: 0.8rem;
-            font-size: 0.78rem;
-            color: rgba(31,41,103,0.7);
-            position: relative;
-        }
+        #status { margin-top: 0.8rem; font-size: 0.78rem; color: rgba(31,41,103,0.7); }
+        #copyright { margin-top: 1rem; font-size: 0.75rem; color: rgba(31,41,103,0.7); text-align: center; }
 
-        #copyright {
-            position: relative;
-            z-index: 1;
-            margin-top: 1rem;
-            font-size: 0.75rem;
-            color: rgba(31,41,103,0.7);
-            text-align: center;
-            line-height: 1.5;
-        }
-        #dino-link {
-            display: inline-block;
-            margin-top: 4px;
-            text-decoration: underline;
-            cursor: pointer;
-            color: rgba(31,41,103,0.7);
-            transition: transform 0.12s ease;
-        }
-        #dino-link.pressed { transform: scale(0.92); }
-        #beta-link {
-            display: inline-block;
-            margin-top: 4px;
-            text-decoration: underline;
-            cursor: pointer;
-            color: rgba(31,41,103,0.7);
-        }
-        #alpha-link {
-            display: inline-block;
-            margin-top: 4px;
-            text-decoration: underline;
-            cursor: pointer;
-            color: rgba(31,41,103,0.7);
-        }
-
-        #dino-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            background: transparent;
-        }
-        @keyframes modalIn {
-            from { transform: scale(0.92); opacity: 0; }
-            to   { transform: scale(1);    opacity: 1; }
-        }
-        @keyframes modalOut {
-            from { transform: scale(1);    opacity: 1; }
-            to   { transform: scale(0.92); opacity: 0; }
-        }
-        .modal-content {
-            border-radius: 30px;
-            overflow: hidden;
-            width: 340px;
-            position: relative;
-            background-color: color-mix(in srgb, var(--c-glass) 12%, transparent);
-            backdrop-filter: blur(8px) saturate(100%);
-            -webkit-backdrop-filter: blur(8px) saturate(100%);
-            box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);
-        }
-        .modal-content.modal-open {
-            animation: modalIn 0.18s cubic-bezier(0.34, 1.4, 0.64, 1) both;
-        }
-        .modal-content.modal-close {
-            animation: modalOut 0.16s ease both;
-        }
-        .modal-header {
-            padding: 15px 15px 5px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: rgba(31,41,103,0.7);
-            line-height: 1;
-            outline: none;
-            transition: transform 0.12s ease;
-        }
-        .close-btn.pressed { transform: scale(0.88); }
-        #dino-canvas {
-            width: 340px;
-            height: 150px;
-            display: block;
-            cursor: pointer;
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
-            position: relative;
-            z-index: 1;
-        }
-
-        #easter-toast {
-            display: none;
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            border-radius: 30px;
-            color: rgba(31,41,103,0.92);
-            padding: 16px 28px;
-            font-size: 0.9rem;
-            font-family: 'Pretendard', sans-serif;
-            z-index: 9999;
-            white-space: nowrap;
-            text-align: center;
-            transform: translateX(-50%) scale(0.92);
-            opacity: 0;
-            transition: transform 0.18s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.18s ease;
-            background-color: color-mix(in srgb, var(--c-glass) 12%, transparent);
-            backdrop-filter: blur(8px) saturate(100%);
-            -webkit-backdrop-filter: blur(8px) saturate(100%);
-            box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 20%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 180%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 160%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 120%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 24%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 40%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 16%), transparent);
-        }
-        #easter-toast.toast-open {
-            transform: translateX(-50%) scale(1);
-            opacity: 1;
-        }
+        /* 모달 및 기타 UI는 기존 스타일 유지 */
+        #dino-modal { display: none; position: fixed; inset: 0; z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { border-radius: 30px; overflow: hidden; width: 340px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); }
+        #easter-toast { display: none; position: fixed; bottom: 40px; left: 50%; border-radius: 30px; padding: 16px 28px; z-index: 9999; transform: translateX(-50%); background: rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
     </style>
 </head>
 <body>
 
-<div class="particles" id="particles"></div>
-
-<div class="container">
+<div class="container lg-demo-target" data-radius="30">
     <h2 id="title">현대청운고 급식</h2>
     <div class="date-wrapper">
         <input type="date" id="datePicker" onchange="onDateChange()">
     </div>
     <div class="tab-group">
-        <button onclick="showMeal(0)">조식</button>
-        <button class="active" onclick="showMeal(1)">중식</button>
-        <button onclick="showMeal(2)">석식</button>
+        <button class="lg-demo-target" data-radius="30" onclick="showMeal(0)">조식</button>
+        <button class="active lg-demo-target" data-radius="30" onclick="showMeal(1)">중식</button>
+        <button class="lg-demo-target" data-radius="30" onclick="showMeal(2)">석식</button>
     </div>
-    <div id="mealContent" class="empty">불러오는 중...</div>
+    <div id="mealContent" class="empty lg-demo-target" data-radius="30">불러오는 중...</div>
     <div id="status">연결 중...</div>
 </div>
 
@@ -469,61 +177,55 @@ html 테스트 전용입니다.<br><br>
             <button class="close-btn" id="close-btn" onclick="closeDino()">&times;</button>
         </div>
         <canvas id="dino-canvas" width="680" height="300"></canvas>
-        <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(31,41,103,0.6);font-weight:500;position:relative;z-index:1;">
+        <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(31,41,103,0.6);font-weight:500;">
             <br>v2.7에서 1000 넘으면 개발자 찾아오세요.<br>
             <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
-            (<strong>화면 녹화</strong> 인증 ㄱㄱ)<br><br>
-            <strong>절때 못 깸 ㅋ</strong><br>
         </div>
     </div>
 </div>
 
 <div id="copyright">
-    Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.7.6 Alpha<br>
-    <span id="dino-link" onclick="openDino()">Chrome Dino</span>
-
-<!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>       -->
-<!--    <br><span id="alpha-link" onclick="openAlpha()">Alpha Test</span>    -->
-
+    Copyright &copy; 2026. 민준.<br>
+    v2.7.8 Alpha<br>
+    <span id="dino-link" onclick="openDino()" style="cursor:pointer; text-decoration:underline;">Chrome Dino</span>
 </div>
 
 <div id="easter-toast">
-    雅 맑을 (아) / 惡 미워할 (오) / 時 때 (시) / 發 다스릴 (발)<br><br>
-    <strong>-> 아.오.시.발.</strong><br><br>
-    "미워하는 마음도 맑게 다스릴 때이다."<br><br>
-    -박성하-
+    <br>v2.7에서 1000 넘으면 개발자 찾아오세요.<br>
+    <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
+    (<strong>화면 녹화</strong> 인증 ㄱㄱ)<br><br>
+    <strong>절때 못 깸 ㅋ</strong><br>
 </div>
 
+<script src="liquid_glass.js"></script>
+
 <script>
+/* 리퀴드 글래스 초기화 및 급식 로직 */
+window.addEventListener('load', () => {
+    // 2. 외부 js 파일의 init 함수 실행
+    if (typeof init === 'function') {
+        init();
+        console.log("Liquid Glass initialized");
+    }
+});
+
+// --- 기존 급식 기능 스크립트 ---
 function addPressAnim(el) {
-    el.addEventListener('pointerdown', () => { el.classList.add('pressed'); }, { passive: true });
-    const release = () => el.classList.remove('pressed');
-    el.addEventListener('pointerup',     release, { passive: true });
-    el.addEventListener('pointercancel', release, { passive: true });
-    el.addEventListener('pointerleave',  release, { passive: true });
+    if(!el) return;
+    el.addEventListener('pointerdown', () => { el.style.transform = 'scale(0.95)'; });
+    el.addEventListener('pointerup', () => { el.style.transform = 'scale(1)'; });
 }
 
 let titleClickCount = 0, titleClickTimer = null;
-let toastHideTimer = null;
-
-function showEasterToast() {
-    const toast = document.getElementById("easter-toast");
-    clearTimeout(toastHideTimer);
-    toast.style.display = "block";
-    requestAnimationFrame(() => { requestAnimationFrame(() => { toast.classList.add('toast-open'); }); });
-    toastHideTimer = setTimeout(hideEasterToast, 4000);
-}
-function hideEasterToast() {
-    const toast = document.getElementById("easter-toast");
-    toast.classList.remove('toast-open');
-    setTimeout(() => { toast.style.display = "none"; }, 180);
-}
-
 document.getElementById("title").addEventListener("click", () => {
     titleClickCount++;
     clearTimeout(titleClickTimer);
-    if (titleClickCount >= 3) { showEasterToast(); titleClickCount = 0; return; }
+    if (titleClickCount >= 3) { 
+        const toast = document.getElementById("easter-toast");
+        toast.style.display = "block";
+        setTimeout(() => { toast.style.display = "none"; }, 3000);
+        titleClickCount = 0; 
+    }
     titleClickTimer = setTimeout(() => { titleClickCount = 0; }, 1500);
 });
 
@@ -534,45 +236,41 @@ function checkEasterEgg(ymd) {
     else if (md === "0401") { t.innerText = "박시은쌤 사랑해요"; t.style.color = "#FFCB30"; }
     else { t.innerText = "현대청운고 급식"; t.style.color = "#1f2967"; }
 }
-
+    
 let meals = [null, null, null];
-
 function getTodayYMD() {
     const n = new Date();
     return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,"0")}-${String(n.getDate()).padStart(2,"0")}`;
 }
 function pickerValueToYMD(v) { return v.replace(/-/g,""); }
 
-function parseDish(raw) {
-    if (!raw) return null;
-    return raw.replace(/<br\/>/gi,"\n")
-              .replace(/\([0-9.×*]+\)/g,"")
-              .split("\n").map(l=>l.trim()).filter(l=>l.length>0).join("\n");
-}
 async function fetchMeal(ymd) {
-    checkEasterEgg(ymd);
     meals = [null, null, null];
-    setStatus("불러오는 중...");
     const mc = document.getElementById("mealContent");
-    mc.classList.add("empty");
     mc.innerText = "불러오는 중...";
     const url = `/api/meal?MLSV_YMD=${ymd}`;
     try {
         const res = await fetch(url), data = await res.json();
-        if (data.RESULT || !data.mealServiceDietInfo) { setStatus("급식 정보가 없습니다."); showMeal(1); return; }
+        if (data.RESULT || !data.mealServiceDietInfo) { 
+            document.getElementById("status").innerText = "급식 정보가 없습니다."; 
+            showMeal(1); return; 
+        }
         for (const row of data.mealServiceDietInfo[1].row) {
             const idx = parseInt(row.MMEAL_SC_CODE) - 1;
-            if (idx >= 0 && idx <= 2) meals[idx] = parseDish(row.DDISH_NM);
+            if (idx >= 0 && idx <= 2) meals[idx] = row.DDISH_NM.replace(/<br\/>/gi, "\n").replace(/\([0-9.×*]+\)/g,"");
         }
-        setStatus("불러오기 완료 ✓");
+        document.getElementById("status").innerText = "불러오기 완료 ✓";
         showMeal(1);
-    } catch(e) { setStatus(`오류: ${e.message}`); }
+        
+        // 데이터가 바뀌면 리퀴드 글래스 필터 재계산 (필요시)
+        if (typeof rebuildAll === 'function') rebuildAll();
+    } catch(e) { document.getElementById("status").innerText = "오류 발생"; }
 }
 
 function showMeal(i) {
-    const mc = document.getElementById("mealContent"), labels = ["조식","중식","석식"];
-    if (meals[i]) { mc.classList.remove("empty"); mc.innerText = meals[i]; }
-    else { mc.classList.add("empty"); mc.innerText = `${labels[i]} 정보 없음`; }
+    const mc = document.getElementById("mealContent");
+    const labels = ["조식","중식","석식"];
+    mc.innerText = meals[i] || `${labels[i]} 정보 없음`;
     document.querySelectorAll(".tab-group button").forEach((b,j) => b.classList.toggle("active", j===i));
 }
 
@@ -581,320 +279,13 @@ function onDateChange() {
     if (v) fetchMeal(pickerValueToYMD(v));
 }
 
-function setStatus(m) { document.getElementById("status").innerText = m; }
-
-const SPRITE_SRC = "data:image/png;base64,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";
-const SP = {
-    IDLE:   { x:848,  y:2,  w:44, h:47 },
-    WALK1:  { x:936,  y:2,  w:44, h:47 },
-    WALK2:  { x:980,  y:2,  w:44, h:47 },
-    DUCK1:  { x:1112, y:19, w:59, h:30 },
-    DUCK2:  { x:1171, y:19, w:59, h:30 },
-    CRASH:  { x:1024, y:2,  w:44, h:47 },
-    CS:     { x:228,  y:2,  w:17, h:35 },
-    CL:     { x:332,  y:2,  w:25, h:50 },
-    CLOUD:  { x:86,   y:2,  w:42, h:13 },
-    GROUND: { x:2,    y:54, w:1200, h:12 },
-    PTERO1: { x:134,  y:2,  w:46, h:40 },
-    PTERO2: { x:180,  y:2,  w:46, h:40 },
-};
-
-const W=340, H=150, SC=0.85, GY=140;
-const DW=Math.round(SP.IDLE.w*SC), DH=Math.round(SP.IDLE.h*SC);
-const DDW=Math.round(SP.DUCK1.w*SC), DDH=Math.round(SP.DUCK1.h*SC);
-const DX=16, FLOOR=GY-DH+4, DFLOOR=GY-DDH+4;
-
-const CFG={
-    ACCELERATION:0.001, BG_CLOUD_SPEED:1.5, SPEED:15, MAX_SPEED:40,
-    GRAVITY:1.8, INITIAL_JUMP_VEL:-17, SPEED_DROP_COEF:3,
-    INVERT_DISTANCE:700, FLASH_DURATION:750,
-};
-
-function rnd(a,b){return a+Math.random()*(b-a);}
-
-const spriteImg=new Image();
-spriteImg.src=SPRITE_SRC;
-let spriteReady=false;
-spriteImg.onload=()=>{spriteReady=true;if(dinoGame)dinoGame._drawStatic();};
-
-class DinoGame{
-    constructor(id){
-        this.cv=document.getElementById(id);
-        this.ctx=this.cv.getContext('2d');
-        this.ctx.scale(2,2);
-        this.dino={x:DX,y:FLOOR,vy:0,jumping:false,ducking:false,crashed:false,speedDrop:false};
-        this.obstacles=[];this.clouds=[];this.groundOff=0;this.score=0;this.hiScore=0;
-        this.tick=0;this.legFrame=0;this.rafId=null;this.started=false;
-        this.running=false;this.gameOver=false;this.speed=CFG.SPEED;
-        this.inverted=false;this.invertTrigger=CFG.INVERT_DISTANCE;
-        this.invertTimer=0;this.invertDuration=700;
-        this.flashTimer=0;this.lastMilestone=0;this.spawnCountdown=100;
-        for(let i=0;i<3;i++) this.clouds.push({x:60+i*120,y:Math.round(rnd(15,45))});
-        this._jump=(e)=>{e.preventDefault();this._onJump();};
-        this._keyDn=(e)=>{
-            if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();this._onJump();}
-            if(e.code==='ArrowDown'){e.preventDefault();this._onDuck(true);}
-        };
-        this._keyUp=(e)=>{if(e.code==='ArrowDown')this._onDuck(false);};
-        this.cv.addEventListener('click',this._jump);
-        this.cv.addEventListener('touchstart',this._jump,{passive:false});
-        document.addEventListener('keydown',this._keyDn);
-        document.addEventListener('keyup',this._keyUp);
-        this._drawStatic();
-    }
-    _onJump(){
-        if(!this.started){this.started=true;this.running=true;this._tick();return;}
-        if(this.gameOver){this._restart();return;}
-        if(!this.dino.jumping&&!this.dino.ducking&&!this.dino.crashed){
-            this.dino.vy=CFG.INITIAL_JUMP_VEL;this.dino.jumping=true;this.dino.speedDrop=false;
-        }
-    }
-    _onDuck(on){
-        if(!this.started||this.gameOver||this.dino.crashed)return;
-        if(on){
-            if(this.dino.jumping){this.dino.speedDrop=true;this.dino.vy=Math.abs(this.dino.vy);}
-            else{this.dino.ducking=true;}
-        }else{this.dino.ducking=false;this.dino.speedDrop=false;}
-    }
-    _restart(){
-        if(this.rafId){cancelAnimationFrame(this.rafId);this.rafId=null;}
-        this.dino.y=FLOOR;this.dino.vy=0;this.dino.jumping=false;
-        this.dino.ducking=false;this.dino.crashed=false;this.dino.speedDrop=false;
-        this.obstacles=[];this.score=0;this.tick=0;this.legFrame=0;
-        this.groundOff=0;this.speed=CFG.SPEED;this.inverted=false;
-        this.invertTimer=0;this.invertTrigger=CFG.INVERT_DISTANCE;
-        this.flashTimer=0;this.lastMilestone=0;this.spawnCountdown=100;
-        this.gameOver=false;this.running=true;this._tick();
-    }
-    stop(){
-        this.running=false;
-        if(this.rafId){cancelAnimationFrame(this.rafId);this.rafId=null;}
-        this.cv.removeEventListener('click',this._jump);
-        this.cv.removeEventListener('touchstart',this._jump);
-        document.removeEventListener('keydown',this._keyDn);
-        document.removeEventListener('keyup',this._keyUp);
-    }
-    _tick(){
-        this.rafId=requestAnimationFrame(()=>{
-            this.rafId=null;if(!this.running)return;
-            this._update();this._draw();this._tick();
-        });
-    }
-    _update(){
-        if(this.gameOver)return;
-        this.tick++;this.score++;
-        this.speed=Math.min(CFG.MAX_SPEED,CFG.SPEED+this.score*CFG.ACCELERATION);
-        if(!this.dino.jumping&&!this.dino.crashed) this.legFrame=Math.floor(this.tick/5)%2;
-        const gravity=this.dino.speedDrop?CFG.GRAVITY*CFG.SPEED_DROP_COEF:CFG.GRAVITY;
-        this.dino.vy+=gravity;
-        const floorY=this.dino.ducking?DFLOOR:FLOOR;
-        this.dino.y=Math.min(floorY,Math.round(this.dino.y+this.dino.vy));
-        if(this.dino.y>=floorY){this.dino.y=floorY;this.dino.vy=0;this.dino.jumping=false;this.dino.speedDrop=false;}
-        this.groundOff=(this.groundOff+this.speed)%SP.GROUND.w;
-        for(const c of this.clouds){
-            c.x-=CFG.BG_CLOUD_SPEED;
-            if(c.x+SP.CLOUD.w*SC<0){c.x=W+20;c.y=Math.round(rnd(15,45));}
-        }
-        this.spawnCountdown--;
-        if(this.spawnCountdown<=0){
-            const isPtero=this.score>600&&Math.random()<0.18;
-            if(isPtero){
-                const ph=Math.round(SP.PTERO1.h*SC);
-                const pteroYOpts=[GY-ph-2,GY-ph-28,GY-ph-58];
-                const py=pteroYOpts[Math.floor(Math.random()*3)];
-                this.obstacles.push({type:'ptero',x:W+10,y:py,w:Math.round(SP.PTERO1.w*SC),h:ph,frame:0,fTick:0});
-            }else{
-                const maxCount=this.speed>=4?3:1;
-                const count=1+Math.floor(Math.random()*maxCount);
-                const tiles=[];
-                for(let i=0;i<count;i++) tiles.push(Math.random()<0.5?SP.CS:SP.CL);
-                let ow=0,oh=0;
-                for(const sp of tiles){ow+=Math.round(sp.w*SC);oh=Math.max(oh,Math.round(sp.h*SC));}
-                this.obstacles.push({type:'cactus',x:W+10,y:GY-oh+4,w:ow,h:oh,tiles});
-            }
-            const minGap=Math.round(120*(this.speed/CFG.SPEED));
-            const maxGap=Math.round(minGap*1.5);
-            this.spawnCountdown=Math.round(rnd(minGap,maxGap)/this.speed*4);
-        }
-        const pad=3;
-        for(const o of this.obstacles){
-            o.x=Math.round(o.x-this.speed);
-            if(o.type==='ptero'){o.fTick++;if(o.fTick%8===0)o.frame=1-o.frame;}
-            const dinoW=this.dino.ducking?DDW:DW,dinoH=this.dino.ducking?DDH:DH;
-            const dL=this.dino.x+pad,dR=this.dino.x+dinoW-pad;
-            const dT=this.dino.y+pad,dB=this.dino.y+dinoH-pad;
-            const oL=o.x+pad,oR=o.x+o.w-pad;
-            const oT=o.y+pad,oB=o.y+o.h-pad;
-            if(dL<oR&&dR>oL&&dT<oB&&dB>oT){
-                this.dino.crashed=true;this.gameOver=true;
-                if(this.score>this.hiScore)this.hiScore=this.score;
-            }
-        }
-        this.obstacles=this.obstacles.filter(o=>o.x+o.w>0);
-        if(this.score>this.invertTrigger){
-            this.inverted=!this.inverted;this.invertTrigger+=CFG.INVERT_DISTANCE;this.invertTimer=this.invertDuration;
-        }
-        if(this.invertTimer>0)this.invertTimer--;
-        else if(this.inverted&&this.invertTimer===0)this.inverted=false;
-        const ms=Math.floor(this.score/5/100)*100;
-        if(ms>0&&ms!==this.lastMilestone){this.lastMilestone=ms;this.flashTimer=Math.round(CFG.FLASH_DURATION/16);}
-        if(this.flashTimer>0)this.flashTimer--;
-    }
-    _spr(sp,dx,dy,scale){
-        if(!spriteReady)return;
-        const s=scale??SC,dw=Math.round(sp.w*s),dh=Math.round(sp.h*s),c=this.ctx;
-        c.save();c.beginPath();c.rect(dx,dy,dw,dh);c.clip();
-        c.drawImage(spriteImg,sp.x,sp.y,sp.w,sp.h,dx,dy,dw,dh);c.restore();
-    }
-    _draw(){
-        const ctx=this.ctx;
-        ctx.clearRect(0,0,W,H);
-        if(this.inverted){ctx.fillStyle='rgba(0,0,0,0.1)';ctx.fillRect(0,0,W,H);}
-        if(!spriteReady){this._drawFallback();return;}
-        for(const c of this.clouds) this._spr(SP.CLOUD,Math.round(c.x),c.y,SC*0.9);
-        const go=Math.round(this.groundOff),gw=SP.GROUND.w,gdh=Math.round(SP.GROUND.h*SC);
-        ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,-go,GY,gw,gdh);
-        ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,-go+gw,GY,gw,gdh);
-        if(!this.dino.crashed){
-            let dsp;
-            if(this.dino.jumping)dsp=SP.IDLE;
-            else if(this.dino.ducking)dsp=(this.legFrame===0?SP.DUCK1:SP.DUCK2);
-            else dsp=(this.legFrame===0?SP.WALK1:SP.WALK2);
-            this._spr(dsp,this.dino.x,this.dino.y);
-        }else{this._spr(SP.CRASH,this.dino.x,this.dino.y);}
-        for(const o of this.obstacles){
-            if(o.type==='ptero'){this._spr(o.frame===0?SP.PTERO1:SP.PTERO2,o.x,o.y);}
-            else{let tx=o.x;for(const sp of o.tiles){const tw=Math.round(sp.w*SC),th=Math.round(sp.h*SC);this._spr(sp,tx,o.y+o.h-th);tx+=tw;}}
-        }
-        const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
-        const flashOn=this.flashTimer>0&&Math.floor(this.flashTimer/4)%2===0;
-        const ink='rgba(31,41,103,0.92)';
-        ctx.font='bold 13px monospace';ctx.textAlign='right';
-        if(!flashOn){
-            ctx.fillStyle='rgba(31,41,103,0.45)';
-            ctx.fillText(`HI ${String(hiScoreNum).padStart(5,'0')}`,W-54,15);
-            ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);
-        }else{ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);}
-        ctx.textAlign='left';
-        if(this.gameOver)this._drawGameOver();
-    }
-    _drawStatic(){
-        const ctx=this.ctx;ctx.clearRect(0,0,W,H);
-        if(spriteReady){
-            const gw=SP.GROUND.w,gdh=Math.round(SP.GROUND.h*SC);
-            ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,0,GY,gw,gdh);
-            this._spr(SP.IDLE,DX,FLOOR);
-        }
-        ctx.fillStyle='rgba(31,41,103,0.6)';
-        ctx.font='12px "Pretendard", sans-serif';
-        ctx.textAlign='center';
-        ctx.fillText('방향키 up을 눌러 시작',W/2,H*0.74);
-        ctx.textAlign='left';
-    }
-    _drawGameOver(){
-        const ctx=this.ctx;
-        const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
-        const px=W/2-115,py=38,pw=230,ph=74,pr=15;
-        ctx.save();
-        ctx.fillStyle='rgba(31,41,103,0.08)';
-        ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
-        const gloss=ctx.createLinearGradient(px,py,px+pw*0.65,py+ph*0.65);
-        gloss.addColorStop(0,'rgba(31,41,103,0.12)');
-        gloss.addColorStop(1,'rgba(31,41,103,0.00)');
-        ctx.fillStyle=gloss;
-        ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
-        const tg=ctx.createLinearGradient(px,0,px+pw,0);
-        tg.addColorStop(0,'rgba(31,41,103,0.00)');tg.addColorStop(0.2,'rgba(31,41,103,0.35)');
-        tg.addColorStop(0.8,'rgba(31,41,103,0.35)');tg.addColorStop(1,'rgba(31,41,103,0.00)');
-        ctx.strokeStyle=tg;ctx.lineWidth=1;
-        ctx.beginPath();ctx.moveTo(px+pr,py+0.5);ctx.lineTo(px+pw-pr,py+0.5);ctx.stroke();
-        const bg=ctx.createLinearGradient(px,0,px+pw,0);
-        bg.addColorStop(0,'rgba(31,41,103,0.00)');bg.addColorStop(0.5,'rgba(255,255,255,0.08)');
-        bg.addColorStop(1,'rgba(31,41,103,0.00)');
-        ctx.strokeStyle=bg;
-        ctx.beginPath();ctx.moveTo(px+pr,py+ph-0.5);ctx.lineTo(px+pw-pr,py+ph-0.5);ctx.stroke();
-        const lg=ctx.createLinearGradient(0,py,0,py+ph);
-        lg.addColorStop(0,'rgba(31,41,103,0.00)');lg.addColorStop(0.4,'rgba(255,255,255,0.12)');
-        lg.addColorStop(1,'rgba(31,41,103,0.00)');
-        ctx.strokeStyle=lg;
-        ctx.beginPath();ctx.moveTo(px+0.5,py+pr);ctx.lineTo(px+0.5,py+ph-pr);ctx.stroke();
-        const rg=ctx.createLinearGradient(0,py,0,py+ph);
-        rg.addColorStop(0,'rgba(31,41,103,0.00)');rg.addColorStop(0.4,'rgba(255,255,255,0.06)');
-        rg.addColorStop(1,'rgba(31,41,103,0.00)');
-        ctx.strokeStyle=rg;
-        ctx.beginPath();ctx.moveTo(px+pw-0.5,py+pr);ctx.lineTo(px+pw-0.5,py+ph-pr);ctx.stroke();
-        ctx.restore();
-        ctx.fillStyle='rgba(31,41,103,0.92)';
-        ctx.font='bold 15px "Pretendard", monospace';ctx.textAlign='center';
-        ctx.fillText('GAME OVER',W/2,60);
-        ctx.font='11px "Pretendard", sans-serif';ctx.fillStyle='rgba(31,41,103,0.62)';
-        ctx.fillText(`점수: ${scoreNum}   최고: ${hiScoreNum}`,W/2,78);
-        ctx.fillText('방향키 up을 눌러 재시작',W/2,96);
-        ctx.textAlign='left';
-    }
-    _drawFallback(){
-        const ctx=this.ctx;
-        ctx.fillStyle='rgba(83,83,83,0.4)';ctx.fillRect(0,GY,W,2);
-        ctx.fillStyle=this.dino.crashed?'#c00':'#535353';
-        const dw=this.dino.ducking?DDW:DW,dh=this.dino.ducking?DDH:DH;
-        ctx.fillRect(this.dino.x,this.dino.y,dw,dh);
-        ctx.fillStyle='#2a7a2a';
-        for(const o of this.obstacles)ctx.fillRect(o.x,o.y,o.w,o.h);
-        if(this.gameOver)this._drawGameOver();
-    }
-    runIntro(onDone){this._drawStatic();onDone&&onDone();}
-}
-
-let dinoGame=null;
-
-function openDino(){
-    document.getElementById('dino-modal').style.display='flex';
-    const content = document.getElementById('modal-content');
-    content.classList.remove('modal-close');
-    content.classList.add('modal-open');
-    if(!dinoGame){
-        dinoGame=new DinoGame('dino-canvas');
-        dinoGame.runIntro();
-    }else{
-        if(dinoGame.rafId){cancelAnimationFrame(dinoGame.rafId);dinoGame.rafId=null;}
-        dinoGame.running=false;dinoGame.started=false;dinoGame.gameOver=false;
-        dinoGame.dino.y=FLOOR;dinoGame.dino.vy=0;dinoGame.dino.jumping=false;
-        dinoGame.dino.ducking=false;dinoGame.dino.crashed=false;
-        dinoGame.obstacles=[];dinoGame.score=0;dinoGame.tick=0;
-        dinoGame.groundOff=0;dinoGame.speed=CFG.SPEED;
-        dinoGame.inverted=false;dinoGame.flashTimer=0;
-        dinoGame.lastMilestone=0;dinoGame.spawnCountdown=100;
-        dinoGame.runIntro();
-    }
-}
-
-function closeDino(){
-    const modal = document.getElementById('dino-modal');
-    const content = document.getElementById('modal-content');
-    content.classList.remove('modal-open');
-    content.classList.add('modal-close');
-    setTimeout(()=>{ modal.style.display='none'; content.classList.remove('modal-close'); }, 160);
-    if(dinoGame){
-        if(dinoGame.rafId){cancelAnimationFrame(dinoGame.rafId);dinoGame.rafId=null;}
-        dinoGame.running=false;
-    }
-}
-
-document.querySelectorAll('.tab-group button').forEach(btn => addPressAnim(btn));
-const dateWrapper = document.querySelector('.date-wrapper');
-if (dateWrapper) addPressAnim(dateWrapper);
-addPressAnim(document.getElementById('dino-link'));
-addPressAnim(document.getElementById('close-btn'));
-
-const today=getTodayYMD();
-document.getElementById("datePicker").value=today;
+// 초기화
+const today = getTodayYMD();
+document.getElementById("datePicker").value = today;
 fetchMeal(pickerValueToYMD(today));
 
-if('serviceWorker' in navigator)
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));
+// 공룡 게임 로직
 
-function openBeta() { window.location.href = "https://hcumeal-beta.vercel.app/"; }
-function openAlpha() { window.location.href = "https://hcumeal-alpha.vercel.app/"; }
 </script>
 </body>
 </html>

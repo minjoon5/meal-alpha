@@ -479,7 +479,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.9 Alpha<br>
+    v2.9.1 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->
@@ -855,36 +855,10 @@ class DinoGame{
     _drawGameOver(){
         const ctx=this.ctx;
         const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
-        const px=W/2-115,py=38,pw=230,ph=74,pr=15;
+        const px=W/2-115,py=38,pw=230,ph=74,pr=30;
         ctx.save();
-        ctx.fillStyle='rgba(255,255,255,0.08)';
+        ctx.fillStyle='rgba(210,215,255,0.1)';
         ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
-        const gloss=ctx.createLinearGradient(px,py,px+pw*0.65,py+ph*0.65);
-        gloss.addColorStop(0,'rgba(255,255,255,0.12)');
-        gloss.addColorStop(1,'rgba(255,255,255,0.00)');
-        ctx.fillStyle=gloss;
-        ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
-        const tg=ctx.createLinearGradient(px,0,px+pw,0);
-        tg.addColorStop(0,'rgba(255,255,255,0.00)');tg.addColorStop(0.2,'rgba(255,255,255,0.35)');
-        tg.addColorStop(0.8,'rgba(255,255,255,0.35)');tg.addColorStop(1,'rgba(255,255,255,0.00)');
-        ctx.strokeStyle=tg;ctx.lineWidth=1;
-        ctx.beginPath();ctx.moveTo(px+pr,py+0.5);ctx.lineTo(px+pw-pr,py+0.5);ctx.stroke();
-        const bg=ctx.createLinearGradient(px,0,px+pw,0);
-        bg.addColorStop(0,'rgba(255,255,255,0.00)');bg.addColorStop(0.5,'rgba(255,255,255,0.08)');
-        bg.addColorStop(1,'rgba(255,255,255,0.00)');
-        ctx.strokeStyle=bg;
-        ctx.beginPath();ctx.moveTo(px+pr,py+ph-0.5);ctx.lineTo(px+pw-pr,py+ph-0.5);ctx.stroke();
-        const lg=ctx.createLinearGradient(0,py,0,py+ph);
-        lg.addColorStop(0,'rgba(255,255,255,0.00)');lg.addColorStop(0.4,'rgba(255,255,255,0.12)');
-        lg.addColorStop(1,'rgba(255,255,255,0.00)');
-        ctx.strokeStyle=lg;
-        ctx.beginPath();ctx.moveTo(px+0.5,py+pr);ctx.lineTo(px+0.5,py+ph-pr);ctx.stroke();
-        const rg=ctx.createLinearGradient(0,py,0,py+ph);
-        rg.addColorStop(0,'rgba(255,255,255,0.00)');rg.addColorStop(0.4,'rgba(255,255,255,0.06)');
-        rg.addColorStop(1,'rgba(255,255,255,0.00)');
-        ctx.strokeStyle=rg;
-        ctx.beginPath();ctx.moveTo(px+pw-0.5,py+pr);ctx.lineTo(px+pw-0.5,py+ph-pr);ctx.stroke();
-        ctx.restore();
         ctx.fillStyle='rgba(255,255,255,0.92)';
         ctx.font='bold 15px "Pretendard", monospace';ctx.textAlign='center';
         ctx.fillText('GAME OVER',W/2,60);

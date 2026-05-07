@@ -470,17 +470,16 @@ html 테스트 전용입니다.<br><br>
         </div>
         <canvas id="dino-canvas" width="680" height="300"></canvas>
         <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(255,255,255,0.6);font-weight:500;position:relative;z-index:1;">
-            <br>v2.8에서 1000 넘으면 개발자 찾아오세요.<br>
-            <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
+            <br>1000 넘는 <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
             (<strong>화면 녹화</strong> 인증 ㄱㄱ)<br><br>
-            <strong>절때 못 깸 ㅋ</strong><br>
+            <strong>"최시형 선배 절대 못깬다에 1표"</strong><br>
         </div>
     </div>
 </div>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.8 Alpha<br>
+    v2.9 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->
@@ -531,7 +530,7 @@ document.getElementById("title").addEventListener("click", () => {
 function checkEasterEgg(ymd) {
     const t = document.getElementById("title");
     const md = ymd.substring(4);
-    if (md === "1205") { t.innerText = "오늘은 이 앱 개발자 생일! 🎉"; t.style.color = "#FFCB30"; }
+    if (md === "1205") { t.innerText = "오늘은 개발자 생일! 🎉"; t.style.color = "#FFCB30"; }
     else if (md === "0401") { t.innerText = "박시은쌤 사랑해요"; t.style.color = "#FFCB30"; }
     else { t.innerText = "현대청운고 급식"; t.style.color = "#ffffff"; }
 }
@@ -594,7 +593,7 @@ const SP = {
     CRASH:  { x:1024, y:2,  w:44, h:47 },
     CS:     { x:228,  y:2,  w:17, h:35 },
     CL:     { x:332,  y:2,  w:25, h:50 },
-    CLOUD:  { x:86,   y:2,  w:42, h:13 },
+    CLOUD:  { x:86,   y:2,  w:47, h:13 },
     GROUND: { x:2,    y:54, w:1200, h:12 },
     PTERO1: { x:134,  y:2,  w:46, h:40 },
     PTERO2: { x:180,  y:2,  w:46, h:40 },
@@ -747,50 +746,111 @@ class DinoGame{
         c.save();c.beginPath();c.rect(dx,dy,dw,dh);c.clip();
         c.drawImage(spriteImg,sp.x,sp.y,sp.w,sp.h,dx,dy,dw,dh);c.restore();
     }
-    _draw(){
-        const ctx=this.ctx;
-        ctx.clearRect(0,0,W,H);
-        if(this.inverted){ctx.fillStyle='rgba(0,0,0,0.1)';ctx.fillRect(0,0,W,H);}
-        if(!spriteReady){this._drawFallback();return;}
-        for(const c of this.clouds) this._spr(SP.CLOUD,Math.round(c.x),c.y,SC*0.9);
-        const go=Math.round(this.groundOff),gw=SP.GROUND.w,gdh=Math.round(SP.GROUND.h*SC);
-        ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,-go,GY,gw,gdh);
-        ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,-go+gw,GY,gw,gdh);
-        if(!this.dino.crashed){
+    _draw() {
+        const ctx = this.ctx;
+        ctx.clearRect(0, 0, W, H);
+    
+        // 1. 배경 효과
+        if (this.inverted) {
+            ctx.fillStyle = 'rgba(0,0,0,0.1)';
+            ctx.fillRect(0, 0, W, H);
+        }
+    
+        if (!spriteReady) {
+            this._drawFallback();
+            return;
+        }
+    
+        // 2. 구름 (배경)
+        for (const c of this.clouds) {
+            this._spr(SP.CLOUD, Math.round(c.x), c.y, SC * 0.9);
+        }
+    
+        // 3. 바닥 (가장 아래 레이어)
+        const go = Math.round(this.groundOff);
+        const gw = SP.GROUND.w;
+        const gdh = Math.round(SP.GROUND.h * SC);
+        ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, -go, GY, gw, gdh);
+        ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, -go + gw, GY, gw, gdh);
+    
+        // 4. 장애물 (바닥보다 위, 공룡보다 아래)
+        for (const o of this.obstacles) {
+            // 선인장/익룡을 땅 선보다 7픽셀 아래로 내려서 겹치게 함
+            const overlap = 7; 
+            
+            if (o.type === 'ptero') {
+                this._spr(o.frame === 0 ? SP.PTERO1 : SP.PTERO2, o.x, o.y + overlap);
+            } else {
+                let tx = o.x;
+                for (const sp of o.tiles) {
+                    const tw = Math.round(sp.w * SC);
+                    const th = Math.round(sp.h * SC);
+                    // 선인장 바닥이 땅과 겹치도록 계산된 위치에 overlap 추가
+                    this._spr(sp, tx, (o.y + o.h - th) + overlap);
+                    tx += tw;
+                }
+            }
+        }
+    
+        // 5. 공룡(Dino) 그리기
+        if (!this.dino.crashed) {
             let dsp;
-            if(this.dino.jumping)dsp=SP.IDLE;
-            else if(this.dino.ducking)dsp=(this.legFrame===0?SP.DUCK1:SP.DUCK2);
-            else dsp=(this.legFrame===0?SP.WALK1:SP.WALK2);
-            this._spr(dsp,this.dino.x,this.dino.y);
-        }else{this._spr(SP.CRASH,this.dino.x,this.dino.y);}
-        for(const o of this.obstacles){
-            if(o.type==='ptero'){this._spr(o.frame===0?SP.PTERO1:SP.PTERO2,o.x,o.y);}
-            else{let tx=o.x;for(const sp of o.tiles){const tw=Math.round(sp.w*SC),th=Math.round(sp.h*SC);this._spr(sp,tx,o.y+o.h-th);tx+=tw;}}
+            // 시작 화면이나 대기 중일 때는 보통 IDLE 상태의 스프라이트가 사용됩니다.
+            if (this.dino.jumping) {
+                dsp = SP.IDLE;
+            } else if (this.dino.ducking) {
+                dsp = (this.legFrame === 0 ? SP.DUCK1 : SP.DUCK2);
+            } else {
+                // 게임 시작 전 대기 상태라면 이 부분 혹은 IDLE이 그려집니다.
+                dsp = (this.legFrame === 0 ? SP.WALK1 : SP.WALK2);
+            }
+            
+            // 시작 화면을 포함하여 모든 상태에서 공룡을 7만큼 내림
+            this._spr(dsp, this.dino.x, this.dino.y + 7); 
+        } else {
+            // 충돌 시에도 동일하게 적용
+            this._spr(SP.CRASH, this.dino.x, this.dino.y + 7);
         }
-        const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
-        const flashOn=this.flashTimer>0&&Math.floor(this.flashTimer/4)%2===0;
-        const ink='rgba(255,255,255,0.92)';
-        ctx.font='bold 13px monospace';ctx.textAlign='right';
-        if(!flashOn){
-            ctx.fillStyle='rgba(255,255,255,0.45)';
-            ctx.fillText(`HI ${String(hiScoreNum).padStart(5,'0')}`,W-54,15);
-            ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);
-        }else{ctx.fillStyle=ink;ctx.fillText(String(scoreNum).padStart(5,'0'),W-8,15);}
-        ctx.textAlign='left';
-        if(this.gameOver)this._drawGameOver();
+    
+        // 6. 점수 UI
+        const scoreNum = Math.floor(this.score / 5);
+        const hiScoreNum = Math.floor(this.hiScore / 5);
+        const flashOn = this.flashTimer > 0 && Math.floor(this.flashTimer / 4) % 2 === 0;
+        const ink = 'rgba(255,255,255,0.92)';
+    
+        ctx.font = 'bold 13px monospace';
+        ctx.textAlign = 'right';
+    
+        if (!flashOn) {
+            ctx.fillStyle = 'rgba(255,255,255,0.45)';
+            ctx.fillText(`HI ${String(hiScoreNum).padStart(5, '0')}`, W - 54, 15);
+            ctx.fillStyle = ink;
+            ctx.fillText(String(scoreNum).padStart(5, '0'), W - 8, 15);
+        } else {
+            ctx.fillStyle = ink;
+            ctx.fillText(String(scoreNum).padStart(5, '0'), W - 8, 15);
+        }
+    
+        ctx.textAlign = 'left';
+        if (this.gameOver) {
+            this._drawGameOver();
+        }
     }
-    _drawStatic(){
-        const ctx=this.ctx;ctx.clearRect(0,0,W,H);
-        if(spriteReady){
-            const gw=SP.GROUND.w,gdh=Math.round(SP.GROUND.h*SC);
-            ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,0,GY,gw,gdh);
-            this._spr(SP.IDLE,DX,FLOOR);
+    _drawStatic() {
+        const ctx = this.ctx;
+        ctx.clearRect(0, 0, W, H);
+        if (spriteReady) {
+            const gw = SP.GROUND.w, gdh = Math.round(SP.GROUND.h * SC);
+            // 바닥 그리기
+            ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, 0, GY, gw, gdh);
+            
+            this._spr(SP.IDLE, DX, FLOOR + 7); // 여기에 +7 적용
         }
-        ctx.fillStyle='rgba(255,255,255,0.6)';
-        ctx.font='12px "Pretendard", sans-serif';
-        ctx.textAlign='center';
-        ctx.fillText('방향키 up을 눌러 시작',W/2,H*0.74);
-        ctx.textAlign='left';
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.font = '12px "Pretendard", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('방향키 up을 눌러 시작', W / 2, H * 0.74);
+        ctx.textAlign = 'left';
     }
     _drawGameOver(){
         const ctx=this.ctx;
@@ -833,16 +893,25 @@ class DinoGame{
         ctx.fillText('방향키 up을 눌러 재시작',W/2,96);
         ctx.textAlign='left';
     }
-    _drawFallback(){
-        const ctx=this.ctx;
-        ctx.fillStyle='rgba(83,83,83,0.4)';ctx.fillRect(0,GY,W,2);
-        ctx.fillStyle=this.dino.crashed?'#c00':'#535353';
-        const dw=this.dino.ducking?DDW:DW,dh=this.dino.ducking?DDH:DH;
-        ctx.fillRect(this.dino.x,this.dino.y,dw,dh);
-        ctx.fillStyle='#2a7a2a';
-        for(const o of this.obstacles)ctx.fillRect(o.x,o.y,o.w,o.h);
-        if(this.gameOver)this._drawGameOver();
+    _drawFallback() {
+        const ctx = this.ctx;
+        
+        // 1. 땅을 먼저 그림
+        ctx.fillStyle = 'rgba(83,83,83,0.4)';
+        ctx.fillRect(0, GY, W, 2); 
+    
+        // 2. 장애물을 그 다음 그림
+        ctx.fillStyle = '#2a7a2a';
+        for (const o of this.obstacles) ctx.fillRect(o.x, o.y, o.w, o.h);
+    
+        // 3. 공룡을 가장 마지막에 그림 (땅보다 위)
+        ctx.fillStyle = this.dino.crashed ? '#c00' : '#535353';
+        const dw = this.dino.ducking ? DDW : DW, dh = this.dino.ducking ? DDH : DH;
+        ctx.fillRect(this.dino.x, this.dino.y + 5, dw, dh); // 여기서도 5 보정
+    
+        if (this.gameOver) this._drawGameOver();
     }
+
     runIntro(onDone){this._drawStatic();onDone&&onDone();}
 }
 

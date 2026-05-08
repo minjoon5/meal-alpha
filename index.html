@@ -479,7 +479,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.9.3 Alpha<br>
+    v2.9.4 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->
@@ -751,7 +751,7 @@ class DinoGame{
         ctx.clearRect(0, 0, W, H);
         
         if (this.inverted) {
-            ctx.filter = 'invert(100%)'; // 캔버스 전체 색상을 반전시킴
+            ctx.filter = 'invert(100%)';
         } else {
             ctx.filter = 'none';
         }
@@ -835,7 +835,7 @@ class DinoGame{
             this._spr(SP.IDLE, DX, FLOOR + 7);
         }
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.font = '12px "Pretendard", sans-serif';
+        ctx.font = '12px "Google Sans", "Pretendard", sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText('방향키 up을 눌러 시작', W / 2, H * 0.74);
         ctx.textAlign = 'left';
@@ -850,10 +850,10 @@ class DinoGame{
         ctx.roundRect(px,py,pw,ph,pr);
         ctx.fill();
         ctx.fillStyle='rgba(255,255,255,0.92)';
-        ctx.font='bold 15px "Pretendard", monospace';
+        ctx.font = 'bold 15px "Google Sans", "Pretendard", monospace';
         ctx.textAlign='center';
         ctx.fillText('GAME OVER',W/2,60);
-        ctx.font='11px "Pretendard", sans-serif';
+        ctx.font = '11px "Google Sans", "Pretendard", sans-serif';
         ctx.fillStyle='rgba(255,255,255,0.62)';
         ctx.fillText(`점수: ${scoreNum}   최고: ${hiScoreNum}`,W/2,78);
         ctx.fillText('방향키 up을 눌러 재시작',W/2,96);

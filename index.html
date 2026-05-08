@@ -22,7 +22,6 @@ html 테스트 전용입니다.<br><br>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-        /* ── Liquid Glass CSS 변수 ── */
         :root {
             --c-glass: rgba(75,75,75,0.1);
             --c-light: #fff;
@@ -479,7 +478,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v2.9.1 Alpha<br>
+    v2.9.2 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->
@@ -749,8 +748,7 @@ class DinoGame{
     _draw() {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, W, H);
-    
-        // 1. 배경 효과
+        
         if (this.inverted) {
             ctx.fillStyle = 'rgba(0,0,0,0.1)';
             ctx.fillRect(0, 0, W, H);
@@ -761,21 +759,17 @@ class DinoGame{
             return;
         }
     
-        // 2. 구름 (배경)
         for (const c of this.clouds) {
             this._spr(SP.CLOUD, Math.round(c.x), c.y, SC * 0.9);
         }
     
-        // 3. 바닥 (가장 아래 레이어)
         const go = Math.round(this.groundOff);
         const gw = SP.GROUND.w;
         const gdh = Math.round(SP.GROUND.h * SC);
         ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, -go, GY, gw, gdh);
         ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, -go + gw, GY, gw, gdh);
     
-        // 4. 장애물 (바닥보다 위, 공룡보다 아래)
         for (const o of this.obstacles) {
-            // 선인장/익룡을 땅 선보다 7픽셀 아래로 내려서 겹치게 함
             const overlap = 7; 
             
             if (o.type === 'ptero') {
@@ -785,40 +779,33 @@ class DinoGame{
                 for (const sp of o.tiles) {
                     const tw = Math.round(sp.w * SC);
                     const th = Math.round(sp.h * SC);
-                    // 선인장 바닥이 땅과 겹치도록 계산된 위치에 overlap 추가
                     this._spr(sp, tx, (o.y + o.h - th) + overlap);
                     tx += tw;
                 }
             }
         }
     
-        // 5. 공룡(Dino) 그리기
         if (!this.dino.crashed) {
             let dsp;
-            // 시작 화면이나 대기 중일 때는 보통 IDLE 상태의 스프라이트가 사용됩니다.
             if (this.dino.jumping) {
                 dsp = SP.IDLE;
             } else if (this.dino.ducking) {
                 dsp = (this.legFrame === 0 ? SP.DUCK1 : SP.DUCK2);
             } else {
-                // 게임 시작 전 대기 상태라면 이 부분 혹은 IDLE이 그려집니다.
                 dsp = (this.legFrame === 0 ? SP.WALK1 : SP.WALK2);
             }
             
-            // 시작 화면을 포함하여 모든 상태에서 공룡을 7만큼 내림
             this._spr(dsp, this.dino.x, this.dino.y + 7); 
         } else {
-            // 충돌 시에도 동일하게 적용
             this._spr(SP.CRASH, this.dino.x, this.dino.y + 7);
         }
     
-        // 6. 점수 UI
         const scoreNum = Math.floor(this.score / 5);
         const hiScoreNum = Math.floor(this.hiScore / 5);
         const flashOn = this.flashTimer > 0 && Math.floor(this.flashTimer / 4) % 2 === 0;
         const ink = 'rgba(255,255,255,0.92)';
     
-        ctx.font = 'bold 13px monospace';
+        ctx.font = 'bold 13px "Pretendard", sans-serif';
         ctx.textAlign = 'right';
     
         if (!flashOn) {
@@ -841,10 +828,9 @@ class DinoGame{
         ctx.clearRect(0, 0, W, H);
         if (spriteReady) {
             const gw = SP.GROUND.w, gdh = Math.round(SP.GROUND.h * SC);
-            // 바닥 그리기
             ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, 0, GY, gw, gdh);
             
-            this._spr(SP.IDLE, DX, FLOOR + 7); // 여기에 +7 적용
+            this._spr(SP.IDLE, DX, FLOOR + 7);
         }
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
         ctx.font = '12px "Pretendard", sans-serif';
@@ -858,11 +844,15 @@ class DinoGame{
         const px=W/2-115,py=38,pw=230,ph=74,pr=30;
         ctx.save();
         ctx.fillStyle='rgba(210,215,255,0.1)';
-        ctx.beginPath();ctx.roundRect(px,py,pw,ph,pr);ctx.fill();
+        ctx.beginPath();
+        ctx.roundRect(px,py,pw,ph,pr);
+        ctx.fill();
         ctx.fillStyle='rgba(255,255,255,0.92)';
-        ctx.font='bold 15px "Pretendard", monospace';ctx.textAlign='center';
+        ctx.font='bold 15px "Pretendard", monospace';
+        ctx.textAlign='center';
         ctx.fillText('GAME OVER',W/2,60);
-        ctx.font='11px "Pretendard", sans-serif';ctx.fillStyle='rgba(255,255,255,0.62)';
+        ctx.font='11px "Pretendard", sans-serif';
+        ctx.fillStyle='rgba(255,255,255,0.62)';
         ctx.fillText(`점수: ${scoreNum}   최고: ${hiScoreNum}`,W/2,78);
         ctx.fillText('방향키 up을 눌러 재시작',W/2,96);
         ctx.textAlign='left';
@@ -870,18 +860,15 @@ class DinoGame{
     _drawFallback() {
         const ctx = this.ctx;
         
-        // 1. 땅을 먼저 그림
         ctx.fillStyle = 'rgba(83,83,83,0.4)';
         ctx.fillRect(0, GY, W, 2); 
     
-        // 2. 장애물을 그 다음 그림
         ctx.fillStyle = '#2a7a2a';
         for (const o of this.obstacles) ctx.fillRect(o.x, o.y, o.w, o.h);
     
-        // 3. 공룡을 가장 마지막에 그림 (땅보다 위)
         ctx.fillStyle = this.dino.crashed ? '#c00' : '#535353';
         const dw = this.dino.ducking ? DDW : DW, dh = this.dino.ducking ? DDH : DH;
-        ctx.fillRect(this.dino.x, this.dino.y + 5, dw, dh); // 여기서도 5 보정
+        ctx.fillRect(this.dino.x, this.dino.y + 5, dw, dh);
     
         if (this.gameOver) this._drawGameOver();
     }

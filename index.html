@@ -455,16 +455,47 @@ html 테스트 전용입니다.<br><br>
             font-weight: bold;
         }
         .tab-group button.pressed {
+            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
             transform: scale(1.1) !important;
-            filter: brightness(1.2) !important;
+            filter: brightness(1.7) !important;
+        }
+        .date-wrapper {
+            position: relative;
+            width: 100%;
+            transition: transform 0.12s ease;
+            transform-origin: center;
+            margin-bottom: 1.2rem;
+            border-radius: 30px; 
+            overflow: hidden;
         }
         .date-wrapper.pressed {
-            transform: scale(1.05) !important;
-            filter: brightness(1.2) !important;
+            background-color: color-mix(in srgb, var(--c-glass) 15%, rgba(210,215,255,0.32)) !important;
+            transform: scale(1.05) !important; 
+            filter: brightness(1.35) !important;
+        }
+        #datePicker, #datePicker::-webkit-calendar-picker-indicator {
+            transform: none !important;
+            filter: none !important;
         }
         #dino-link.pressed, .close-btn.pressed {
             transform: scale(1.0) !important;
             filter: brightness(1.0) !important;
+        }
+        
+        * {
+            cursor: default !important;
+        }
+        button, input, select, label, a {
+            cursor: default !important;
+        }
+        #datePicker {
+            cursor: default !important;
+        }
+        #datePicker::-webkit-calendar-picker-indicator {
+            cursor: default !important;
+        }
+        .date-wrapper {
+            cursor: default !important;
         }
     </style>
 </head>
@@ -503,7 +534,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.4 Alpha<br>
+    v3.0.5 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->

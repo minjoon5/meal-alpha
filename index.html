@@ -442,6 +442,23 @@ html 테스트 전용입니다.<br><br>
             transform: translateX(-50%) scale(1);
             opacity: 1;
         }
+
+        .tab-group button, .date-wrapper, #dino-link, .close-btn {
+            transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), 
+                filter 0.2s ease !important;
+        }
+        .tab-group button.pressed {
+            transform: scale(1.1) !important;
+            filter: brightness(1.2) !important;
+        }
+        .date-wrapper.pressed {
+            transform: scale(1.04) !important;
+            filter: brightness(1.2) !important;
+        }
+        #dino-link.pressed, .close-btn.pressed {
+            transform: scale(1.0) !important;
+            filter: brightness(1.0) !important;
+        }
     </style>
 </head>
 <body>
@@ -479,7 +496,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.2 Alpha<br>
+    v3.0.3 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->

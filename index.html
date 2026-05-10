@@ -455,7 +455,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.19 Alpha<br>
+    v3.0.20 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 </div>
 
@@ -607,18 +607,28 @@ class DinoGame {
         this.inverted=false; this.invertTrigger=CFG.INVERT_DISTANCE;
         this.invertTimer=0; this.invertDuration=700;
         this.flashTimer=0; this.lastMilestone=0; this.spawnCountdown=100;
+        
         this._isDucking=false;
         this._touchCount=0;
+        this._restartHandled=false;
         for(let i=0;i<3;i++) this.clouds.push({x:60+i*120, y:Math.round(rnd(15,45))});
         this._keyDn = (e) => {
             if(e.code==='Space'||e.code==='ArrowUp'){ e.preventDefault(); this._onJump(); }
-            if(e.code==='ArrowDown'){ e.preventDefault(); this._onDuck(true); }
+            if(e.code==='ArrowDown'){ e.preventDefault(); this._isDucking=true; this._onDuck(true); }
         };
-        this._keyUp = (e) => { if(e.code==='ArrowDown') this._onDuck(false); };
+        this._keyUp = (e) => {
+            if(e.code==='ArrowDown'){ this._isDucking=false; this._onDuck(false); }
+        };
+        modal.addEventListener('click', (e) => {
+            if(e.target.id==='close-btn') return;
+            if(this.gameOver){ this.start(); return; }
+            if(!this._isDucking) this._onJump();
+        });
         modal.addEventListener('touchstart', (e) => {
             if(e.target.id==='close-btn') return;
             e.preventDefault();
             this._touchCount = e.touches.length;
+            if(this.gameOver){ this.start(); return; }
             if(e.touches.length===1 && !this._isDucking) this._onJump();
         }, { passive:false });
         modal.addEventListener('touchmove', (e) => {
@@ -647,10 +657,11 @@ class DinoGame {
     _onDuck(on) {
         if(this.gameOver||this.dino.crashed) return;
         if(!this.started){
-            if(on){ this.started=true; this.running=true; this._tick(); }
+            this.started=true; this.running=true; this._tick();
+            if(on){ this.dino.ducking=true; this._isDucking=true; }
             return;
         }
-        this._isDucking = on;
+        this._isDucking=on;
         if(on){
             if(this.dino.jumping){ this.dino.speedDrop=true; this.dino.vy=Math.abs(this.dino.vy); }
             else{ this.dino.ducking=true; }
@@ -660,8 +671,10 @@ class DinoGame {
     }
 
     start() {
+        this._restartHandled=false;
         this._touchCount=0;
         this._isDucking=false;
+        this.started=true;
         if(this.rafId){ cancelAnimationFrame(this.rafId); this.rafId=null; }
         this.dino.y=FLOOR; this.dino.vy=0; this.dino.jumping=false;
         this.dino.ducking=false; this.dino.crashed=false; this.dino.speedDrop=false;
@@ -687,16 +700,15 @@ class DinoGame {
     }
 
     _update() {
-        if(this.gameOver){
-            if(this._touchCount>0) this._onJump();
-            return;
-        }
-        if(this._touchCount>=2){
-            this._isDucking=true;
-            this._onDuck(true);
-        } else if(this._touchCount===0){
-            this._isDucking=false;
-            this._onDuck(false);
+        if(this._touchActive){
+            if(this._touchCount>=2){
+                this._isDucking=true;
+                this._onDuck(true);
+            } else if(this._touchCount===0){
+                this._isDucking=false;
+                this._onDuck(false);
+                this._touchActive=false;
+            }
         }
         if(this.gameOver) return;
         this.tick++; this.score++;
@@ -743,7 +755,7 @@ class DinoGame {
             const oL=o.x+pad, oR=o.x+o.w-pad;
             const oT=o.y+pad, oB=o.y+o.h-pad;
             if(dL<oR&&dR>oL&&dT<oB&&dB>oT){
-                this.dino.crashed=true; this.gameOver=true;
+     //           this.dino.crashed=true; this.gameOver=true;
                 if(this.score>this.hiScore) this.hiScore=this.score;
             }
         }

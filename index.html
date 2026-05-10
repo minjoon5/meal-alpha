@@ -550,7 +550,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.8 Alpha<br>
+    v3.0.9 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->
@@ -690,6 +690,7 @@ spriteImg.onload=()=>{spriteReady=true;if(dinoGame)dinoGame._drawStatic();};
 
 class DinoGame{
     constructor(id){
+        const modal = document.getElementById('dino-modal');
         this.cv=document.getElementById(id);
         this.ctx=this.cv.getContext('2d');
         this.ctx.scale(2,2);
@@ -707,8 +708,25 @@ class DinoGame{
             if(e.code==='ArrowDown'){e.preventDefault();this._onDuck(true);}
         };
         this._keyUp=(e)=>{if(e.code==='ArrowDown')this._onDuck(false);};
-        this.cv.addEventListener('click',this._jump);
-        this.cv.addEventListener('touchstart',this._jump,{passive:false});
+        modal.addEventListener('click', (e) => {
+            if (e.target.id !== 'close-btn') {
+                this._onJump();
+            }
+        });
+        modal.addEventListener('touchstart', (e) => {
+            if (e.target.id === 'close-btn') return;
+            e.preventDefault();
+            if (e.touches.length >= 2) {
+                this._onDuck(true);
+            } else {
+                this._onJump();
+            }
+        }, { passive: false });
+        modal.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) {
+                this._onDuck(false);
+            }
+        }, { passive: false });
         document.addEventListener('keydown',this._keyDn);
         document.addEventListener('keyup',this._keyUp);
         this._drawStatic();
@@ -879,6 +897,11 @@ class DinoGame{
         const ink = 'rgba(255,255,255,0.92)';
     
         ctx.font = 'bold 13px "Google Sans", sans-serif';
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = ink;
+        ctx.fillText(this.speed.toFixed(1), 8, 15);
+      
         ctx.textAlign = 'right';
     
         if (!flashOn) {

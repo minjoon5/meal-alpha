@@ -459,7 +459,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.27 Alpha<br>
+    v3.0.28 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -929,15 +929,7 @@ function closeDino(){
     }
 }
 
-const closeBtn = document.getElementById('close-btn');
-if (closeBtn) {
-    closeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        closeDino();
-    });
-    closeBtn.addEventListener('mousedown', (e) => e.stopPropagation());
-    closeBtn.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: false });
-}
+
     
 document.querySelectorAll('.tab-group button').forEach(btn=>addPressAnim(btn));
 const dateWrapper=document.querySelector('.date-wrapper');
@@ -954,6 +946,32 @@ if('serviceWorker' in navigator)
 
 function openBeta()  { window.location.href="https://hcumeal-beta.vercel.app/"; }
 function openAlpha() { window.location.href="https://hcumeal-alpha.vercel.app/"; }
+
+(function() {
+    const closeBtn = document.getElementById('close-btn');
+    
+    if (closeBtn) {
+        const handleClose = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (typeof closeDino === 'function') {
+                closeDino();
+            } else {
+                const modal = document.getElementById('dino-modal');
+                if (modal) modal.style.display = 'none';
+            }
+        };
+
+        closeBtn.addEventListener('click', handleClose);
+        closeBtn.addEventListener('mousedown', (e) => e.stopPropagation());
+        closeBtn.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+            handleClose(e);
+        }, { passive: false });
+
+    }
+})();
 </script>
 </body>
 </html>

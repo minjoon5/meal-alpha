@@ -455,7 +455,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.22 Alpha<br>
+    v3.0.23 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 </div>
 
@@ -770,7 +770,7 @@ class DinoGame {
             const oL=o.x+pad, oR=o.x+o.w-pad;
             const oT=o.y+pad, oB=o.y+o.h-pad;
             if(dL<oR&&dR>oL&&dT<oB&&dB>oT){
-     //           this.dino.crashed=true; this.gameOver=true;
+                this.dino.crashed=true; this.gameOver=true;
                 if(this.score>this.hiScore) this.hiScore=this.score;
             }
         }
@@ -892,7 +892,6 @@ class DinoGame {
     runIntro(onDone){ this._drawStatic(); onDone&&onDone(); }
 }
 
-/* ── 모달 열기/닫기 ── */
 let dinoGame=null;
 
 function openDino(){
@@ -923,7 +922,6 @@ function closeDino(){
     }
 }
 
-/* ── 초기화 ── */
 document.querySelectorAll('.tab-group button').forEach(btn=>addPressAnim(btn));
 const dateWrapper=document.querySelector('.date-wrapper');
 if(dateWrapper) addPressAnim(dateWrapper);

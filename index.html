@@ -543,15 +543,14 @@ html 테스트 전용입니다.<br><br>
         <canvas id="dino-canvas" width="680" height="300"></canvas>
         <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(255,255,255,0.6);font-weight:500;position:relative;z-index:1;">
             <br>1000 넘는 <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
-            (<strong>화면 녹화</strong> 인증 ㄱㄱ)<br><br>
-            <strong>"최시형 선배 절대 못깬다에 1표"</strong><br>
+            (<strong>화면 녹화</strong> 인증 ㄱㄱ)<br>
         </div>
     </div>
 </div>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.7 Alpha<br>
+    v3.0.8 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->
@@ -798,7 +797,7 @@ class DinoGame{
             const oL=o.x+pad,oR=o.x+o.w-pad;
             const oT=o.y+pad,oB=o.y+o.h-pad;
             if(dL<oR&&dR>oL&&dT<oB&&dB>oT){
-   // test             this.dino.crashed=true;this.gameOver=true;
+                this.dino.crashed=true;this.gameOver=true;
                 if(this.score>this.hiScore)this.hiScore=this.score;
             }
         }

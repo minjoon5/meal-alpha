@@ -5,6 +5,7 @@ Alpha 테스트 버전입니다.<br>
 [중요]<br>
 해당 버전은 API Key를 불러올 수 없습니다.<br>
 html 테스트 전용입니다.<br><br>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -75,26 +76,16 @@ html 테스트 전용입니다.<br><br>
             backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
             box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
+                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
+                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
+                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
+                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
+                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
 
         h2 {
@@ -113,7 +104,7 @@ html 테스트 전용입니다.<br><br>
             transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.3s ease, filter 0.2s ease, box-shadow 0.2s ease;
             transform-origin: center;
             margin-bottom: 1.2rem;
-            border-radius: 30px; 
+            border-radius: 30px;
             overflow: hidden;
             cursor: default !important;
             background-color: color-mix(in srgb, rgba(210,215,255,0.1) 100%, transparent);
@@ -163,14 +154,11 @@ html 테스트 전용입니다.<br><br>
             top: 45%;
             width: 7px;
             height: 7px;
-            border-right: 1.4px solid rgba(255, 255, 255, 0.85);
-            border-bottom: 1.4px solid rgba(255, 255, 255, 0.85);
+            border-right: 1.4px solid rgba(255,255,255,0.85);
+            border-bottom: 1.4px solid rgba(255,255,255,0.85);
             transform: translateY(-50%) rotate(45deg);
             pointer-events: none;
             transition: transform 0.12s ease;
-        }
-        .date-wrapper.pressed {
-            transform: scale(0.96);
         }
 
         .tab-group {
@@ -187,7 +175,6 @@ html 테스트 전용입니다.<br><br>
             color: rgba(255,255,255,0.85);
             font-size: 0.9rem;
             cursor: pointer;
-            transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
             font-family: 'Pretendard', sans-serif;
             outline: none;
             -webkit-appearance: none;
@@ -196,34 +183,26 @@ html 테스트 전용입니다.<br><br>
             backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
             box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
+                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
+                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
+                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
+                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
+                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         .tab-group button.active {
-            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65));
-            color: white;
+            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
+            color: white !important;
             font-weight: bold;
         }
         .tab-group button.pressed {
-            transform: scale(0.93);
+            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
+            transform: scale(1.1) !important;
+            filter: brightness(1.7) !important;
         }
 
         #mealContent {
@@ -239,26 +218,16 @@ html 테스트 전용입니다.<br><br>
             backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
             box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
+                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
+                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
+                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
+                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
+                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         #mealContent.empty {
             display: flex;
@@ -316,7 +285,6 @@ html 테스트 전용입니다.<br><br>
             justify-content: center;
             align-items: center;
             background: transparent;
-            touch-action: none;
         }
         @keyframes modalIn {
             from { transform: scale(0.92); opacity: 0; }
@@ -335,26 +303,16 @@ html 테스트 전용입니다.<br><br>
             backdrop-filter: blur(8px) saturate(100%);
             -webkit-backdrop-filter: blur(8px) saturate(100%);
             box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
+                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
+                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
+                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
+                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
+                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         .modal-content.modal-open {
             animation: modalIn 0.18s cubic-bezier(0.34, 1.4, 0.64, 1) both;
@@ -390,7 +348,6 @@ html 테스트 전용입니다.<br><br>
             image-rendering: crisp-edges;
             position: relative;
             z-index: 1;
-            touch-action: none;
         }
 
         #easter-toast {
@@ -413,26 +370,16 @@ html 테스트 전용입니다.<br><br>
             backdrop-filter: blur(8px) saturate(100%);
             -webkit-backdrop-filter: blur(8px) saturate(100%);
             box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
+                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
+                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
+                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
+                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
+                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         #easter-toast.toast-open {
             transform: translateX(-50%) scale(1);
@@ -440,20 +387,10 @@ html 테스트 전용입니다.<br><br>
         }
 
         .tab-group button, .date-wrapper, #dino-link, .close-btn {
-            transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), 
+            transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1),
                 background-color 0.3s ease,
                 color 0.3s ease,
                 filter 0.2s ease !important;
-        }
-        .tab-group button.active {
-            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
-            color: white !important;
-            font-weight: bold;
-        }
-        .tab-group button.pressed {
-            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
-            transform: scale(1.1) !important;
-            filter: brightness(1.7) !important;
         }
         .date-wrapper {
             position: relative;
@@ -461,36 +398,14 @@ html 테스트 전용입니다.<br><br>
             transition: transform 0.12s ease;
             transform-origin: center;
             margin-bottom: 1.2rem;
-            border-radius: 30px; 
+            border-radius: 30px;
             overflow: hidden;
         }
         .date-wrapper.pressed {
             background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
-            transform: scale(1.05) !important; 
+            transform: scale(1.05) !important;
             filter: brightness(1.35) !important;
-            box-shadow:
-                inset 0 0 0 1px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px
-                    color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px
-                    color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent) !important;
         }
-        
         #datePicker, #datePicker::-webkit-calendar-picker-indicator {
             transform: none !important;
             filter: none !important;
@@ -499,22 +414,11 @@ html 테스트 전용입니다.<br><br>
             transform: scale(1.0) !important;
             filter: brightness(1.0) !important;
         }
-        
-        * {
-            cursor: default !important;
-        }
-        button, input, select, label, a {
-            cursor: default !important;
-        }
-        #datePicker {
-            cursor: default !important;
-        }
-        #datePicker::-webkit-calendar-picker-indicator {
-            cursor: default !important;
-        }
-        .date-wrapper {
-            cursor: default !important;
-        }
+        * { cursor: default !important; }
+        button, input, select, label, a { cursor: default !important; }
+        #datePicker { cursor: default !important; }
+        #datePicker::-webkit-calendar-picker-indicator { cursor: default !important; }
+        .date-wrapper { cursor: default !important; }
     </style>
 </head>
 <body>
@@ -551,7 +455,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.14 Alpha<br>
+    v3.0.19 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 </div>
 
@@ -564,6 +468,7 @@ html 테스트 전용입니다.<br><br>
 </div>
 
 <script>
+/* ── 유틸 ── */
 function addPressAnim(el) {
     el.addEventListener('pointerdown', () => { el.classList.add('pressed'); }, { passive: true });
     const release = () => el.classList.remove('pressed');
@@ -572,8 +477,8 @@ function addPressAnim(el) {
     el.addEventListener('pointerleave',  release, { passive: true });
 }
 
-let titleClickCount = 0, titleClickTimer = null;
-let toastHideTimer = null;
+/* ── 이스터에그 토스트 ── */
+let titleClickCount = 0, titleClickTimer = null, toastHideTimer = null;
 
 function showEasterToast() {
     const toast = document.getElementById("easter-toast");
@@ -595,12 +500,13 @@ document.getElementById("title").addEventListener("click", () => {
     titleClickTimer = setTimeout(() => { titleClickCount = 0; }, 1500);
 });
 
+/* ── 날짜/급식 ── */
 function checkEasterEgg(ymd) {
     const t = document.getElementById("title");
     const md = ymd.substring(4);
-    if (md === "1205") { t.innerText = "오늘은 개발자 생일! 🎉"; t.style.color = "#FFCB30"; }
-    else if (md === "0401") { t.innerText = "박시은쌤 사랑해요"; t.style.color = "#FFCB30"; }
-    else { t.innerText = "현대청운고 급식"; t.style.color = "#ffffff"; }
+    if      (md === "1205") { t.innerText = "오늘은 개발자 생일! 🎉"; t.style.color = "#FFCB30"; }
+    else if (md === "0401") { t.innerText = "박시은쌤 사랑해요";      t.style.color = "#FFCB30"; }
+    else                    { t.innerText = "현대청운고 급식";         t.style.color = "#ffffff"; }
 }
 
 let meals = [null, null, null];
@@ -617,6 +523,7 @@ function parseDish(raw) {
               .replace(/\([0-9.×*]+\)/g,"")
               .split("\n").map(l=>l.trim()).filter(l=>l.length>0).join("\n");
 }
+
 async function fetchMeal(ymd) {
     checkEasterEgg(ymd);
     meals = [null, null, null];
@@ -640,7 +547,7 @@ async function fetchMeal(ymd) {
 function showMeal(i) {
     const mc = document.getElementById("mealContent"), labels = ["조식","중식","석식"];
     if (meals[i]) { mc.classList.remove("empty"); mc.innerText = meals[i]; }
-    else { mc.classList.add("empty"); mc.innerText = `${labels[i]} 정보 없음`; }
+    else          { mc.classList.add("empty");    mc.innerText = `${labels[i]} 정보 없음`; }
     document.querySelectorAll(".tab-group button").forEach((b,j) => b.classList.toggle("active", j===i));
 }
 
@@ -651,6 +558,7 @@ function onDateChange() {
 
 function setStatus(m) { document.getElementById("status").innerText = m; }
 
+/* ── 다이노 게임 ── */
 const SPRITE_SRC = "data:image/png;base64,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";
 
 const SP = {
@@ -669,7 +577,7 @@ const SP = {
 };
 
 const W=340, H=150, SC=0.85, GY=140;
-const DW=Math.round(SP.IDLE.w*SC), DH=Math.round(SP.IDLE.h*SC);
+const DW=Math.round(SP.IDLE.w*SC),  DH=Math.round(SP.IDLE.h*SC);
 const DDW=Math.round(SP.DUCK1.w*SC), DDH=Math.round(SP.DUCK1.h*SC);
 const DX=16, FLOOR=GY-DH+4, DFLOOR=GY-DDH+4;
 
@@ -679,92 +587,146 @@ const CFG={
     INVERT_DISTANCE:700, FLASH_DURATION:750,
 };
 
-function rnd(a,b){return a+Math.random()*(b-a);}
+function rnd(a,b){ return a+Math.random()*(b-a); }
 
-const spriteImg=new Image();
-spriteImg.src=SPRITE_SRC;
-let spriteReady=false;
-spriteImg.onload=()=>{spriteReady=true;if(dinoGame)dinoGame._drawStatic();};
+const spriteImg = new Image();
+spriteImg.src = SPRITE_SRC;
+let spriteReady = false;
+spriteImg.onload = () => { spriteReady=true; if(dinoGame) dinoGame._drawStatic(); };
 
-class DinoGame{
+class DinoGame {
     constructor(id) {
-        this.cv = document.getElementById(id);
+        const modal = document.getElementById('dino-modal');
+        this.cv  = document.getElementById(id);
         this.ctx = this.cv.getContext('2d');
-        this.ctx.scale(2, 2);
-        this.dino = { x: DX, y: FLOOR, vy: 0, jumping: false, ducking: false, crashed: false, speedDrop: false };
-        this.obstacles = []; this.clouds = []; this.groundOff = 0; this.score = 0; this.hiScore = 0;
-        this.tick = 0; this.legFrame = 0; this.rafId = null; this.started = false;
-        this.running = false; this.gameOver = false; this.speed = CFG.SPEED;
-        this.inverted = false; this.invertTrigger = CFG.INVERT_DISTANCE;
-        this.invertTimer = 0; this.invertDuration = 700;
-        this.flashTimer = 0; this.lastMilestone = 0; this.spawnCountdown = 100;
-        for (let i = 0; i < 3; i++) this.clouds.push({ x: 60 + i * 120, y: Math.round(rnd(15, 45)) });
+        this.ctx.scale(2,2);
+        this.dino = {x:DX, y:FLOOR, vy:0, jumping:false, ducking:false, crashed:false, speedDrop:false};
+        this.obstacles=[]; this.clouds=[]; this.groundOff=0; this.score=0; this.hiScore=0;
+        this.tick=0; this.legFrame=0; this.rafId=null; this.started=false;
+        this.running=false; this.gameOver=false; this.speed=CFG.SPEED;
+        this.inverted=false; this.invertTrigger=CFG.INVERT_DISTANCE;
+        this.invertTimer=0; this.invertDuration=700;
+        this.flashTimer=0; this.lastMilestone=0; this.spawnCountdown=100;
+        this._isDucking=false;
+        this._touchCount=0;
+        for(let i=0;i<3;i++) this.clouds.push({x:60+i*120, y:Math.round(rnd(15,45))});
+        this._keyDn = (e) => {
+            if(e.code==='Space'||e.code==='ArrowUp'){ e.preventDefault(); this._onJump(); }
+            if(e.code==='ArrowDown'){ e.preventDefault(); this._onDuck(true); }
+        };
+        this._keyUp = (e) => { if(e.code==='ArrowDown') this._onDuck(false); };
+        modal.addEventListener('touchstart', (e) => {
+            if(e.target.id==='close-btn') return;
+            e.preventDefault();
+            this._touchCount = e.touches.length;
+            if(e.touches.length===1 && !this._isDucking) this._onJump();
+        }, { passive:false });
+        modal.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            this._touchCount = e.touches.length;
+        }, { passive:false });
+        modal.addEventListener('touchend', (e) => {
+            this._touchCount = e.touches.length;
+        }, { passive:false });
+        modal.addEventListener('touchcancel', (e) => {
+            this._touchCount = e.touches.length;
+        }, { passive:false });
+        document.addEventListener('keydown', this._keyDn);
+        document.addEventListener('keyup',   this._keyUp);
         this._drawStatic();
     }
-    _onJump(){
-        if(!this.started){this.started=true;this.running=true;this._tick();return;}
-        if(this.gameOver){this.dino.ducking = false;this.gameOver = false;this._restart();return;}
+
+    _onJump() {
+        if(!this.started){ this.started=true; this.running=true; this._tick(); return; }
+        if(this.gameOver){ this.start(); return; }
         if(!this.dino.jumping&&!this.dino.ducking&&!this.dino.crashed){
-            this.dino.vy=CFG.INITIAL_JUMP_VEL;this.dino.jumping=true;this.dino.speedDrop=false;
+            this.dino.vy=CFG.INITIAL_JUMP_VEL; this.dino.jumping=true; this.dino.speedDrop=false;
         }
     }
-    _onDuck(on){
-        if(!this.started||this.gameOver||this.dino.crashed)return;
+
+    _onDuck(on) {
+        if(this.gameOver||this.dino.crashed) return;
+        if(!this.started){
+            if(on){ this.started=true; this.running=true; this._tick(); }
+            return;
+        }
+        this._isDucking = on;
         if(on){
-            if(this.dino.jumping){this.dino.speedDrop=true;this.dino.vy=Math.abs(this.dino.vy);}
-            else{this.dino.ducking=true;}
-        }else{this.dino.ducking=false;this.dino.speedDrop=false;}
+            if(this.dino.jumping){ this.dino.speedDrop=true; this.dino.vy=Math.abs(this.dino.vy); }
+            else{ this.dino.ducking=true; }
+        } else {
+            this.dino.ducking=false; this.dino.speedDrop=false;
+        }
     }
-    _restart(){
-        if(this.rafId){cancelAnimationFrame(this.rafId);this.rafId=null;}
-        this.dino.y=FLOOR;this.dino.vy=0;this.dino.jumping=false;
-        this.dino.ducking=false;this.dino.crashed=false;this.dino.speedDrop=false;
-        this.obstacles=[];this.score=0;this.tick=0;this.legFrame=0;
-        this.groundOff=0;this.speed=CFG.SPEED;this.inverted=false;
-        this.invertTimer=0;this.invertTrigger=CFG.INVERT_DISTANCE;
-        this.flashTimer=0;this.lastMilestone=0;this.spawnCountdown=100;
-        this.gameOver=false;this.running=true;this._tick();
+
+    start() {
+        this._touchCount=0;
+        this._isDucking=false;
+        if(this.rafId){ cancelAnimationFrame(this.rafId); this.rafId=null; }
+        this.dino.y=FLOOR; this.dino.vy=0; this.dino.jumping=false;
+        this.dino.ducking=false; this.dino.crashed=false; this.dino.speedDrop=false;
+        this.obstacles=[]; this.score=0; this.tick=0; this.legFrame=0;
+        this.groundOff=0; this.speed=CFG.SPEED; this.inverted=false;
+        this.invertTimer=0; this.invertTrigger=CFG.INVERT_DISTANCE;
+        this.flashTimer=0; this.lastMilestone=0; this.spawnCountdown=100;
+        this.gameOver=false; this.running=true; this._tick();
     }
-    stop(){
+
+    stop() {
         this.running=false;
-        if(this.rafId){cancelAnimationFrame(this.rafId);this.rafId=null;}
+        if(this.rafId){ cancelAnimationFrame(this.rafId); this.rafId=null; }
+        document.removeEventListener('keydown', this._keyDn);
+        document.removeEventListener('keyup',   this._keyUp);
     }
-    _tick(){
-        this.rafId=requestAnimationFrame(()=>{
-            this.rafId=null;if(!this.running)return;
-            this._update();this._draw();this._tick();
+
+    _tick() {
+        this.rafId = requestAnimationFrame(() => {
+            this.rafId=null; if(!this.running) return;
+            this._update(); this._draw(); this._tick();
         });
     }
-    _update(){
-        if(this.gameOver)return;
-        this.tick++;this.score++;
-        this.speed=Math.min(CFG.MAX_SPEED,CFG.SPEED+this.score*CFG.ACCELERATION);
-        if(!this.dino.jumping&&!this.dino.crashed) this.legFrame=Math.floor(this.tick/5)%2;
-        const gravity=this.dino.speedDrop?CFG.GRAVITY*CFG.SPEED_DROP_COEF:CFG.GRAVITY;
-        this.dino.vy+=gravity;
-        const floorY=this.dino.ducking?DFLOOR:FLOOR;
-        this.dino.y=Math.min(floorY,Math.round(this.dino.y+this.dino.vy));
-        if(this.dino.y>=floorY){this.dino.y=floorY;this.dino.vy=0;this.dino.jumping=false;this.dino.speedDrop=false;}
-        this.groundOff=(this.groundOff+this.speed)%SP.GROUND.w;
+
+    _update() {
+        if(this.gameOver){
+            if(this._touchCount>0) this._onJump();
+            return;
+        }
+        if(this._touchCount>=2){
+            this._isDucking=true;
+            this._onDuck(true);
+        } else if(this._touchCount===0){
+            this._isDucking=false;
+            this._onDuck(false);
+        }
+        if(this.gameOver) return;
+        this.tick++; this.score++;
+        this.speed = Math.min(CFG.MAX_SPEED, CFG.SPEED+this.score*CFG.ACCELERATION);
+        if(!this.dino.jumping&&!this.dino.crashed) this.legFrame = Math.floor(this.tick/5)%2;
+        const gravity = this.dino.speedDrop ? CFG.GRAVITY*CFG.SPEED_DROP_COEF : CFG.GRAVITY;
+        this.dino.vy += gravity;
+        const floorY = this.dino.ducking ? DFLOOR : FLOOR;
+        this.dino.y = Math.min(floorY, Math.round(this.dino.y+this.dino.vy));
+        if(this.dino.y>=floorY){ this.dino.y=floorY; this.dino.vy=0; this.dino.jumping=false; this.dino.speedDrop=false; }
+        this.groundOff = (this.groundOff+this.speed)%SP.GROUND.w;
         for(const c of this.clouds){
-            c.x-=CFG.BG_CLOUD_SPEED;
-            if(c.x+SP.CLOUD.w*SC<0){c.x=W+20;c.y=Math.round(rnd(15,45));}
+            c.x -= CFG.BG_CLOUD_SPEED;
+            if(c.x+SP.CLOUD.w*SC<0){ c.x=W+20; c.y=Math.round(rnd(15,45)); }
         }
         this.spawnCountdown--;
         if(this.spawnCountdown<=0){
-            const isPtero=this.score>600&&Math.random()<0.18;
+            const isPtero = this.score>600&&Math.random()<0.18;
             if(isPtero){
                 const ph=Math.round(SP.PTERO1.h*SC);
                 const pteroYOpts=[GY-ph-2,GY-ph-28,GY-ph-58];
                 const py=pteroYOpts[Math.floor(Math.random()*3)];
                 this.obstacles.push({type:'ptero',x:W+10,y:py,w:Math.round(SP.PTERO1.w*SC),h:ph,frame:0,fTick:0});
-            }else{
+            } else {
                 const maxCount=this.speed>=4?3:1;
                 const count=1+Math.floor(Math.random()*maxCount);
                 const tiles=[];
                 for(let i=0;i<count;i++) tiles.push(Math.random()<0.5?SP.CS:SP.CL);
                 let ow=0,oh=0;
-                for(const sp of tiles){ow+=Math.round(sp.w*SC);oh=Math.max(oh,Math.round(sp.h*SC));}
+                for(const sp of tiles){ ow+=Math.round(sp.w*SC); oh=Math.max(oh,Math.round(sp.h*SC)); }
                 this.obstacles.push({type:'cactus',x:W+10,y:GY-oh+4,w:ow,h:oh,tiles});
             }
             const minGap=Math.round(120*(this.speed/CFG.SPEED));
@@ -774,202 +736,170 @@ class DinoGame{
         const pad=3;
         for(const o of this.obstacles){
             o.x=Math.round(o.x-this.speed);
-            if(o.type==='ptero'){o.fTick++;if(o.fTick%8===0)o.frame=1-o.frame;}
-            const dinoW=this.dino.ducking?DDW:DW,dinoH=this.dino.ducking?DDH:DH;
-            const dL=this.dino.x+pad,dR=this.dino.x+dinoW-pad;
-            const dT=this.dino.y+pad,dB=this.dino.y+dinoH-pad;
-            const oL=o.x+pad,oR=o.x+o.w-pad;
-            const oT=o.y+pad,oB=o.y+o.h-pad;
+            if(o.type==='ptero'){ o.fTick++; if(o.fTick%8===0) o.frame=1-o.frame; }
+            const dinoW=this.dino.ducking?DDW:DW, dinoH=this.dino.ducking?DDH:DH;
+            const dL=this.dino.x+pad, dR=this.dino.x+dinoW-pad;
+            const dT=this.dino.y+pad, dB=this.dino.y+dinoH-pad;
+            const oL=o.x+pad, oR=o.x+o.w-pad;
+            const oT=o.y+pad, oB=o.y+o.h-pad;
             if(dL<oR&&dR>oL&&dT<oB&&dB>oT){
-                this.dino.crashed=true;this.gameOver=true;
-                if(this.score>this.hiScore)this.hiScore=this.score;
+                this.dino.crashed=true; this.gameOver=true;
+                if(this.score>this.hiScore) this.hiScore=this.score;
             }
         }
-        this.obstacles=this.obstacles.filter(o=>o.x+o.w>0);
+        this.obstacles = this.obstacles.filter(o=>o.x+o.w>0);
         if(this.score>this.invertTrigger){
-            this.inverted=!this.inverted;this.invertTrigger+=CFG.INVERT_DISTANCE;this.invertTimer=this.invertDuration;
+            this.inverted=!this.inverted; this.invertTrigger+=CFG.INVERT_DISTANCE; this.invertTimer=this.invertDuration;
         }
-        if(this.invertTimer>0)this.invertTimer--;
-        else if(this.inverted&&this.invertTimer===0)this.inverted=false;
+        if(this.invertTimer>0) this.invertTimer--;
+        else if(this.inverted&&this.invertTimer===0) this.inverted=false;
         const ms=Math.floor(this.score/5/100)*100;
-        if(ms>0&&ms!==this.lastMilestone){this.lastMilestone=ms;this.flashTimer=Math.round(CFG.FLASH_DURATION/16);}
-        if(this.flashTimer>0)this.flashTimer--;
+        if(ms>0&&ms!==this.lastMilestone){ this.lastMilestone=ms; this.flashTimer=Math.round(CFG.FLASH_DURATION/16); }
+        if(this.flashTimer>0) this.flashTimer--;
     }
-    _spr(sp,dx,dy,scale){
-        if(!spriteReady)return;
-        const s=scale??SC,dw=Math.round(sp.w*s),dh=Math.round(sp.h*s),c=this.ctx;
-        c.save();c.beginPath();c.rect(dx,dy,dw,dh);c.clip();
-        c.drawImage(spriteImg,sp.x,sp.y,sp.w,sp.h,dx,dy,dw,dh);c.restore();
+
+    _spr(sp,dx,dy,scale) {
+        if(!spriteReady) return;
+        const s=scale??SC, dw=Math.round(sp.w*s), dh=Math.round(sp.h*s), c=this.ctx;
+        c.save(); c.beginPath(); c.rect(dx,dy,dw,dh); c.clip();
+        c.drawImage(spriteImg,sp.x,sp.y,sp.w,sp.h,dx,dy,dw,dh); c.restore();
     }
+
     _draw() {
-        const ctx = this.ctx;
-        ctx.clearRect(0, 0, W, H);
-        if (this.inverted) { ctx.filter = 'invert(100%)'; } else { ctx.filter = 'none'; }
-        if (!spriteReady) { this._drawFallback(); return; }
-        for (const c of this.clouds) { this._spr(SP.CLOUD, Math.round(c.x), c.y, SC * 0.9); }
-        const go = Math.round(this.groundOff);
-        const gw = SP.GROUND.w;
-        const gdh = Math.round(SP.GROUND.h * SC);
-        ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, -go, GY, gw, gdh);
-        ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, -go + gw, GY, gw, gdh);
-        for (const o of this.obstacles) {
-            const overlap = 7;
-            if (o.type === 'ptero') {
-                this._spr(o.frame === 0 ? SP.PTERO1 : SP.PTERO2, o.x, o.y + overlap);
+        const ctx=this.ctx;
+        ctx.clearRect(0,0,W,H);
+        ctx.filter = this.inverted ? 'invert(100%)' : 'none';
+        if(!spriteReady){ this._drawFallback(); return; }
+        for(const c of this.clouds) this._spr(SP.CLOUD, Math.round(c.x), c.y, SC*0.9);
+        const go=Math.round(this.groundOff), gw=SP.GROUND.w, gdh=Math.round(SP.GROUND.h*SC);
+        ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,-go,GY,gw,gdh);
+        ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,-go+gw,GY,gw,gdh);
+        for(const o of this.obstacles){
+            const overlap=7;
+            if(o.type==='ptero'){
+                this._spr(o.frame===0?SP.PTERO1:SP.PTERO2, o.x, o.y+overlap);
             } else {
-                let tx = o.x;
-                for (const sp of o.tiles) {
-                    const tw = Math.round(sp.w * SC);
-                    const th = Math.round(sp.h * SC);
-                    this._spr(sp, tx, (o.y + o.h - th) + overlap);
-                    tx += tw;
+                let tx=o.x;
+                for(const sp of o.tiles){
+                    const tw=Math.round(sp.w*SC), th=Math.round(sp.h*SC);
+                    this._spr(sp, tx, (o.y+o.h-th)+overlap);
+                    tx+=tw;
                 }
             }
         }
-        if (!this.dino.crashed) {
+        if(!this.dino.crashed){
             let dsp;
-            if (this.dino.jumping) { dsp = SP.IDLE; }
-            else if (this.dino.ducking) { dsp = (this.legFrame === 0 ? SP.DUCK1 : SP.DUCK2); }
-            else { dsp = (this.legFrame === 0 ? SP.WALK1 : SP.WALK2); }
-            this._spr(dsp, this.dino.x, this.dino.y + 7);
+            if     (this.dino.jumping) dsp=SP.IDLE;
+            else if(this.dino.ducking) dsp=(this.legFrame===0?SP.DUCK1:SP.DUCK2);
+            else                       dsp=(this.legFrame===0?SP.WALK1:SP.WALK2);
+            this._spr(dsp, this.dino.x, this.dino.y+7);
         } else {
-            this._spr(SP.CRASH, this.dino.x, this.dino.y + 7);
+            this._spr(SP.CRASH, this.dino.x, this.dino.y+7);
         }
-        const scoreNum = Math.floor(this.score / 5);
-        const hiScoreNum = Math.floor(this.hiScore / 5);
-        const flashOn = this.flashTimer > 0 && Math.floor(this.flashTimer / 4) % 2 === 0;
-        const ink = 'rgba(255,255,255,0.92)';
-        ctx.font = 'bold 13px "Google Sans", sans-serif';
-        ctx.textAlign = 'left';
-        ctx.fillStyle = ink;
+        const scoreNum=Math.floor(this.score/5), hiScoreNum=Math.floor(this.hiScore/5);
+        const flashOn=this.flashTimer>0&&Math.floor(this.flashTimer/4)%2===0;
+        const ink='rgba(255,255,255,0.92)';
+        ctx.font='bold 13px "Google Sans", sans-serif';
+        ctx.textAlign='left';
+        ctx.fillStyle=ink;
         ctx.fillText(this.speed.toFixed(1), 8, 15);
-        ctx.textAlign = 'right';
-        if (!flashOn) {
-            ctx.fillStyle = 'rgba(255,255,255,0.45)';
-            ctx.fillText(`HI ${String(hiScoreNum).padStart(5, '0')}`, W - 54, 15);
-            ctx.fillStyle = ink;
-            ctx.fillText(String(scoreNum).padStart(5, '0'), W - 8, 15);
+        ctx.textAlign='right';
+        if(!flashOn){
+            ctx.fillStyle='rgba(255,255,255,0.45)';
+            ctx.fillText(`HI ${String(hiScoreNum).padStart(5,'0')}`, W-54, 15);
+            ctx.fillStyle=ink;
+            ctx.fillText(String(scoreNum).padStart(5,'0'), W-8, 15);
         } else {
-            ctx.fillStyle = ink;
-            ctx.fillText(String(scoreNum).padStart(5, '0'), W - 8, 15);
+            ctx.fillStyle=ink;
+            ctx.fillText(String(scoreNum).padStart(5,'0'), W-8, 15);
         }
-        ctx.textAlign = 'left';
-        if (this.gameOver) { this._drawGameOver(); }
+        ctx.textAlign='left';
+        if(this.gameOver) this._drawGameOver();
     }
+
     _drawStatic() {
-        const ctx = this.ctx;
-        ctx.clearRect(0, 0, W, H);
-        if (spriteReady) {
-            const gw = SP.GROUND.w, gdh = Math.round(SP.GROUND.h * SC);
-            ctx.drawImage(spriteImg, SP.GROUND.x, SP.GROUND.y, gw, SP.GROUND.h, 0, GY, gw, gdh);
-            this._spr(SP.IDLE, DX, FLOOR + 7);
-        }
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.font = '12px "Google Sans", "Pretendard", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('방향키 up을 눌러 시작', W / 2, H * 0.74);
-        ctx.textAlign = 'left';
-    }
-    _drawGameOver(){
         const ctx=this.ctx;
-        const scoreNum=Math.floor(this.score/5),hiScoreNum=Math.floor(this.hiScore/5);
-        const px=W/2-115,py=38,pw=230,ph=74,pr=30;
-        ctx.save();
-        ctx.fillStyle='rgba(210,215,255,0.1)';
-        ctx.beginPath();
-        ctx.roundRect(px,py,pw,ph,pr);
-        ctx.fill();
-        ctx.fillStyle='rgba(255,255,255,0.92)';
-        ctx.font = 'bold 15px "Google Sans", "Pretendard", monospace';
+        ctx.clearRect(0,0,W,H);
+        if(spriteReady){
+            const gw=SP.GROUND.w, gdh=Math.round(SP.GROUND.h*SC);
+            ctx.drawImage(spriteImg,SP.GROUND.x,SP.GROUND.y,gw,SP.GROUND.h,0,GY,gw,gdh);
+            this._spr(SP.IDLE, DX, FLOOR+7);
+        }
+        ctx.fillStyle='rgba(255,255,255,0.6)';
+        ctx.font='12px "Google Sans","Pretendard",sans-serif';
         ctx.textAlign='center';
-        ctx.fillText('GAME OVER',W/2,60);
-        ctx.font = '11px "Google Sans", "Pretendard", sans-serif';
-        ctx.fillStyle='rgba(255,255,255,0.62)';
-        ctx.fillText(`점수: ${scoreNum}   최고: ${hiScoreNum}`,W/2,78);
-        ctx.fillText('방향키 up을 눌러 재시작',W/2,96);
+        ctx.fillText('방향키 up을 눌러 시작', W/2, H*0.74);
         ctx.textAlign='left';
     }
-    _drawFallback() {
-        const ctx = this.ctx;
-        ctx.fillStyle = 'rgba(83,83,83,0.4)';
-        ctx.fillRect(0, GY, W, 2);
-        ctx.fillStyle = '#2a7a2a';
-        for (const o of this.obstacles) ctx.fillRect(o.x, o.y, o.w, o.h);
-        ctx.fillStyle = this.dino.crashed ? '#c00' : '#535353';
-        const dw = this.dino.ducking ? DDW : DW, dh = this.dino.ducking ? DDH : DH;
-        ctx.fillRect(this.dino.x, this.dino.y + 5, dw, dh);
-        if (this.gameOver) this._drawGameOver();
+
+    _drawGameOver() {
+        const ctx=this.ctx;
+        const scoreNum=Math.floor(this.score/5), hiScoreNum=Math.floor(this.hiScore/5);
+        const px=W/2-115, py=38, pw=230, ph=74, pr=30;
+        ctx.save();
+        ctx.fillStyle='rgba(210,215,255,0.1)';
+        ctx.beginPath(); ctx.roundRect(px,py,pw,ph,pr); ctx.fill();
+        ctx.fillStyle='rgba(255,255,255,0.92)';
+        ctx.font='bold 15px "Google Sans","Pretendard",monospace';
+        ctx.textAlign='center';
+        ctx.fillText('GAME OVER', W/2, 60);
+        ctx.font='11px "Google Sans","Pretendard",sans-serif';
+        ctx.fillStyle='rgba(255,255,255,0.62)';
+        ctx.fillText(`점수: ${scoreNum}   최고: ${hiScoreNum}`, W/2, 78);
+        ctx.fillText('방향키 up을 눌러 재시작', W/2, 96);
+        ctx.textAlign='left';
     }
-    runIntro(onDone){this._drawStatic();onDone&&onDone();}
+
+    _drawFallback() {
+        const ctx=this.ctx;
+        ctx.fillStyle='rgba(83,83,83,0.4)';
+        ctx.fillRect(0,GY,W,2);
+        ctx.fillStyle='#2a7a2a';
+        for(const o of this.obstacles) ctx.fillRect(o.x,o.y,o.w,o.h);
+        ctx.fillStyle=this.dino.crashed?'#c00':'#535353';
+        const dw=this.dino.ducking?DDW:DW, dh=this.dino.ducking?DDH:DH;
+        ctx.fillRect(this.dino.x, this.dino.y+5, dw, dh);
+        if(this.gameOver) this._drawGameOver();
+    }
+
+    runIntro(onDone){ this._drawStatic(); onDone&&onDone(); }
 }
 
-let dinoGame = null;
-let jumpPending = null;
+/* ── 모달 열기/닫기 ── */
+let dinoGame=null;
 
-// ── 전역 이벤트 등록 (딱 한 번만) ──────────────────────────────
-(function setupDinoEvents() {
-    const modal = document.getElementById('dino-modal');
+function openDino(){
+    document.getElementById('dino-modal').style.display='flex';
+    const content=document.getElementById('modal-content');
+    content.classList.remove('modal-close');
+    content.classList.add('modal-open');
+    if(!dinoGame){
+        dinoGame=new DinoGame('dino-canvas');
+        dinoGame.runIntro();
+    } else {
+        dinoGame.running=false;
+        dinoGame.started=false;
+        dinoGame.gameOver=false;
+        dinoGame.runIntro();
+    }
+}
 
-    modal.oncontextmenu = (e) => { e.preventDefault(); return false; };
+function closeDino(){
+    const modal=document.getElementById('dino-modal');
+    const content=document.getElementById('modal-content');
+    content.classList.remove('modal-open');
+    content.classList.add('modal-close');
+    setTimeout(()=>{ modal.style.display='none'; content.classList.remove('modal-close'); }, 160);
+    if(dinoGame){
+        if(dinoGame.rafId){ cancelAnimationFrame(dinoGame.rafId); dinoGame.rafId=null; }
+        dinoGame.running=false;
+    }
+}
 
-    const triggerJump = () => {
-        if (!dinoGame) return;
-        if (dinoGame.gameOver) {
-            dinoGame.dino.ducking = false;
-            dinoGame._restart();
-        } else if (!dinoGame.dino.ducking) {
-            dinoGame._onJump();
-        }
-    };
-
-    modal.addEventListener('touchstart', (e) => {
-        if (e.target.id === 'close-btn') return;
-        e.preventDefault();
-        if (e.touches.length >= 2) {
-            if (jumpPending) { clearTimeout(jumpPending); jumpPending = null; }
-            if (dinoGame) dinoGame._onDuck(true);
-        } else {
-            jumpPending = setTimeout(() => {
-                triggerJump();
-                jumpPending = null;
-            }, 80);
-        }
-    }, { passive: false });
-
-    modal.addEventListener('touchmove', (e) => {
-        if (e.target.id === 'close-btn') return;
-        e.preventDefault();
-        if (e.touches.length >= 2) {
-            if (jumpPending) { clearTimeout(jumpPending); jumpPending = null; }
-            if (dinoGame) dinoGame._onDuck(true);
-        }
-    }, { passive: false });
-
-    modal.addEventListener('touchend', (e) => {
-        if (jumpPending) { clearTimeout(jumpPending); jumpPending = null; }
-        if (e.touches.length < 2 && dinoGame) dinoGame._onDuck(false);
-    }, { passive: false });
-
-    modal.onclick = (e) => {
-        if (e.target.id !== 'close-btn' && e.pointerType !== 'touch') triggerJump();
-    };
-
-    document.addEventListener('keydown', (e) => {
-        if (!dinoGame) return;
-        if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); triggerJump(); }
-        if (e.code === 'ArrowDown') { e.preventDefault(); dinoGame._onDuck(true); }
-    });
-
-    document.addEventListener('keyup', (e) => {
-        if (!dinoGame) return;
-        if (e.code === 'ArrowDown') dinoGame._onDuck(false);
-    });
-})();
-// ───────────────────────────────────────────────────────────────
-
-document.querySelectorAll('.tab-group button').forEach(btn => addPressAnim(btn));
-const dateWrapper = document.querySelector('.date-wrapper');
-if (dateWrapper) addPressAnim(dateWrapper);
+/* ── 초기화 ── */
+document.querySelectorAll('.tab-group button').forEach(btn=>addPressAnim(btn));
+const dateWrapper=document.querySelector('.date-wrapper');
+if(dateWrapper) addPressAnim(dateWrapper);
 addPressAnim(document.getElementById('dino-link'));
 addPressAnim(document.getElementById('close-btn'));
 
@@ -980,54 +910,8 @@ fetchMeal(pickerValueToYMD(today));
 if('serviceWorker' in navigator)
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));
 
-function openBeta() { window.location.href = "https://hcumeal-beta.vercel.app/"; }
-function openAlpha() { window.location.href = "https://hcumeal-alpha.vercel.app/"; }
-
-window.openDino = function() {
-    const modal = document.getElementById('dino-modal');
-    const content = document.getElementById('modal-content');
-
-    modal.style.display = 'flex';
-    content.classList.remove('modal-close');
-    content.classList.add('modal-open');
-
-    if (!dinoGame) {
-        dinoGame = new DinoGame('dino-canvas');
-    } else {
-        if (dinoGame.rafId) cancelAnimationFrame(dinoGame.rafId);
-        dinoGame.rafId = null;
-        dinoGame.running = false;
-        dinoGame.started = false;
-        dinoGame.gameOver = false;
-        dinoGame.dino.crashed = false;
-        dinoGame.dino.ducking = false;
-        dinoGame.dino.y = FLOOR;
-        dinoGame.obstacles = [];
-        dinoGame.score = 0;
-        dinoGame.speed = CFG.SPEED;
-        dinoGame._drawStatic();
-    }
-};
-
-window.closeDino = function() {
-    const modal = document.getElementById('dino-modal');
-    const content = document.getElementById('modal-content');
-    content.classList.remove('modal-open');
-    content.classList.add('modal-close');
-
-    setTimeout(() => {
-        modal.style.display = 'none';
-        content.classList.remove('modal-close');
-    }, 160);
-
-    if (dinoGame) {
-        dinoGame.running = false;
-        if (dinoGame.rafId) {
-            cancelAnimationFrame(dinoGame.rafId);
-            dinoGame.rafId = null;
-        }
-    }
-};
+function openBeta()  { window.location.href="https://hcumeal-beta.vercel.app/"; }
+function openAlpha() { window.location.href="https://hcumeal-alpha.vercel.app/"; }
 </script>
 </body>
 </html>

@@ -550,7 +550,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.0.9 Alpha<br>
+    v3.0.10 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span> -->
@@ -689,51 +689,60 @@ let spriteReady=false;
 spriteImg.onload=()=>{spriteReady=true;if(dinoGame)dinoGame._drawStatic();};
 
 class DinoGame{
-    constructor(id){
+    constructor(id) {
+        this.cv = document.getElementById(id);
+        this.ctx = this.cv.getContext('2d');
+        this.ctx.scale(2, 2);
+        this.dino = { x: DX, y: FLOOR, vy: 0, jumping: false, ducking: false, crashed: false, speedDrop: false };
+        this.obstacles = []; this.clouds = []; this.groundOff = 0; this.score = 0; this.hiScore = 0;
+        this.tick = 0; this.legFrame = 0; this.rafId = null; this.started = false;
+        this.running = false; this.gameOver = false; this.speed = CFG.SPEED;
+        this.inverted = false; this.invertTrigger = CFG.INVERT_DISTANCE;
+        this.invertTimer = 0; this.invertDuration = 700;
+        this.flashTimer = 0; this.lastMilestone = 0; this.spawnCountdown = 100;
+        for (let i = 0; i < 3; i++) this.clouds.push({ x: 60 + i * 120, y: Math.round(rnd(15, 45)) });
         const modal = document.getElementById('dino-modal');
-        this.cv=document.getElementById(id);
-        this.ctx=this.cv.getContext('2d');
-        this.ctx.scale(2,2);
-        this.dino={x:DX,y:FLOOR,vy:0,jumping:false,ducking:false,crashed:false,speedDrop:false};
-        this.obstacles=[];this.clouds=[];this.groundOff=0;this.score=0;this.hiScore=0;
-        this.tick=0;this.legFrame=0;this.rafId=null;this.started=false;
-        this.running=false;this.gameOver=false;this.speed=CFG.SPEED;
-        this.inverted=false;this.invertTrigger=CFG.INVERT_DISTANCE;
-        this.invertTimer=0;this.invertDuration=700;
-        this.flashTimer=0;this.lastMilestone=0;this.spawnCountdown=100;
-        for(let i=0;i<3;i++) this.clouds.push({x:60+i*120,y:Math.round(rnd(15,45))});
-        this._jump=(e)=>{e.preventDefault();this._onJump();};
-        this._keyDn=(e)=>{
-            if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();this._onJump();}
-            if(e.code==='ArrowDown'){e.preventDefault();this._onDuck(true);}
-        };
-        this._keyUp=(e)=>{if(e.code==='ArrowDown')this._onDuck(false);};
-        modal.addEventListener('click', (e) => {
-            if (e.target.id !== 'close-btn') {
+
+        const triggerJump = (e) => {
+            if (e.target.id === 'close-btn') return;
+            if (this.gameOver) {
+                this.dino.ducking = false;
+                this._onJump();
+            } else if (!this.dino.ducking) {
                 this._onJump();
             }
-        });
-        modal.addEventListener('touchstart', (e) => {
+        };
+        modal.onclick = triggerJump;
+        modal.ontouchstart = (e) => {
             if (e.target.id === 'close-btn') return;
             e.preventDefault();
-            if (e.touches.length >= 2) {
+            if (this.gameOver) {
+                triggerJump(e);
+            } else if (e.touches.length >= 2) {
                 this._onDuck(true);
             } else {
-                this._onJump();
+                triggerJump(e);
             }
-        }, { passive: false });
-        modal.addEventListener('touchend', (e) => {
-            if (e.touches.length < 2) {
-                this._onDuck(false);
-            }
-        }, { passive: false });
-        document.addEventListener('keydown',this._keyDn);
-        document.addEventListener('keyup',this._keyUp);
+        };
+        modal.ontouchmove = (e) => {
+            if (e.touches.length >= 2) this._onDuck(true);
+        };
+        modal.ontouchend = (e) => {
+            if (e.touches.length < 2) this._onDuck(false);
+        };
+        this._keyDn = (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); triggerJump(e); }
+            if (e.code === 'ArrowDown') { e.preventDefault(); this._onDuck(true); }
+        };
+        this._keyUp = (e) => { if (e.code === 'ArrowDown') this._onDuck(false); };
+
+        document.addEventListener('keydown', this._keyDn);
+        document.addEventListener('keyup', this._keyUp);
         this._drawStatic();
     }
     _onJump(){
         if(!this.started){this.started=true;this.running=true;this._tick();return;}
-        if(this.gameOver){this._restart();return;}
+        if(this.gameOver){this.dino.ducking = false;this.gameOver = false;this._restart();return;}
         if(!this.dino.jumping&&!this.dino.ducking&&!this.dino.crashed){
             this.dino.vy=CFG.INITIAL_JUMP_VEL;this.dino.jumping=true;this.dino.speedDrop=false;
         }
@@ -974,26 +983,26 @@ class DinoGame{
 
 let dinoGame=null;
 
-function openDino(){
-    document.getElementById('dino-modal').style.display='flex';
-    const content = document.getElementById('modal-content');
+function openDino() {
+    const modal = document.getElementById('dino-modal');
+    const content = document.getElementById('modal-content');   
+    modal.style.display = 'flex';
     content.classList.remove('modal-close');
     content.classList.add('modal-open');
-    if(!dinoGame){
-        dinoGame=new DinoGame('dino-canvas');
-        dinoGame.runIntro();
-    }else{
-        if(dinoGame.rafId){cancelAnimationFrame(dinoGame.rafId);dinoGame.rafId=null;}
-        dinoGame.running=false;dinoGame.started=false;dinoGame.gameOver=false;
-        dinoGame.dino.y=FLOOR;dinoGame.dino.vy=0;dinoGame.dino.jumping=false;
-        dinoGame.dino.ducking=false;dinoGame.dino.crashed=false;
-        dinoGame.obstacles=[];dinoGame.score=0;dinoGame.tick=0;
-        dinoGame.groundOff=0;dinoGame.speed=CFG.SPEED;
-        dinoGame.inverted=false;dinoGame.flashTimer=0;
-        dinoGame.lastMilestone=0;dinoGame.spawnCountdown=100;
+    if (!window.dinoGame) {
+        window.dinoGame = new DinoGame('dino-canvas');
+    } else {
+        dinoGame.gameOver = false;
+        dinoGame.dino.crashed = false;
+        dinoGame.dino.ducking = false;
+        dinoGame.obstacles = [];
+        dinoGame.score = 0;
+        dinoGame.speed = CFG.SPEED;
         dinoGame.runIntro();
     }
 }
+
+window.showDino = openDino;
 
 function closeDino(){
     const modal = document.getElementById('dino-modal');

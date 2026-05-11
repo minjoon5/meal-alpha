@@ -22,7 +22,7 @@ html 테스트 전용입니다.<br><br>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
+        
         :root {
             --c-glass: rgba(75,75,75,0.1);
             --c-light: #fff;
@@ -30,8 +30,33 @@ html 테스트 전용입니다.<br><br>
             --glass-reflex-dark: 0.8;
             --glass-reflex-light: 0.4;
             --saturation: 200%;
+            --border-gradient: linear-gradient(
+                to top right,
+                rgba(150,150,150,0.2) 5%,
+                rgba(255,255,255,0.25) 25%,
+                rgba(255,255,255,0.25) 75%,
+                rgba(150,150,150,0.2) 95%
+            );
+            --glass-shadow:
+                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 15%), transparent),
+                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent);
         }
-
+        
+        .glass-border-before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1.5px solid transparent;
+            background: var(--border-gradient) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
         body {
             font-family: 'Pretendard', sans-serif;
             display: flex;
@@ -44,8 +69,10 @@ html 테스트 전용입니다.<br><br>
             overflow-y: auto;
             position: relative;
             padding: 24px 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-
+        
         body::before {
             content: '';
             position: fixed;
@@ -64,7 +91,7 @@ html 테스트 전용입니다.<br><br>
             bottom: -120px; right: -120px;
             pointer-events: none;
         }
-
+        
         .container {
             position: relative;
             z-index: 1;
@@ -75,19 +102,26 @@ html 테스트 전용입니다.<br><br>
             background-color: color-mix(in srgb, var(--c-glass) 12%, transparent);
             backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
-            box-shadow:
-                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+            box-shadow: var(--glass-shadow);
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
-
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1.5px solid transparent;
+            background: var(--border-gradient) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
         h2 {
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
@@ -96,31 +130,53 @@ html 테스트 전용입니다.<br><br>
             user-select: none;
             position: relative;
             text-shadow: 0 1px 4px rgba(0,0,0,0.18);
+            z-index: 1;
         }
-
+        
         .date-wrapper {
             position: relative;
             width: 100%;
-            transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.3s ease, filter 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.3s ease, filter 0.2s ease;
             transform-origin: center;
             margin-bottom: 1.2rem;
             border-radius: 30px;
             overflow: hidden;
             cursor: default !important;
             background-color: color-mix(in srgb, rgba(210,215,255,0.1) 100%, transparent);
-            box-shadow:
-                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+            box-shadow: var(--glass-shadow);
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
-
+        .date-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1.5px solid transparent;
+            background: var(--border-gradient) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .date-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 20px;
+            top: 45%;
+            width: 7px;
+            height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.85);
+            border-bottom: 1.5px solid rgba(255,255,255,0.85);
+            transform: translateY(-50%) rotate(45deg);
+            pointer-events: none;
+            transition: transform 0.12s ease;
+            z-index: 3;
+        }
+        
         #datePicker {
             width: 100%;
             padding: 10px 40px 10px 18px;
@@ -137,6 +193,8 @@ html 테스트 전용입니다.<br><br>
             box-shadow: none !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
+            position: relative;
+            z-index: 1;
         }
         #datePicker::-webkit-calendar-picker-indicator {
             position: absolute;
@@ -147,20 +205,7 @@ html 테스트 전용입니다.<br><br>
             color: transparent;
             cursor: pointer;
         }
-        .date-wrapper::after {
-            content: '';
-            position: absolute;
-            right: 20px;
-            top: 45%;
-            width: 7px;
-            height: 7px;
-            border-right: 1.4px solid rgba(255,255,255,0.85);
-            border-bottom: 1.4px solid rgba(255,255,255,0.85);
-            transform: translateY(-50%) rotate(45deg);
-            pointer-events: none;
-            transition: transform 0.12s ease;
-        }
-
+        
         .tab-group {
             display: flex;
             justify-content: center;
@@ -169,6 +214,7 @@ html 테스트 전용입니다.<br><br>
             position: relative;
         }
         .tab-group button {
+            position: relative;
             padding: 10px 20px;
             border-radius: 30px;
             border: none;
@@ -182,17 +228,28 @@ html 테스트 전용입니다.<br><br>
             background-color: color-mix(in srgb, rgba(210,215,255,0.1) 100%, transparent);
             backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
-            box-shadow:
-                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+            box-shadow: var(--glass-shadow);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        .tab-group button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1.5px solid transparent;
+            background: var(--border-gradient) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .tab-group button span {
+            position: relative;
+            z-index: 1;
         }
         .tab-group button.active {
             background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
@@ -201,10 +258,10 @@ html 테스트 전용입니다.<br><br>
         }
         .tab-group button.pressed {
             background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
-            transform: scale(1.1) !important;
+            transform: scale(1.1) translateZ(0) !important;
             filter: brightness(1.7) !important;
         }
-
+        
         #mealContent {
             min-height: 180px;
             padding: 1rem;
@@ -217,17 +274,24 @@ html 테스트 전용입니다.<br><br>
             background-color: color-mix(in srgb, rgba(210,215,255,0.1) 100%, transparent);
             backdrop-filter: blur(8px) saturate(var(--saturation));
             -webkit-backdrop-filter: blur(8px) saturate(var(--saturation));
-            box-shadow:
-                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+            box-shadow: var(--glass-shadow);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        #mealContent::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1.5px solid transparent;
+            background: var(--border-gradient) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 0;
         }
         #mealContent.empty {
             display: flex;
@@ -236,14 +300,14 @@ html 테스트 전용입니다.<br><br>
             color: rgba(255,255,255,0.45);
             font-size: 0.9rem;
         }
-
+        
         #status {
             margin-top: 0.8rem;
             font-size: 0.78rem;
             color: rgba(255,255,255,0.45);
             position: relative;
         }
-
+        
         #copyright {
             position: relative;
             z-index: 1;
@@ -276,7 +340,7 @@ html 테스트 전용입니다.<br><br>
             cursor: pointer;
             color: rgba(255,255,255,0.35);
         }
-
+        
         #dino-modal {
             display: none;
             position: fixed;
@@ -287,12 +351,41 @@ html 테스트 전용입니다.<br><br>
             background: transparent;
         }
         @keyframes modalIn {
-            from { transform: scale(0.92); opacity: 0; }
-            to   { transform: scale(1);    opacity: 1; }
+            from { transform: scale(0.92) translateZ(0); opacity: 0; }
+            to   { transform: scale(1) translateZ(0);    opacity: 1; }
         }
         @keyframes modalOut {
-            from { transform: scale(1);    opacity: 1; }
-            to   { transform: scale(0.92); opacity: 0; }
+            from { transform: scale(1) translateZ(0);    opacity: 1; }
+            to   { transform: scale(0.92) translateZ(0); opacity: 0; }
+        }
+        .modal-wrapper {
+            position: relative;
+            border-radius: 30px;
+            backdrop-filter: blur(8px) saturate(100%);
+            -webkit-backdrop-filter: blur(8px) saturate(100%);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        .modal-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1.5px solid transparent;
+            background: var(--border-gradient) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 1001;
+        }
+        .modal-wrapper.modal-open {
+            animation: modalIn 0.18s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+        }
+        .modal-wrapper.modal-close {
+            animation: modalOut 0.16s ease both;
         }
         .modal-content {
             border-radius: 30px;
@@ -300,25 +393,7 @@ html 테스트 전용입니다.<br><br>
             width: 340px;
             position: relative;
             background-color: color-mix(in srgb, rgba(210,215,255,0.1) 100%, transparent);
-            backdrop-filter: blur(8px) saturate(100%);
-            -webkit-backdrop-filter: blur(8px) saturate(100%);
-            box-shadow:
-                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
-        }
-        .modal-content.modal-open {
-            animation: modalIn 0.18s cubic-bezier(0.34, 1.4, 0.64, 1) both;
-        }
-        .modal-content.modal-close {
-            animation: modalOut 0.16s ease both;
+            box-shadow: var(--glass-shadow);
         }
         .modal-header {
             padding: 15px 15px 5px 15px;
@@ -349,7 +424,7 @@ html 테스트 전용입니다.<br><br>
             position: relative;
             z-index: 1;
         }
-
+        
         #easter-toast {
             display: none;
             position: fixed;
@@ -363,47 +438,44 @@ html 테스트 전용입니다.<br><br>
             z-index: 9999;
             white-space: nowrap;
             text-align: center;
-            transform: translateX(-50%) scale(0.92);
+            transform: translateX(-50%) scale(0.92) translateZ(0);
             opacity: 0;
             transition: transform 0.18s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.18s ease;
             background-color: color-mix(in srgb, rgba(210,215,255,0.1) 100%, transparent);
             backdrop-filter: blur(8px) saturate(100%);
             -webkit-backdrop-filter: blur(8px) saturate(100%);
-            box-shadow:
-                inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-                inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-                inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-                inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-                inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-                inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-                inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+            box-shadow: var(--glass-shadow);
+            backface-visibility: hidden;
+        }
+        #easter-toast::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1.5px solid transparent;
+            background: var(--border-gradient) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 0;
         }
         #easter-toast.toast-open {
-            transform: translateX(-50%) scale(1);
+            transform: translateX(-50%) scale(1) translateZ(0);
             opacity: 1;
         }
-
+        
         .tab-group button, .date-wrapper, #dino-link, .close-btn {
             transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1),
                 background-color 0.3s ease,
                 color 0.3s ease,
                 filter 0.2s ease !important;
         }
-        .date-wrapper {
-            position: relative;
-            width: 100%;
-            transition: transform 0.12s ease;
-            transform-origin: center;
-            margin-bottom: 1.2rem;
-            border-radius: 30px;
-            overflow: hidden;
-        }
         .date-wrapper.pressed {
             background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
-            transform: scale(1.05) !important;
+            transform: scale(1.05) translateZ(0) !important;
             filter: brightness(1.35) !important;
         }
         #datePicker, #datePicker::-webkit-calendar-picker-indicator {
@@ -440,11 +512,13 @@ html 테스트 전용입니다.<br><br>
 </div>
 
 <div id="dino-modal">
-    <div class="modal-content" id="modal-content">
-        <div class="modal-header">
-            <span style="font-weight:bold;color:rgba(255,255,255,0.85);font-size:0.9rem;">Chrome Dino</span>
-            <button class="close-btn" id="close-btn" onclick="closeDino()">&times;</button>
-        </div>
+    <div class="modal-wrapper">
+        <div class="modal-content" id="modal-content">
+            <div class="modal-header">
+                <span style="font-weight:bold;color:rgba(255,255,255,0.85);font-size:0.9rem;">Chrome Dino</span>
+                <button class="close-btn" id="close-btn" onclick="closeDino()">&times;</button>
+            </div>
+        
         <canvas id="dino-canvas" width="680" height="300"></canvas>
         <div style="text-align:center;padding:5px 0 15px;font-size:0.7rem;color:rgba(255,255,255,0.6);font-weight:500;position:relative;z-index:1;">
             <br>1000 넘는 <strong>선착순 1명</strong> 매점 가서 맛있는거 사줌<br>
@@ -453,13 +527,14 @@ html 테스트 전용입니다.<br><br>
             터치 → L: 기어가기 / R: 점프하기<br>
             마우스 → L: 점프하기 / R: 기어가기<br>
             방향키 → U: 점프하기 / D: 기어가기<br><br>
+            </div>
         </div>
     </div>
 </div>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.4 Alpha<br>
+    v3.2.5 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -903,9 +978,9 @@ let dinoGame=null;
 
 function openDino(){
     document.getElementById('dino-modal').style.display='flex';
-    const content=document.getElementById('modal-content');
-    content.classList.remove('modal-close');
-    content.classList.add('modal-open');
+    const wrapper=document.querySelector('.modal-wrapper');
+    wrapper.classList.remove('modal-close');
+    wrapper.classList.add('modal-open');
     if(!dinoGame){
         dinoGame=new DinoGame('dino-canvas');
         dinoGame.runIntro();
@@ -919,10 +994,10 @@ function openDino(){
 
 function closeDino(){
     const modal=document.getElementById('dino-modal');
-    const content=document.getElementById('modal-content');
-    content.classList.remove('modal-open');
-    content.classList.add('modal-close');
-    setTimeout(()=>{ modal.style.display='none'; content.classList.remove('modal-close'); }, 160);
+    const wrapper=document.querySelector('.modal-wrapper');
+    wrapper.classList.remove('modal-open');
+    wrapper.classList.add('modal-close');
+    setTimeout(()=>{ modal.style.display='none'; wrapper.classList.remove('modal-close'); }, 160);
     if(dinoGame){
         if(dinoGame.rafId){ cancelAnimationFrame(dinoGame.rafId); dinoGame.rafId=null; }
         dinoGame.running=false;

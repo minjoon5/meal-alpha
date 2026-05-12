@@ -539,7 +539,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.2.11 Alpha<br>
+    v3.2.12 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -704,6 +704,7 @@ class DinoGame {
 
         this._isDucking = false;
         this._activeTouchId = null;
+        this._lastTime = 0;
 
         modal.addEventListener('contextmenu', (e) => {
             e.preventDefault();
@@ -819,6 +820,7 @@ class DinoGame {
         this._restartHandled=false;
         this._touchCount=0;
         this._isDucking=false;
+        this._lastTime = 0;
         this.started=true;
         if(this.rafId){ cancelAnimationFrame(this.rafId); this.rafId=null; }
         this.dino.y=FLOOR; this.dino.vy=0; this.dino.jumping=false;
@@ -840,10 +842,23 @@ class DinoGame {
     }
 
     _tick() {
-        this.rafId = requestAnimationFrame(() => {
-            this.rafId=null; if(!this.running) return;
-            this._update(); this._draw(); this._tick();
-        });
+        const FRAME_MS = 1000 / 60;
+    
+        const loop = (timestamp) => {
+            this.rafId = requestAnimationFrame(loop);
+            if(!this.running) return;
+    
+            if(!this._lastTime) { this._lastTime = timestamp; return; }
+            const delta = timestamp - this._lastTime;
+            if(delta < FRAME_MS * 0.9) return;  // 1프레임 안 됐으면 스킵
+    
+            this._lastTime = timestamp;
+            this._update();
+            this._draw();
+        };
+    
+        if(this.rafId) { cancelAnimationFrame(this.rafId); this.rafId = null; }
+        this.rafId = requestAnimationFrame(loop);
     }
 
     _update() {

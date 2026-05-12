@@ -539,7 +539,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.2.9 Alpha<br>
+    v3.2.10 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -711,6 +711,8 @@ class DinoGame {
 
         modal.addEventListener('mousedown', (e) => {
             if(e.target.id === 'close-btn') return;
+            if(this._activeTouchId !== null) return;
+            if(e.pointerType === 'touch') return;
             if(this.gameOver) { this.start(); return; }
             if(e.button === 2) {
                 this._onDuck(true);
@@ -718,8 +720,9 @@ class DinoGame {
                 this._onJump();
             }
         });
-
+        
         modal.addEventListener('mouseup', (e) => {
+            if(this._activeTouchId !== null) return;
             if(e.button === 2) this._onDuck(false);
         });
 
@@ -760,6 +763,10 @@ class DinoGame {
         modal.addEventListener('touchcancel', (e) => {
             this._activeTouchId = null;
             this._onDuck(false);
+        }, { passive: false });
+
+        modal.addEventListener('pointerdown', (e) => {
+            if(e.pointerType === 'touch') e.preventDefault();
         }, { passive: false });
 
         this._keyDn = (e) => {

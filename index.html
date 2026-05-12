@@ -539,7 +539,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.2.10 Alpha<br>
+    v3.2.11 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -713,6 +713,7 @@ class DinoGame {
             if(e.target.id === 'close-btn') return;
             if(this._activeTouchId !== null) return;
             if(e.pointerType === 'touch') return;
+            if(e.buttons === 0) return;
             if(this.gameOver) { this.start(); return; }
             if(e.button === 2) {
                 this._onDuck(true);

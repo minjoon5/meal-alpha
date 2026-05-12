@@ -38,8 +38,8 @@ html 테스트 전용입니다.<br><br>
                 rgba(150,150,150,0.2) 95%
             );
             --glass-shadow:
-                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 15%), transparent),
-                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent);
+                0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
+                0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
         }
         
         .glass-border-before {
@@ -256,8 +256,12 @@ html 테스트 전용입니다.<br><br>
             color: white !important;
             font-weight: bold;
         }
-        .tab-group button.pressed {
-            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
+        .tab-group button.pressed:not(.active) {
+            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.35)) !important;
+            transform: scale(1.1) translateZ(0) !important;
+            filter: brightness(1.7) !important;
+        }
+        .tab-group button.active.pressed {
             transform: scale(1.1) translateZ(0) !important;
             filter: brightness(1.7) !important;
         }
@@ -474,7 +478,7 @@ html 테스트 전용입니다.<br><br>
                 filter 0.2s ease !important;
         }
         .date-wrapper.pressed {
-            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.65)) !important;
+            background-color: color-mix(in srgb, var(--c-glass) 30%, rgba(210,215,255,0.35)) !important;
             transform: scale(1.05) translateZ(0) !important;
             filter: brightness(1.35) !important;
         }
@@ -534,7 +538,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.2.7 Alpha<br>
+    v3.2.8 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -698,6 +702,7 @@ class DinoGame {
         this.bgAlphaTarget = 0;
 
         this._isDucking = false;
+        this._activeTouchId = null;
 
         modal.addEventListener('contextmenu', (e) => {
             e.preventDefault();
@@ -717,13 +722,19 @@ class DinoGame {
             if(e.button === 2) this._onDuck(false);
         });
 
+        this._activeTouchId = null;
+
         modal.addEventListener('touchstart', (e) => {
             if(e.target.id === 'close-btn') return;
             e.preventDefault();
             
+            if(this._activeTouchId !== null) return;
+            
             if(this.gameOver) { this.start(); return; }
         
             const touch = e.changedTouches[0];
+            this._activeTouchId = touch.identifier;
+            
             const rect = this.cv.getBoundingClientRect();
             const touchX = touch.clientX - rect.left;
             const centerX = rect.width / 2;
@@ -735,8 +746,18 @@ class DinoGame {
             }
         }, { passive: false });
         
+        modal.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+        
         modal.addEventListener('touchend', (e) => {
             e.preventDefault();
+            this._activeTouchId = null;
+            this._onDuck(false);
+        }, { passive: false });
+        
+        modal.addEventListener('touchcancel', (e) => {
+            this._activeTouchId = null;
             this._onDuck(false);
         }, { passive: false });
 

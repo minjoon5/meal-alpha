@@ -534,7 +534,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.2.6 Alpha<br>
+    v3.2.7 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -960,8 +960,8 @@ class DinoGame {
             ctx.fillStyle=ink;
             ctx.fillText(String(scoreNum).padStart(5,'0'), W-8, 15);
         } else {
-            ctx.fillStyle=ink;
-            ctx.fillText(String(scoreNum).padStart(5,'0'), W-8, 15);
+            ctx.fillStyle='rgba(255,255,255,0.45)';
+            ctx.fillText(`HI ${String(hiScoreNum).padStart(5,'0')}`, W-54, 15);
         }
         ctx.textAlign='left';
         if(this.gameOver) this._drawGameOver();

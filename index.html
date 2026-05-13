@@ -539,7 +539,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.2.13 Alpha<br>
+    v3.2.12 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -850,9 +850,9 @@ class DinoGame {
     
             if(!this._lastTime) { this._lastTime = timestamp; return; }
             const delta = timestamp - this._lastTime;
-            if(delta < FRAME_MS * 0.75) return;
+            if(delta < FRAME_MS * 0.9) return;  // 1프레임 안 됐으면 스킵
     
-            this._lastTime = timestamp - (delta % FRAME_MS);
+            this._lastTime = timestamp;
             this._update();
             this._draw();
         };

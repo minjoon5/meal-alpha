@@ -539,7 +539,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.2.12 Alpha<br>
+    v3.2.14 Alpha<br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
@@ -842,101 +842,102 @@ class DinoGame {
     }
 
     _tick() {
-        const FRAME_MS = 1000 / 60;
+        const TARGET_FPS = 60;
+        const TARGET_FRAME_MS = 1000 / TARGET_FPS;
     
         const loop = (timestamp) => {
             this.rafId = requestAnimationFrame(loop);
-            if(!this.running) return;
+            if (!this.running) return;
     
-            if(!this._lastTime) { this._lastTime = timestamp; return; }
+            if (!this._lastTime) { this._lastTime = timestamp; return; }
+            
             const delta = timestamp - this._lastTime;
-            if(delta < FRAME_MS * 0.9) return;  // 1프레임 안 됐으면 스킵
-    
             this._lastTime = timestamp;
-            this._update();
+    
+            // delta를 정규화 (60fps 기준 1.0)
+            const dt = Math.min(delta / TARGET_FRAME_MS, 2.0); // 최대 2프레임치로 캡
+            
+            this._update(dt);
             this._draw();
         };
     
-        if(this.rafId) { cancelAnimationFrame(this.rafId); this.rafId = null; }
+        if (this.rafId) { cancelAnimationFrame(this.rafId); this.rafId = null; }
         this.rafId = requestAnimationFrame(loop);
     }
 
-    _update() {
+    _update(dt = 1) {
         if(this.gameOver) return;
-        this.tick++; this.score++;
-        this.speed = Math.min(CFG.MAX_SPEED, CFG.SPEED+this.score*CFG.ACCELERATION);
-        if(!this.dino.jumping&&!this.dino.crashed) this.legFrame = Math.floor(this.tick/5)%2;
-        const gravity = this.dino.speedDrop ? CFG.GRAVITY*CFG.SPEED_DROP_COEF : CFG.GRAVITY;
-        this.dino.vy += gravity;
+        this.tick += dt;
+        this.score += dt;
+        this.speed = Math.min(CFG.MAX_SPEED, CFG.SPEED + this.score * CFG.ACCELERATION);
+        if(!this.dino.jumping && !this.dino.crashed) this.legFrame = Math.floor(this.tick / 5) % 2;
+        const gravity = this.dino.speedDrop ? CFG.GRAVITY * CFG.SPEED_DROP_COEF : CFG.GRAVITY;
+        this.dino.vy += gravity * dt;
         const floorY = this.dino.ducking ? DFLOOR : FLOOR;
-        this.dino.y = Math.min(floorY, Math.round(this.dino.y+this.dino.vy));
-        if(this.dino.y>=floorY){ this.dino.y=floorY; this.dino.vy=0; this.dino.jumping=false; this.dino.speedDrop=false; }
-        this.groundOff = (this.groundOff+this.speed)%SP.GROUND.w;
-        for(const c of this.clouds){
-            c.x -= CFG.BG_CLOUD_SPEED;
-            if(c.x+SP.CLOUD.w*SC<0){ c.x=W+20; c.y=Math.round(rnd(15,45)); }
+        this.dino.y = Math.min(floorY, Math.round(this.dino.y + this.dino.vy * dt));
+        if(this.dino.y >= floorY) { this.dino.y = floorY; this.dino.vy = 0; this.dino.jumping = false; this.dino.speedDrop = false; }
+        this.groundOff = (this.groundOff + this.speed * dt) % SP.GROUND.w;
+        for(const c of this.clouds) {
+            c.x -= CFG.BG_CLOUD_SPEED * dt;
+            if(c.x + SP.CLOUD.w * SC < 0) { c.x = W + 20; c.y = Math.round(rnd(15, 45)); }
         }
-        this.spawnCountdown--;
-        if(this.spawnCountdown<=0){
-            const isPtero = this.score>600&&Math.random()<0.18;
-            if(isPtero){
-                const ph=Math.round(SP.PTERO1.h*SC);
-                const pteroYOpts=[GY-ph-2,GY-ph-28,GY-ph-58];
-                const py=pteroYOpts[Math.floor(Math.random()*3)];
-                this.obstacles.push({type:'ptero',x:W+10,y:py,w:Math.round(SP.PTERO1.w*SC),h:ph,frame:0,fTick:0});
+        this.spawnCountdown -= dt;
+        if(this.spawnCountdown <= 0) {
+            const isPtero = this.score > 600 && Math.random() < 0.18;
+            if(isPtero) {
+                const ph = Math.round(SP.PTERO1.h * SC);
+                const pteroYOpts = [GY - ph - 2, GY - ph - 28, GY - ph - 58];
+                const py = pteroYOpts[Math.floor(Math.random() * 3)];
+                this.obstacles.push({ type: 'ptero', x: W + 10, y: py, w: Math.round(SP.PTERO1.w * SC), h: ph, frame: 0, fTick: 0 });
             } else {
-                const maxCount=this.speed>=4?3:1;
-                const count=1+Math.floor(Math.random()*maxCount);
-                const tiles=[];
-                for(let i=0;i<count;i++) tiles.push(Math.random()<0.5?SP.CS:SP.CL);
-                let ow=0,oh=0;
-                for(const sp of tiles){ ow+=Math.round(sp.w*SC); oh=Math.max(oh,Math.round(sp.h*SC)); }
-                this.obstacles.push({type:'cactus',x:W+10,y:GY-oh+4,w:ow,h:oh,tiles});
+                const maxCount = this.speed >= 4 ? 3 : 1;
+                const count = 1 + Math.floor(Math.random() * maxCount);
+                const tiles = [];
+                for(let i = 0; i < count; i++) tiles.push(Math.random() < 0.5 ? SP.CS : SP.CL);
+                let ow = 0, oh = 0;
+                for(const sp of tiles) { ow += Math.round(sp.w * SC); oh = Math.max(oh, Math.round(sp.h * SC)); }
+                this.obstacles.push({ type: 'cactus', x: W + 10, y: GY - oh + 4, w: ow, h: oh, tiles });
             }
-            const minGap=Math.round(120*(this.speed/CFG.SPEED));
-            const maxGap=Math.round(minGap*1.5);
-            this.spawnCountdown=Math.round(rnd(minGap,maxGap)/this.speed*4);
+            const minGap = Math.round(120 * (this.speed / CFG.SPEED));
+            const maxGap = Math.round(minGap * 1.5);
+            this.spawnCountdown = Math.round(rnd(minGap, maxGap) / this.speed * 4);
         }
-        const pad=3;
-        for(const o of this.obstacles){
-            o.x=Math.round(o.x-this.speed);
-            if(o.type==='ptero'){ o.fTick++; if(o.fTick%8===0) o.frame=1-o.frame; }
-            const dinoW=this.dino.ducking?DDW:DW, dinoH=this.dino.ducking?DDH:DH;
-            const dL=this.dino.x+pad, dR=this.dino.x+dinoW-pad;
-            const dT=this.dino.y+pad, dB=this.dino.y+dinoH-pad;
-            const oL=o.x+pad, oR=o.x+o.w-pad;
-            const oT=o.y+pad, oB=o.y+o.h-pad;
-            if(dL<oR&&dR>oL&&dT<oB&&dB>oT){
-                this.dino.crashed=true; this.gameOver=true;
-                if(this.score>this.hiScore) this.hiScore=this.score;
+        const pad = 3;
+        for(const o of this.obstacles) {
+            o.x = Math.round(o.x - this.speed * dt);
+            if(o.type === 'ptero') { o.fTick += dt; if(o.fTick % 8 < dt + (o.fTick % 8 < 1 ? 0 : -1) || Math.floor(o.fTick / 8) !== Math.floor((o.fTick - dt) / 8)) o.frame = 1 - o.frame; }
+            const dinoW = this.dino.ducking ? DDW : DW, dinoH = this.dino.ducking ? DDH : DH;
+            const dL = this.dino.x + pad, dR = this.dino.x + dinoW - pad;
+            const dT = this.dino.y + pad, dB = this.dino.y + dinoH - pad;
+            const oL = o.x + pad, oR = o.x + o.w - pad;
+            const oT = o.y + pad, oB = o.y + o.h - pad;
+            if(dL < oR && dR > oL && dT < oB && dB > oT) {
+                this.dino.crashed = true; this.gameOver = true;
+                if(this.score > this.hiScore) this.hiScore = this.score;
             }
         }
-        this.obstacles = this.obstacles.filter(o=>o.x+o.w>0);
-
-        if(this.score>this.invertTrigger){
-            this.inverted=!this.inverted;
-            this.invertTrigger+=CFG.INVERT_DISTANCE;
-            this.invertTimer=this.invertDuration;
+        this.obstacles = this.obstacles.filter(o => o.x + o.w > 0);
+        if(this.score > this.invertTrigger) {
+            this.inverted = !this.inverted;
+            this.invertTrigger += CFG.INVERT_DISTANCE;
+            this.invertTimer = this.invertDuration;
             this.bgAlphaTarget = this.inverted ? 0.5 : 0;
         }
-        if(this.invertTimer>0) this.invertTimer--;
-        else if(this.inverted&&this.invertTimer===0) {
-            this.inverted=false;
-            this.bgAlphaTarget=0;
+        if(this.invertTimer > 0) this.invertTimer -= dt;
+        else if(this.inverted && this.invertTimer <= 0) {
+            this.inverted = false;
+            this.bgAlphaTarget = 0;
         }
-
         const FADE_SPEED = 0.018;
         if(this.bgAlpha < this.bgAlphaTarget) {
-            this.bgAlpha = Math.min(this.bgAlphaTarget, this.bgAlpha + FADE_SPEED);
+            this.bgAlpha = Math.min(this.bgAlphaTarget, this.bgAlpha + FADE_SPEED * dt);
         } else if(this.bgAlpha > this.bgAlphaTarget) {
-            this.bgAlpha = Math.max(this.bgAlphaTarget, this.bgAlpha - FADE_SPEED);
+            this.bgAlpha = Math.max(this.bgAlphaTarget, this.bgAlpha - FADE_SPEED * dt);
         }
-
-        const ms=Math.floor(this.score/5/100)*100;
-        if(ms>0&&ms!==this.lastMilestone){ this.lastMilestone=ms; this.flashTimer=Math.round(CFG.FLASH_DURATION/16); }
-        if(this.flashTimer>0) this.flashTimer--;
+        const ms = Math.floor(this.score / 5 / 100) * 100;
+        if(ms > 0 && ms !== this.lastMilestone) { this.lastMilestone = ms; this.flashTimer = Math.round(CFG.FLASH_DURATION / 16); }
+        if(this.flashTimer > 0) this.flashTimer -= dt;
     }
-
     _getSpriteImg() {
         if(this.inverted && spriteNightReady) return spriteNight;
         if(spriteDayReady) return spriteDay;

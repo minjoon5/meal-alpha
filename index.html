@@ -9,6 +9,7 @@ html 테스트 전용입니다.<br><br>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <meta name="app-version" content="3.3.4 Alpha">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>현대청운고 급식</title>
@@ -579,7 +580,7 @@ html 테스트 전용입니다.<br><br>
 
 <div id="copyright">
     Copyright &copy; 2026. 민준.<br>All rights reserved.<br>
-    v3.3.3 Alpha<br>
+    v<span id="app-version"></span><br>
     <span id="dino-link" onclick="openDino()">Chrome Dino</span>
 <!--    <br><span id="beta-link" onclick="openBeta()">Beta Test</span>  -->
 <!--    <br><span id="alpha-link" onclick="openAlpha()">Alpha Test</span>   항상 비공개   -->
@@ -1084,6 +1085,16 @@ document.querySelectorAll('.tab-group button').forEach(btn => addPressAnim(btn, 
     cb.addEventListener('touchstart', e => { e.stopPropagation(); hc(e); }, { passive:false });
 })();
 
+const APP_VERSION = document.querySelector('meta[name="app-version"]').content;
+document.getElementById('app-version').textContent = APP_VERSION;
+setInterval(async () => {
+    try {
+        const res = await fetch(location.href, { cache: 'no-store' });
+        const text = await res.text();
+        if (!text.includes(APP_VERSION)) window.location.reload();
+    } catch(e) {}
+}, 60000);
+  
 const _today = new Date();
 selectedDate = { y: _today.getFullYear(), m: _today.getMonth(), d: _today.getDate() };
 updateDateDisplay();

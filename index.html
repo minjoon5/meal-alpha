@@ -9,7 +9,7 @@ html 테스트 전용입니다.<br><br>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta name="app-version" content="3.3.6 Alpha">
+    <meta name="app-version" content="3.3.7 Alpha">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>현대청운고 급식</title>
@@ -132,15 +132,12 @@ html 테스트 전용입니다.<br><br>
 
         /* cal-wrapper: body 직속 fixed → backdrop-filter 페이지 배경에 정상 적용 */
         .cal-wrapper {
-            will-change: transform;
             display: none;
             position: fixed;
             bottom: 80px;
             border-radius: 26px;
             z-index: 2001;
-            overflow: hidden;                              /* ← 추가 */
-            backdrop-filter: blur(18px) saturate(100%);    /* ← 이동 */
-            -webkit-backdrop-filter: blur(18px) saturate(100%); /* ← 이동 */
+            /* backdrop-filter 제거 */
             isolation: isolate;
         }
         .cal-wrapper::before {
@@ -156,6 +153,7 @@ html 테스트 전용입니다.<br><br>
             pointer-events: none;
             z-index: 1;
         }
+        
         .cal-wrapper.cal-open  { animation: calIn  0.18s cubic-bezier(0.34,1.4,0.64,1) both; }
         .cal-wrapper.cal-close { animation: calOut 0.16s ease both; }
 
@@ -482,8 +480,7 @@ html 테스트 전용입니다.<br><br>
         .meal-pop-box {
             border-radius: 20px; overflow: hidden; width: 100px;
             background-color: color-mix(in srgb, rgba(210,215,255,0.12) 100%, transparent);
-            backdrop-filter: blur(18px) saturate(100%);
-            -webkit-backdrop-filter: blur(18px) saturate(100%);
+            /* backdrop-filter 제거 */
             box-shadow: var(--glass-shadow);
             padding: 6px; display: flex; flex-direction: column; gap: 2px;
         }

@@ -9,7 +9,7 @@ html 테스트 전용입니다.<br><br>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta name="app-version" content="3.4.12 Alpha">
+    <meta name="app-version" content="3.4.13 Alpha">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>현대청운고 급식</title>
@@ -979,11 +979,17 @@ addPressAnim(document.getElementById('mealWrapper'), 'meal');
 
 const APP_VERSION=document.querySelector('meta[name="app-version"]').content;
 document.getElementById('app-version').textContent=APP_VERSION;
+let _reloadPending=false;
 setInterval(async()=>{
+    if(_reloadPending)return;
     try{
         const res=await fetch(location.href,{cache:'no-store'});
+        if(!res.ok)return;
         const text=await res.text();
-        if(!text.includes(APP_VERSION))window.location.reload();
+        if(!text.includes(APP_VERSION)){
+            _reloadPending=true;
+            window.location.reload();
+        }
     }catch(e){}
 },60000);
 

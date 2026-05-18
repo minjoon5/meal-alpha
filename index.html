@@ -9,7 +9,7 @@ html 테스트 전용입니다.<br><br>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta name="app-version" content="3.5.4 Alpha">
+    <meta name="app-version" content="3.5.5 Alpha">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>현대청운고 급식</title>
@@ -49,6 +49,7 @@ html 테스트 전용입니다.<br><br>
             justify-content: center; align-items: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #6a859a 0%, #597899 20%, #5d6b98 40%, #62689a 60%, #646598 80%, #756798 100%);
+            background-attachment: fixed;
             overflow-x: hidden; overflow-y: auto;
             position: relative;
             padding: 24px 0 100px;
@@ -80,7 +81,10 @@ html 테스트 전용입니다.<br><br>
         }
 
         #mealContent {
-            min-height: 180px; padding: 1rem;
+            min-height: 180px; max-height: 800px;
+            transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+            overflow: hidden;
+            padding: 1rem;
             border-radius: var(--r); font-size: 0.95rem;
             line-height: 2; color: rgba(255,255,255,0.92);
             text-align: left; position: relative;
@@ -342,7 +346,7 @@ html 테스트 전용입니다.<br><br>
             pointer-events: none; z-index: 2;
         }
         .meal-wrapper::after {
-            content: ''; position: absolute; right: 14px; top: 45%;
+            content: ''; position: absolute; right: 15px; top: 45%;
             width: 7px; height: 7px;
             border-right: 1.5px solid rgba(255,255,255,0.85);
             border-bottom: 1.5px solid rgba(255,255,255,0.85);

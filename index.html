@@ -9,7 +9,7 @@ html 테스트 전용입니다.<br><br>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta name="app-version" content="3.5.10 Alpha">
+    <meta name="app-version" content="3.5.11 Alpha">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>현대청운고 급식</title>
@@ -446,10 +446,8 @@ html 테스트 전용입니다.<br><br>
 </div>
 
 <div id="easter-toast">
-    雅 맑을 (아) / 惡 미워할 (오) / 時 때 (시) / 發 다스릴 (발)<br><br>
-    <strong>-> 아.오.시.발.</strong><br><br>
-    "미워하는 마음도 맑게 다스릴 때이다."<br><br>
-    -박성하-
+    <strong>"어우 귀여워라"</strong><br><br>
+    -김시윤-
 </div>
 
 <div id="cal-modal"><div id="cal-backdrop"></div></div>
@@ -504,8 +502,8 @@ html 테스트 전용입니다.<br><br>
 <script>
 
 const ANIM_CFG = {
-    date:  { press:1.05, release:0.95, tPress:120, tBounce:70, tRestore:80 },
-    meal:  { press:1.08, release:0.92, tPress:120, tBounce:70, tRestore:80 },
+    date: { press:1.10, release:0.95, tPress:120, tBounce:70, tRestore:80 },
+    meal: { press:1.12, release:0.93, tPress:120, tBounce:70, tRestore:80 },
 };
 
 function animScale(el, from, to, ms, onDone) {
@@ -737,14 +735,16 @@ function showMeal(i) {
     mc.style.height = startH + 'px';
 
     _mealHeightRaf = requestAnimationFrame(() => {
-        _mealHeightRaf = null;
-        mc.style.transition = 'height 0.35s cubic-bezier(0.4,0,0.2,1)';
-        mc.style.height = targetH + 'px';
+        _mealHeightRaf = requestAnimationFrame(() => {
+            _mealHeightRaf = null;
+            mc.style.transition = 'height 0.35s cubic-bezier(0.4,0,0.2,1)';
+            mc.style.height = targetH + 'px';
 
-        mc.addEventListener('transitionend', () => {
-            mc.style.transition = '';
-            mc.style.height = 'auto';
-        }, { once: true });
+            mc.addEventListener('transitionend', () => {
+                mc.style.transition = '';
+                mc.style.height = 'auto';
+            }, { once: true });
+        });
     });
 }
 

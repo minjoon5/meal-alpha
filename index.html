@@ -9,7 +9,7 @@ html 테스트 전용입니다.<br><br>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta name="app-version" content="3.5.5 Alpha">
+    <meta name="app-version" content="3.5.6 Alpha">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>현대청운고 급식</title>
@@ -46,13 +46,13 @@ html 테스트 전용입니다.<br><br>
         body {
             font-family: 'Pretendard', sans-serif;
             display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            justify-content: flex-start; align-items: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #6a859a 0%, #597899 20%, #5d6b98 40%, #62689a 60%, #646598 80%, #756798 100%);
             background-attachment: fixed;
             overflow-x: hidden; overflow-y: auto;
             position: relative;
-            padding: 24px 0 100px;
+            padding: 30px 0 30px;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -81,9 +81,8 @@ html 테스트 전용입니다.<br><br>
         }
 
         #mealContent {
-            min-height: 180px; max-height: 800px;
-            transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
             overflow: hidden;
+            transition: height 0.35s cubic-bezier(0.4,0,0.2,1);
             padding: 1rem;
             border-radius: var(--r); font-size: 0.95rem;
             line-height: 2; color: rgba(255,255,255,0.92);
@@ -717,10 +716,17 @@ async function fetchMeal(ymd) {
     }catch(e){setStatus(`오류: ${e.message}`);}
 }
 function showMeal(i) {
-    const mc=document.getElementById("mealContent"),labels=["조식","중식","석식"];
-    if(meals[i]){mc.classList.remove("empty");mc.innerText=meals[i];}
-    else{mc.classList.add("empty");mc.innerText=`${labels[i]} 정보 없음`;}
+    const mc = document.getElementById("mealContent"), labels = ["조식","중식","석식"];
+    mc.style.height = mc.offsetHeight + 'px';
+    if (meals[i]) { mc.classList.remove("empty"); mc.innerText = meals[i]; }
+    else { mc.classList.add("empty"); mc.innerText = `${labels[i]} 정보 없음`; }
+    mc.style.height = 'auto';
+    const newH = mc.scrollHeight + 'px';
+    mc.style.height = mc.offsetHeight + 'px';
+    requestAnimationFrame(() => { mc.style.height = newH; });
+    mc.addEventListener('transitionend', () => { mc.style.height = 'auto'; }, { once: true });
 }
+
 function setStatus(m){document.getElementById("status").innerText=m;}
 
 

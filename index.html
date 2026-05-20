@@ -9,7 +9,7 @@ html 테스트 전용입니다.<br><br>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta name="app-version" content="3.6 Alpha 8">
+    <meta name="app-version" content="3.6 Alpha 9">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>현대청운고 급식</title>
@@ -727,7 +727,7 @@ function checkEasterEgg(ymd) {
     const t=document.getElementById("title");
     const md=ymd.substring(4);
     if(md==="1205"){t.innerText="오늘은 개발자 생일! 🎉";t.style.color="#FFF47D";}
-    else if(md==="0401"){t.innerText="박시은쌤 사랑해요";t.style.color="#FFF47D";}
+    else if(md==="0401"){t.innerText="시은쌤 사랑해요";t.style.color="#FFF47D";}
     else{t.innerText="현대청운고 급식";t.style.color="#ffffff";}
 }
 
@@ -803,7 +803,7 @@ function showMeal(i) {
             _mealAnim.rafId = null;
             if (ctrl.signal.aborted) return;
 
-            mc.style.transition = 'height 0.35s cubic-bezier(0.4,0,0.2,1)';
+            mc.style.transition = 'height 0.5s cubic-bezier(0.4,0,0.2,1)';
             mc.style.height     = targetH + 'px';
 
             mc.addEventListener('transitionend', () => {
